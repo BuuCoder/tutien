@@ -7,27 +7,22 @@ use App\Repositories\User\UserRepositoryInterface;
 class UserService
 {
     protected $userRepository;
-
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function getUserById($id)
+    public function login($data)
     {
-        return $this->userRepository->getById($id);
+        return $this->userRepository->login($data);
     }
 
-    public function updateUser($id, array $attributes)
-    {
-        $user = $this->userRepository->getById($id);
-        return $this->userRepository->update($user, $attributes);
+    public function findByEmail($email){
+        return $this->userRepository->findByEmail($email);
     }
 
-    public function deleteUser($id)
-    {
-        $user = $this->userRepository->getById($id);
-        $this->userRepository->delete($user);
+    public function createUserLoginGoogle($data){
+        return $this->userRepository->createUserLoginGoogle($data);
     }
 }
 
