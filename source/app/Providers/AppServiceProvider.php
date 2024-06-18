@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\CheckIn\CheckInRepositoryInterface;
 use App\Repositories\CheckIn\EloquentCheckInRepository;
+use App\Repositories\Garden\EloquentGardenRepository;
+use App\Repositories\Garden\GardenRepositoryInterface;
 use App\Repositories\PasswordResetToken\EloquentPasswordResetTokenRepository;
 use App\Repositories\PasswordResetToken\PasswordResetTokenRepositoryInterface;
 use App\Repositories\Session\EloquentSessionRepository;
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
         $this->app->bind(CheckInRepositoryInterface::class, EloquentCheckInRepository::class);
+        $this->app->bind(GardenRepositoryInterface::class, EloquentGardenRepository::class);
     }
 
     /**

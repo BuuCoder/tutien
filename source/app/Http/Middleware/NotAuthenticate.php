@@ -20,6 +20,6 @@ class NotAuthenticate
             return $next($request);
         }
 
-        return redirect('/welcome');
+        return redirect('/');
     }
 }

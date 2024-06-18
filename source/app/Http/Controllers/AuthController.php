@@ -68,6 +68,7 @@ class AuthController extends Controller
         if ($existingUser) {
             $userInfo = $existingUser;
             session()->put('user', $userInfo);
+            $this->userService->updateLastLogin($userInfo['user_id']);
             return redirect()->route('login')->with('success', 'Đăng nhập Google thành công.');
         } else {
             $userInfo = $this->userService->createUserLoginGoogle($user);
@@ -81,7 +82,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-
+        session()->remove('user');
+        return redirect()->route('login');
     }
 }
 

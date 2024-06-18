@@ -60,8 +60,6 @@ class EloquentUserRepository implements UserRepositoryInterface
                 'system_id' => $user->system_id,
                 'level_id' => $user->level_id,
             ];
-            $user->last_login = time();
-            $user->save();
             return $userInfo;
         }
         return false;
@@ -100,5 +98,11 @@ class EloquentUserRepository implements UserRepositoryInterface
                 ];
             }
         }
+    }
+
+    public function updateLastLogin($userId){
+        return $this->userModel->where('user_id', $userId)->update([
+            'last_login' => time()
+        ]);
     }
 }

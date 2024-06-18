@@ -42,7 +42,7 @@ class CheckInController extends Controller
         if($checkInAction['success']){
             return redirect()->route('checkin')->with('success', $checkInAction['message']);
         }else{
-            return redirect()->route('checkin')->with('fail', $checkInAction['message']);
+            return redirect()->route('checkin')->with('error', $checkInAction['message']);
         }
     }
 }

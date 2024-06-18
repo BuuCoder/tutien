@@ -9,4 +9,5 @@ interface UserRepositoryInterface
     public function login($data);
     public function findByEmail($email);
     public function createUserLoginGoogle($data);
+    public function updateLastLogin($userId);
 }

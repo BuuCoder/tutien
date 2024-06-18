@@ -24,5 +24,9 @@ class UserService
     public function createUserLoginGoogle($data){
         return $this->userRepository->createUserLoginGoogle($data);
     }
+
+    public function updateLastLogin($userId){
+        return $this->userRepository->updateLastLogin($userId);
+    }
 }
 
