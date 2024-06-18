@@ -38,8 +38,11 @@ class CheckInController extends Controller
     public function checkIn()
     {
         $userID = session()->get('user')['user_id'];
-        $countCheckIn = $this->checkInService->checkIn($userID);
-
-        dd($countCheckIn);
+        $checkInAction = $this->checkInService->checkIn($userID);
+        if($checkInAction['success']){
+            return redirect()->route('checkin')->with('success', $checkInAction['message']);
+        }else{
+            return redirect()->route('checkin')->with('fail', $checkInAction['message']);
+        }
     }
 }
