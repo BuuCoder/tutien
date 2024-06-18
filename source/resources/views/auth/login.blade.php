@@ -14,7 +14,7 @@
 <body>
 <div class="wrapper_login">
     <div class="container_login">
-        <a href="{{ route('home') }}" title="Trang chủ">
+        <a href="#" title="Trang chủ">
             <img class="title" src="{{ asset("images/tu-tien-gioi-3.png") }}" alt="Tu tiên giới" title="Tu tiên giới">
         </a>
 
@@ -36,7 +36,7 @@
                 <button class="submit" title="Đăng nhập">
                     <img src="{{ asset("images/button-dang-nhap.png") }}" alt="Đăng nhập" title="Đăng nhập">
                 </button>
-                <a href="/login/google" target="_parent" class="btn-google">
+                <a href="/dang-nhap/google" target="_parent" class="btn-google" title="Đăng nhập Google">
                     <img src="{{ asset("images/button-dang-nhap-google.png") }}" alt="Đăng nhập Google" title="Đăng nhập Google">
                 </a>
             </div>

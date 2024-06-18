@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
@@ -13,7 +12,8 @@ class AuthController extends Controller
 {
     protected $userService;
 
-    public function __construct(UserService $userService){
+    public function __construct(UserService $userService)
+    {
         $this->userService = $userService;
     }
 
@@ -38,8 +38,7 @@ class AuthController extends Controller
 
             $login = $this->userService->login($validator->validated());
 
-            if(!empty($login))
-            {
+            if (!empty($login)) {
                 $userInfo = $login;
                 session()->put('user', $userInfo);
                 return redirect()->route('login')->with('success', 'Đăng nhập thành công.');
@@ -72,7 +71,7 @@ class AuthController extends Controller
             return redirect()->route('login')->with('success', 'Đăng nhập Google thành công.');
         } else {
             $userInfo = $this->userService->createUserLoginGoogle($user);
-            if($userInfo){
+            if ($userInfo) {
                 session()->put('user', $userInfo);
                 return redirect()->route('login')->with('success', 'Đăng nhập Google thành công.');
             }
