@@ -3,17 +3,19 @@
 namespace App\Repositories\User;
 
 use App\Models\User;
-use App\Repositories\User\UserRepositoryInterface;
+use App\Services\LogService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
     protected $userModel;
+    protected $logService;
 
-    public function __construct(User $userModel)
+    public function __construct(User $userModel, LogService $logService)
     {
         $this->userModel = $userModel;
+        $this->logService = $logService;
     }
 
     public function login($data)
@@ -104,5 +106,46 @@ class EloquentUserRepository implements UserRepositoryInterface
         return $this->userModel->where('user_id', $userId)->update([
             'last_login' => time()
         ]);
+    }
+
+    public function addItem($itemId, $quantity)
+    {
+        $user = session()->get('user');
+        $userInfo = $this->userModel->where('user_id', $user['user_id'])->first(['user_id', 'user_name', 'user_item']);
+        if (!$userInfo) {
+            return [
+                'success' => false,
+                'message' => 'Người dùng không tồn tại'
+            ];
+        }
+
+        $itemUserOld = $itemUser = json_decode($userInfo->user_item, true); // Chuyển đổi thành mảng
+        if ($itemUser == null) {
+            $dataItemRecieve[$itemId] = $quantity;
+            $itemUser = $dataItemRecieve;
+        } else {
+            if (isset($itemUser[$itemId])) {
+                $itemUser[$itemId] += $quantity;
+            } else {
+                $itemUser[$itemId] = $quantity;
+            }
+        }
+
+        $update = $this->userModel->where('user_id', $user['user_id'])->update([
+            'user_item' => json_encode($itemUser)
+        ]);
+
+        if ($update) {
+            $this->logService->log($user['user_id'], 'updateItem', ['old_item' => $itemUserOld, 'new_item' => $itemUser, 'item_change' => ['item_id' => $itemId, 'item_quantity' => $quantity]], 'Thay đổi item thành công');
+            return [
+                'success' => true,
+                'message' => 'Cập nhật item thành công'
+            ];
+        } else {
+            return [
+                'success' => false,
+                'message' => 'Cập nhật item không thành công'
+            ];
+        }
     }
 }

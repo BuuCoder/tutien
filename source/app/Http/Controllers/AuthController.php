@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\LogService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -11,10 +12,11 @@ use Laravel\Socialite\Facades\Socialite;
 class AuthController extends Controller
 {
     protected $userService;
-
-    public function __construct(UserService $userService)
+    protected $logService;
+    public function __construct(UserService $userService, LogService $logService)
     {
         $this->userService = $userService;
+        $this->logService = $logService;
     }
 
     public function showLoginForm()
@@ -41,6 +43,7 @@ class AuthController extends Controller
             if (!empty($login)) {
                 $userInfo = $login;
                 session()->put('user', $userInfo);
+                $this->logService->log($userInfo['user_id'], 'login', $userInfo, 'Bạn đã đăng nhập thành công');
                 return redirect()->route('login')->with('success', 'Đăng nhập thành công.');
             }
 

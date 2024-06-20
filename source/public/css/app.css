@@ -32,6 +32,9 @@ body {
     background-size: cover;
     background-position: center;
     animation: moveBackground 30s linear infinite;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 body::-webkit-scrollbar-track {

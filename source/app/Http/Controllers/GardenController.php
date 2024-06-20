@@ -57,7 +57,6 @@ class GardenController
             }
             return redirect()->route('garden')->with('error', $harvest['message']);
         }catch (\Exception $e) {
-            dd($e);
             Log::error('Gieo hạt thất bại lỗi: '. $e->getMessage());
             return redirect()->route('garden')->with('error', 'Không thể thu hoạch');
         }

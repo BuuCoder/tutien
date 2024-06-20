@@ -28,5 +28,9 @@ class UserService
     public function updateLastLogin($userId){
         return $this->userRepository->updateLastLogin($userId);
     }
+
+    public function addItem($itemId, $itemQuantity){
+        return $this->userRepository->addItem($itemId, $itemQuantity);
+    }
 }
 
