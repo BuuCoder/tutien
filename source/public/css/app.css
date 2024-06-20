@@ -153,7 +153,7 @@ body::-webkit-scrollbar-thumb {
     object-fit: cover;
 }
 
-.main_content{
+.main_content {
     width: 100%;
     height: 100%;
     display: flex;
@@ -169,7 +169,7 @@ body::-webkit-scrollbar-thumb {
     overflow: hidden;
 }
 
-.character img{
+.character img {
     width: 100%;
     animation: scaleImage 3s linear infinite;
 }
@@ -180,7 +180,7 @@ body::-webkit-scrollbar-thumb {
     margin-right: 200px;
 }
 
-.title img{
+.title img {
     width: 100%;
 }
 
@@ -219,7 +219,7 @@ body::-webkit-scrollbar-thumb {
         padding: 0 10px;
     }
 
-    .main_content{
+    .main_content {
         flex-direction: column-reverse;
     }
 
@@ -235,7 +235,8 @@ body::-webkit-scrollbar-thumb {
         justify-content: center;
         align-items: center
     }
-    .title img{
+
+    .title img {
         width: 80%;
     }
 }
@@ -285,7 +286,7 @@ body::-webkit-scrollbar-thumb {
 .wrapper_login {
     width: 100%;
     height: 100vh;
-    background-image: url(/images/background_phong_canh_4-1.jpg) !important;
+    background-image: url(/images/background_phong_canh_4-2.jpg) !important;
     background-color: black;
     background-repeat: no-repeat;
     background-size: cover;
@@ -366,18 +367,20 @@ body::-webkit-scrollbar-thumb {
     z-index: 0; /* Ensure the background is below the input content */
     pointer-events: none; /* Ensure the pseudo-element doesn't interfere with input interactions */
 }
-.group_button{
+
+.group_button {
     display: flex;
     flex-direction: row;
     gap: 10%;
 }
+
 button.submit, .btn-google {
     width: 150px;
     border: none;
     background: none;
 }
 
-button.submit img, .btn-google img{
+button.submit img, .btn-google img {
     width: 100%;
 }
 
@@ -512,7 +515,7 @@ button.submit img, .btn-google img{
     width: 30%;
     margin: 10px;
     padding: 10px;
-    background: url('/images/background_phong_canh_9.jpg');
+    background: url('/images/background_phong_canh_9-1.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -622,8 +625,9 @@ button.submit img, .btn-google img{
     width: 100%;
     min-height: 100%;
     background: white;
-    background: url(/images/background_phong_canh_5.jpg);
+    background: url(/images/background_phong_canh_12.jpg);
     background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -853,7 +857,7 @@ body.dark:after {
 
 
 /*Main Board*/
-.main_board{
+.main_board {
     width: 100%;
     /*background: white;*/
     padding: 0 50px;
@@ -861,32 +865,31 @@ body.dark:after {
     flex-direction: row;
 }
 
-.main_board .left{
+.main_board .left {
     width: 65%;
     display: flex;
     flex-direction: column;
 }
 
-.main_board .right{
+.main_board .right {
     width: 35%;
     flex: 1;
     padding: 20px 20px 20px 0;
 }
 
-.main_board .left .top{
+.main_board .left .top {
     width: 100%;
     padding: 20px;
 }
 
-.main_board .left .bottom{
+.main_board .left .bottom {
     width: 100%;
-    height: 800px;
     padding: 0 20px 20px 20px;
     display: flex;
     gap: 10px;
 }
 
-.main_board .card{
+.main_board .card {
     background: rgba(0, 0, 0, 0.6);
     width: 100%;
     height: 100%;
@@ -900,38 +903,38 @@ body.dark:after {
 
 
 @media (max-width: 1200px) {
-    .main_board{
+    .main_board {
         padding: 0 20px;
     }
 }
 
 @media (max-width: 1000px) {
-    .main_board{
+    .main_board {
         flex-direction: column;
     }
 
-    .main_board .left, .main_board .right{
+    .main_board .left, .main_board .right {
         width: 100%;
     }
 
-    .main_board .right{
+    .main_board .right {
         padding: 0 10px 10px 10px;
     }
 }
 
 @media (max-width: 768px) {
-    .main_board .bottom{
+    .main_board .bottom {
         flex-direction: column;
     }
 }
 
-@media (max-width:500px){
-    .main_board{
+@media (max-width: 500px) {
+    .main_board {
         margin-top: 70px;
         padding: 0;
     }
 
-    .main_board .left .top, .main_board .left .bottom, .main_board .right{
+    .main_board .left .top, .main_board .left .bottom, .main_board .right {
         padding: 10px;
     }
 }
@@ -942,6 +945,7 @@ body.dark:after {
     width: 100%;
     max-height: 100vh;
 }
+
 .swiper-slide {
     background-position: center;
     background-size: cover;
@@ -950,7 +954,8 @@ body.dark:after {
     filter: blur(2px);
     border-radius: 8px;
 }
-.swiper .card{
+
+.swiper .card {
     width: 100%;
     padding: 0 20px 30px 20px;
     background: transparent;
@@ -958,19 +963,19 @@ body.dark:after {
     overflow: hidden;
 }
 
-.swiper .card_item{
+.swiper .card_item {
     width: 100%;
     position: relative;
 }
 
-.swiper .card .card_item img{
+.swiper .card .card_item img {
     width: 100%;
     height: 300px;
     object-fit: cover;
     border-radius: 4px;
 }
 
-.swiper .card .card_item .content{
+.swiper .card .card_item .content {
     position: absolute;
     width: 100%;
     min-height: 80%;
@@ -985,34 +990,130 @@ body.dark:after {
     backdrop-filter: none;
 }
 
-.swiper-slide-active{
+.swiper-slide-active {
     filter: blur(0px)
 }
 
-.btn-swiper::after, .btn-swiper::before{
+.btn-swiper::after, .btn-swiper::before {
     font-size: 35px;
     color: #fff
 }
-.swiper-pagination-bullet{
+
+.swiper-pagination-bullet {
     background-color: rgba(255, 255, 255, 0.6) !important;
 }
-.swiper-pagination-bullet-active{
-    background-color: #fff!important;
+
+.swiper-pagination-bullet-active {
+    background-color: #fff !important;
 }
+
 @media (max-width: 720px) {
     .swiper-slide {
         width: 90%;
     }
-    .main_board .card{
+
+    .main_board .card {
         height: auto;
     }
-    .swiper-button-next, .swiper-button-prev{
-        display: none!important;
+
+    .swiper-button-next, .swiper-button-prev {
+        display: none !important;
     }
-    .swiper .card{
+
+    .swiper .card {
         padding: 0 0 30px 0;
     }
-    .swiper .card img{
+
+    .swiper .card img {
         height: 300px;
     }
 }
+
+
+/*Table rank*/
+.container_table_rank {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.container_table_rank .title_table_rank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.container_table_rank .title_table_rank img {
+    max-width: 300px
+}
+
+.container_table_rank .table_rank {
+    width: 100%;
+    max-height: 600px;
+    overflow: auto;
+}
+
+.container_table_rank .table_rank::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+    background-color: #fff;
+}
+
+.container_table_rank .table_rank::-webkit-scrollbar {
+    width: 3px;
+    background-color: #F5F5F5;
+}
+
+.container_table_rank .table_rank::-webkit-scrollbar-thumb {
+    background-color: #FFF;
+    background-image: -webkit-linear-gradient(90deg,
+    rgb(60, 60, 60) 0%,
+    rgba(60, 60, 60, 1) 25%,
+    transparent 100%,
+    rgba(60, 60, 60) 75%,
+    transparent)
+}
+
+.container_table_rank .table_rank table {
+    width: 100%;
+    color: white;
+    border-collapse: collapse;
+}
+
+.container_table_rank .table_rank table thead {
+    background: black;
+    height: 60px;
+}
+
+.table_rank table tbody tr {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    height: 60px;
+    border-bottom: 1px solid black;
+}
+
+.container_table_rank .table_rank table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.table_rank table tr td:first-child {
+    text-align: center;
+}
+
+.table_rank table td .user {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.table_rank table td .user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%
+}
+
+
