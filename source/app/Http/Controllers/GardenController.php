@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ItemService;
 use Illuminate\Support\Facades\Log;
 use App\Services\GardenService;
 use Illuminate\Http\Request;
@@ -41,14 +42,25 @@ class GardenController
             }
             return redirect()->route('garden')->with('error', $grow['message']);
         }catch (\Exception $e){
-            dd($e);
             Log::error('Gieo hạt thất bại lỗi: '. $e->getMessage());
             return redirect()->route('garden')->with('error', 'Không thể gieo hạt');
         }
     }
 
-    public function harvest(){
-
+    public function harvest(Request $request){
+        try {
+            $potId = $request->input('potId');
+            $user = session()->get('user');
+            $harvest = $this->gardenService->harvest($user['user_id'], $potId);
+            if ($harvest['success']) {
+                return redirect()->route('garden')->with('success', $harvest['message']);
+            }
+            return redirect()->route('garden')->with('error', $harvest['message']);
+        }catch (\Exception $e) {
+            dd($e);
+            Log::error('Gieo hạt thất bại lỗi: '. $e->getMessage());
+            return redirect()->route('garden')->with('error', 'Không thể thu hoạch');
+        }
     }
 
     public function checkCachePot(){

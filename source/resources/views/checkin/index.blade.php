@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="{{ route('garden') }}">
                             <img src="{{ asset('images/button-duoc-vien.png') }}" alt="">
                             <img class="active" src="{{ asset('images/button-duoc-vien-active.png') }}" alt="">
                         </a>

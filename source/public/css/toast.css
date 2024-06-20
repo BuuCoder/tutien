@@ -15,12 +15,20 @@
     flex-direction: column;
     position: fixed;
     right: 10px;
-    top: 10px;
+    top: 100px;
     width: fit-content;
-    height: 100%;
     z-index: 5;
+    transform: translateX(100%);
+    animation: slideIn 0.8s forwards;
 }
-
+@keyframes slideIn {
+    from {
+        transform: translateX(100%); /* Slide từ phía trong ra (bên phải) */
+    }
+    to {
+        transform: translateX(0); /* Hiển thị panel ở vị trí ban đầu */
+    }
+}
 .toast-item {
     overflow: hidden;
     max-height: 10rem;
@@ -82,6 +90,7 @@
 }
 
 .toast p {
+    min-width: 250px;
     position: relative;
     font-size: 14px;
     z-index: 1;
@@ -297,5 +306,22 @@
     .toast-item {
         display: flex;
         justify-content: flex-end;
+    }
+}
+
+@media (max-width: 500px) {
+    .toast-panel{
+        width: 100%;
+        top: 80px;
+        right: 0;
+    }
+    .toast-item{
+        width: 100%;
+        padding: 0 20px;
+    }
+    .toast{
+        width: 100%;
+        max-width: 100%;
+        padding: 1rem 2rem 1rem 4rem;
     }
 }

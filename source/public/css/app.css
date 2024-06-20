@@ -190,7 +190,7 @@ body::-webkit-scrollbar-thumb {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 6;
 }
 
 .menu_game_mobile .item_menu_game a img {
@@ -502,11 +502,11 @@ button.submit img, .btn-google img{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .duoc_vien .card {
-    width: 300px;
+    width: 30%;
     margin: 10px;
     padding: 10px;
     background: url('/images/background_phong_canh_9.jpg');
@@ -846,4 +846,170 @@ body.dark:after {
     color: white;
     font-weight: 300;
     font-style: italic;
+}
+
+
+/*Main Board*/
+.main_board{
+    width: 100%;
+    /*background: white;*/
+    padding: 0 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+.main_board .left{
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main_board .right{
+    width: 35%;
+    flex: 1;
+    padding: 20px 20px 20px 0;
+}
+
+.main_board .left .top{
+    width: 100%;
+    padding: 20px;
+}
+
+.main_board .left .bottom{
+    width: 100%;
+    height: 800px;
+    padding: 0 20px 20px 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.main_board .card{
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #787878;
+}
+
+
+@media (max-width: 1200px) {
+    .main_board{
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .main_board{
+        flex-direction: column;
+    }
+
+    .main_board .left, .main_board .right{
+        width: 100%;
+    }
+
+    .main_board .right{
+        padding: 0 10px 10px 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main_board .bottom{
+        flex-direction: column;
+    }
+}
+
+@media (max-width:500px){
+    .main_board{
+        margin-top: 70px;
+        padding: 0;
+    }
+
+    .main_board .left .top, .main_board .left .bottom, .main_board .right{
+        padding: 10px;
+    }
+}
+
+
+/*swiper*/
+.swiper {
+    width: 100%;
+    max-height: 100vh;
+}
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 600px;
+    overflow: hidden;
+    filter: blur(2px);
+    border-radius: 8px;
+}
+.swiper .card{
+    width: 100%;
+    padding: 0 20px 30px 20px;
+    background: transparent;
+    border: none;
+    overflow: hidden;
+}
+
+.swiper .card_item{
+    width: 100%;
+    position: relative;
+}
+
+.swiper .card .card_item img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.swiper .card .card_item .content{
+    position: absolute;
+    width: 100%;
+    min-height: 80%;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+    display: flex;
+    padding: 30px;
+    color: white;
+    justify-content: flex-start;
+    align-items: flex-end;
+    backdrop-filter: none;
+}
+
+.swiper-slide-active{
+    filter: blur(0px)
+}
+
+.btn-swiper::after, .btn-swiper::before{
+    font-size: 35px;
+    color: #fff
+}
+.swiper-pagination-bullet{
+    background-color: rgba(255, 255, 255, 0.6) !important;
+}
+.swiper-pagination-bullet-active{
+    background-color: #fff!important;
+}
+@media (max-width: 720px) {
+    .swiper-slide {
+        width: 90%;
+    }
+    .main_board .card{
+        height: auto;
+    }
+    .swiper-button-next, .swiper-button-prev{
+        display: none!important;
+    }
+    .swiper .card{
+        padding: 0 0 30px 0;
+    }
+    .swiper .card img{
+        height: 300px;
+    }
 }

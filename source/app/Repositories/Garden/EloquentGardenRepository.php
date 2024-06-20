@@ -3,21 +3,27 @@
 namespace App\Repositories\Garden;
 
 use App\Models\Garden;
+use App\Models\Item;
 use App\Models\Pot;
-use App\Repositories\Garden\GardenRepositoryInterface;
+use App\Traits\UserTrait;
 
 class EloquentGardenRepository implements GardenRepositoryInterface
 {
+    use UserTrait;
+
     protected $gardenModel;
     protected $potModel;
+    protected $itemModel;
 
-    public function __construct(Garden $gardenModel, Pot $potModel)
+    public function __construct(Garden $gardenModel, Pot $potModel, Item $itemModel)
     {
         $this->gardenModel = $gardenModel;
         $this->potModel = $potModel;
+        $this->itemModel = $itemModel;
     }
 
-    public function getAllPot(){
+    public function getAllPot()
+    {
         return $this->potModel->all();
     }
 
@@ -48,7 +54,8 @@ class EloquentGardenRepository implements GardenRepositoryInterface
         }
     }
 
-    public function grow($userId, $potId){
+    public function grow($userId, $potId)
+    {
         try {
             $checkPot = $this->gardenModel->where([
                 'user_id' => $userId,
@@ -85,8 +92,65 @@ class EloquentGardenRepository implements GardenRepositoryInterface
                 'success' => false,
                 'message' => 'Gieo hạt thất bại'
             ];
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw $e;
+        }
+    }
+
+    public function harvest($userId, $potId)
+    {
+        $checkPot = $this->gardenModel->where([
+            'user_id' => $userId,
+            'pot_id' => $potId
+        ])->first();
+
+        if (!$checkPot) {
+            return [
+                'success' => false,
+                'message' => 'Chậu linh dược không tồn tại'
+            ];
+        }
+
+        if ($checkPot->pot_time_start != 0) {
+            $potInfo = $this->potModel->where('pot_id', $potId)->first();
+
+            if ((time() - $checkPot->pot_time_start) >= $potInfo->pot_growth * 3600) {
+                $getListTree = $this->itemModel->where('item_type', 'Tree')->get(['id','item_name'])->toArray();
+                shuffle($getListTree);
+                $idTree = $getListTree[0]['id'];
+                $nameTree = $getListTree[0]['item_name'];
+                $quantityTree = rand(2, 5);
+
+                $receive = $this->updateItemQuantity($idTree, $quantityTree);
+                if ($receive['success']) {
+                    $update = $this->gardenModel->where([
+                        'user_id' => $userId,
+                        'pot_id' => $potId
+                    ])->update([
+                        'pot_time_start' => 0,
+                        'updated_at' => time(),
+                    ]);
+                    return [
+                        'success' => true,
+                        'data' => [],
+                        'message' => "Thu hoạch thành công nhận được {$quantityTree} cây {$nameTree}"
+                    ];
+                }
+                return [
+                    'success' => false,
+                    'message' => 'Chậu đang có linh dược đang phát triển'
+                ];
+            } else {
+                return [
+                    'success' => false,
+                    'message' => 'Chậu đang có linh dược đang phát triển'
+                ];
+            }
+        }else{
+            return [
+                'success' => false,
+                'message' => 'Bạn chưa gieo hạt cho chậu linh dược này!'
+            ];
         }
     }
 }
