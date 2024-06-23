@@ -6,7 +6,7 @@ use App\Models\CheckIn;
 use Carbon\Carbon;
 use App\Services\LogService;
 
-class EloquentCheckInRepository implements CheckinRepositoryInterface
+class EloquentCheckInRepository implements CheckInRepositoryInterface
 {
     protected $checkInModel;
     protected $logService;
