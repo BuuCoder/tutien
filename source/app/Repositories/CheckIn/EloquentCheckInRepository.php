@@ -3,7 +3,6 @@
 namespace App\Repositories\CheckIn;
 
 use App\Models\CheckIn;
-use App\Repositories\CheckIn\CheckinRepositoryInterface;
 use Carbon\Carbon;
 use App\Services\LogService;
 
