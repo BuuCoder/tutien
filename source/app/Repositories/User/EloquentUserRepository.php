@@ -67,6 +67,30 @@ class EloquentUserRepository implements UserRepositoryInterface
         return false;
     }
 
+
+    public function getUserInfo($email){
+        $user = false;
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $user = $this->userModel::where('email', $email)->first();
+        }
+        if ($user) {
+            $userInfo = [
+                'user_id' => $user->user_id,
+                'name' => $user->name,
+                'user_name' => $user->user_name,
+                'email' => $user->email,
+                'points' => $user->points,
+                'money' => $user->money,
+                'system_id' => $user->system_id,
+                'level_id' => $user->level_id,
+                'item' => json_decode($user->user_item, true),
+                'badge' => json_decode($user->user_badge, true),
+            ];
+            return $userInfo;
+        }
+        return false;
+    }
+
     public function createUserLoginGoogle($data)
     {
         $checkUser = $this->findByEmail($data->email);

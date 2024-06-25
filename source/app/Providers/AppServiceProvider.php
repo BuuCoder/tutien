@@ -2,16 +2,14 @@
 
 namespace App\Providers;
 
+use App\Repositories\Badge\BadgeRepositoryInterface;
+use App\Repositories\Badge\EloquentBadgeRepository;
 use App\Repositories\CheckIn\CheckInRepositoryInterface;
 use App\Repositories\CheckIn\EloquentCheckInRepository;
 use App\Repositories\Garden\EloquentGardenRepository;
 use App\Repositories\Garden\GardenRepositoryInterface;
 use App\Repositories\Item\EloquentItemRepository;
 use App\Repositories\Item\ItemRepositoryInterface;
-use App\Repositories\PasswordResetToken\EloquentPasswordResetTokenRepository;
-use App\Repositories\PasswordResetToken\PasswordResetTokenRepositoryInterface;
-use App\Repositories\Session\EloquentSessionRepository;
-use App\Repositories\Session\SessionRepositoryInterface;
 use App\Repositories\User\EloquentUserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -27,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CheckInRepositoryInterface::class, EloquentCheckInRepository::class);
         $this->app->bind(GardenRepositoryInterface::class, EloquentGardenRepository::class);
         $this->app->bind(ItemRepositoryInterface::class, EloquentItemRepository::class);
+        $this->app->bind(BadgeRepositoryInterface::class, EloquentBadgeRepository::class);
     }
 
     /**

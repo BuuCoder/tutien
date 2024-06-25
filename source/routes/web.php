@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckInController;
 use \App\Http\Controllers\GardenController;
+use \App\Http\Controllers\ShopController;
+use \App\Http\Controllers\AccountController;
 
 Route::middleware('Unauthorized')->group(function () {
     Route::get('dang-nhap', [AuthController::class, 'showLoginForm'])->name('login');
@@ -24,6 +26,10 @@ Route::middleware('Authorization')->group(function () {
     Route::get('/duoc-dien', [GardenController::class, 'index'])->name('garden');
     Route::post('/gieo-linh-duoc', [GardenController::class, 'grow'])->name('grow');
     Route::post('/thu-hoach', [GardenController::class, 'harvest'])->name('harvest');
+
+    Route::get('/thuong-hoi', [ShopController::class, 'index'])->name('shop');
+
+    Route::get('/tai-khoan', [AccountController::class, 'index'])->name('account');
 
     Route::get('/dang-xuat', [AuthController::class, 'logout'])->name('logout');
 });

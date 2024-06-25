@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ItemService;
 use Illuminate\Support\Facades\Log;
 use App\Services\GardenService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
 
 class GardenController
 {
@@ -15,7 +12,7 @@ class GardenController
     protected $allPot;
     public function __construct(GardenService $gardenService){
         $this->gardenService = $gardenService;
-        $this->allPot = $this->checkCachePot();
+        $this->allPot = $this->gardenService->checkCachePot();
     }
 
     public function index(){
@@ -60,19 +57,5 @@ class GardenController
             Log::error('Gieo hạt thất bại lỗi: '. $e->getMessage());
             return redirect()->route('garden')->with('error', 'Không thể thu hoạch');
         }
-    }
-
-    public function checkCachePot(){
-        $minutes = 24*60;
-
-        if (!Cache::has('pots_data')) {
-            $pots = Cache::remember('pots_data', $minutes, function () {
-                return $this->gardenService->getAllPot();
-            });
-        } else {
-            $pots = Cache::get('pots_data');
-        }
-
-        return $pots;
     }
 }
