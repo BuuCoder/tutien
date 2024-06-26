@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Services\LogService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -132,44 +133,128 @@ class EloquentUserRepository implements UserRepositoryInterface
         ]);
     }
 
-    public function addItem($itemId, $quantity)
+    public function updateItem($userId, $itemId, $quantity, $point)
     {
-        $user = session()->get('user');
-        $userInfo = $this->userModel->where('user_id', $user['user_id'])->first(['user_id', 'user_name', 'user_item']);
-        if (!$userInfo) {
-            return [
-                'success' => false,
-                'message' => 'Người dùng không tồn tại'
-            ];
-        }
-
-        $itemUserOld = $itemUser = json_decode($userInfo->user_item, true); // Chuyển đổi thành mảng
-        if ($itemUser == null) {
-            $dataItemRecieve[$itemId] = $quantity;
-            $itemUser = $dataItemRecieve;
-        } else {
-            if (isset($itemUser[$itemId])) {
-                $itemUser[$itemId] += $quantity;
-            } else {
-                $itemUser[$itemId] = $quantity;
+        try {
+            // Lấy thông tin người dùng từ session
+            $user = session()->get('user');
+            if ($userId != $user['user_id']) {
+                return [
+                    'success' => false,
+                    'message' => 'Phiên đăng nhập thất bại'
+                ];
             }
+
+            // Lấy thông tin người dùng từ database
+            $userInfo = $this->userModel->where('user_id', $user['user_id'])->first(['user_id', 'user_name', 'user_item']);
+            if (!$userInfo) {
+                return [
+                    'success' => false,
+                    'message' => 'Người dùng không tồn tại'
+                ];
+            }
+
+            // Cập nhật vật phẩm của người dùng
+            $itemUserOld = $itemUser = json_decode($userInfo->user_item, true);
+            if ($itemUser == null) {
+                $itemUser = [$itemId => $quantity];
+            } else {
+                if (isset($itemUser[$itemId])) {
+                    $itemUser[$itemId] += $quantity;
+                } else {
+                    $itemUser[$itemId] = $quantity;
+                }
+            }
+
+            // Cập nhật lại thông tin vật phẩm của người dùng trong database
+            $update = $this->userModel->where('user_id', $user['user_id'])->update([
+                'user_item' => json_encode($itemUser)
+            ]);
+
+            if ($update) {
+                // Ghi log thay đổi vật phẩm
+                $this->logService->log($user['user_id'], 'update_item', [
+                    'old_item' => $itemUserOld,
+                    'new_item' => $itemUser,
+                    'item_change' => [
+                        'item_id' => $itemId,
+                        'item_quantity' => $quantity
+                    ]
+                ], 'Thay đổi vật phẩm thành công');
+
+                // Cập nhật điểm cho người dùng
+                $updatePoint = $this->updatePoint($userId, $point, "add");
+                if ($updatePoint['success']) {
+                    return [
+                        'success' => true,
+                        'message' => 'Cập nhật vật phẩm thành công'
+                    ];
+                } else {
+                    // Nếu cập nhật điểm không thành công, rollback transaction từ hàm gọi
+                    throw new \Exception('Cập nhật điểm không thành công __001');
+                }
+            } else {
+                // Nếu cập nhật vật phẩm không thành công, rollback transaction từ hàm gọi
+                throw new \Exception('Cập nhật vật phẩm không thành công __002');
+            }
+        } catch (\Exception $e) {
+            // Ném ngoại lệ để transaction có thể rollback từ hàm gọi
+            throw $e;
         }
+    }
 
-        $update = $this->userModel->where('user_id', $user['user_id'])->update([
-            'user_item' => json_encode($itemUser)
-        ]);
+    public function updatePoint($userId, $point, $action = 'add')
+    {
+        try {
+            // Lấy thông tin người dùng từ session
+            $user = session()->get('user');
+            if ($userId != $user['user_id']) {
+                return [
+                    'success' => false,
+                    'message' => 'Phiên đăng nhập thất bại'
+                ];
+            }
 
-        if ($update) {
-            $this->logService->log($user['user_id'], 'updateItem', ['old_item' => $itemUserOld, 'new_item' => $itemUser, 'item_change' => ['item_id' => $itemId, 'item_quantity' => $quantity]], 'Thay đổi item thành công');
+            // Lấy thông tin người dùng từ database
+            $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'points']);
+            if (!$userInfo) {
+                throw new \Exception('Người dùng không tồn tại __003');
+            }
+            if($point == 0){
+                throw new \Exception('Số điểm không hợp lệ __003');
+            }
+            $pointOld = $userInfo['points'];
+
+            // Kiểm tra và cập nhật điểm
+            if ($action === 'add') {
+                $pointNew = $pointOld + $point;
+            } else if ($action === 'minus') {
+                $pointNew = $pointOld - $point;
+            } else {
+                throw new \Exception('Hành động không hợp lệ __004');
+            }
+
+            // Cập nhật điểm của người dùng
+            $update = $this->userModel->where('user_id', $userId)->update([
+                'points' => $pointNew
+            ]);
+
+            if (!$update) {
+                throw new \Exception('Cập nhật điểm không thành công __005');
+            }
+
+            // Ghi log thay đổi điểm
+            if ($action == 'add') {
+                $this->logService->log($userId, 'update_point', ['pointOld' => $pointOld, 'pointNew' => $pointNew], "Nhận thêm {$point} tu vi", $point);
+            } else if ($action == 'minus') {
+               $this->logService->log($userId, 'update_point', ['pointOld' => $pointOld, 'pointNew' => $pointNew], "Trừ ra {$point} tu vi", $point);
+            }
             return [
                 'success' => true,
-                'message' => 'Cập nhật item thành công'
+                'message' => 'Cập nhật điểm thành công'
             ];
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Cập nhật item không thành công'
-            ];
+        } catch (\Exception $e) {
+            throw $e;
         }
     }
 }

@@ -11,5 +11,6 @@ interface UserRepositoryInterface
     public function getUserInfo($email);
     public function createUserLoginGoogle($data);
     public function updateLastLogin($userId);
-    public function addItem($itemId, $itemQuantity);
+    public function updateItem($userId, $itemId, $itemQuantity, $point);
+    public function updatePoint($userId, $point, $action);
 }

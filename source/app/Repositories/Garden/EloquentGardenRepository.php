@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Pot;
 use App\Services\LogService;
 use App\Services\UserService;
+use Illuminate\Support\Facades\DB;
 
 class EloquentGardenRepository implements GardenRepositoryInterface
 {
@@ -104,6 +105,9 @@ class EloquentGardenRepository implements GardenRepositoryInterface
     public function harvest($userId, $potId)
     {
         try {
+            DB::beginTransaction();
+
+            // Kiểm tra tồn tại của chậu linh dược
             $checkPot = $this->gardenModel->where([
                 'user_id' => $userId,
                 'pot_id' => $potId
@@ -116,56 +120,71 @@ class EloquentGardenRepository implements GardenRepositoryInterface
                 ];
             }
 
-            if ($checkPot->pot_time_start != 0) {
-                $potInfo = $this->potModel->where('pot_id', $potId)->first();
-
-                if ((time() - $checkPot->pot_time_start) >= $potInfo->pot_growth * 3600) {
-                    $getListTree = $this->itemModel->where('item_type', 'Tree')->get(['id', 'item_name'])->toArray();
-                    shuffle($getListTree);
-                    $idTree = $getListTree[0]['id'];
-                    $nameTree = $getListTree[0]['item_name'];
-                    $quantityTree = rand(2, 5);
-
-                    $receive = $this->userService->addItem($idTree, $quantityTree);
-                    if ($receive['success']) {
-                        $update = $this->gardenModel->where([
-                            'user_id' => $userId,
-                            'pot_id' => $potId
-                        ])->update([
-                            'pot_time_start' => 0,
-                            'updated_at' => time(),
-                        ]);
-                        if ($update) {
-                            $this->logService->log($userId, 'garden_harvest', ['user_id' => $userId, 'pot_id' => $potId], "Thu hoạch thành công nhận được {$quantityTree} cây {$nameTree}");
-                            return [
-                                'success' => true,
-                                'data' => [],
-                                'message' => "Thu hoạch thành công nhận được {$quantityTree} cây {$nameTree}"
-                            ];
-                        }
-                        return [
-                            'success' => false,
-                            'message' => 'Thu hoạch không thành công'
-                        ];
-                    }
-                    return [
-                        'success' => false,
-                        'message' => 'Chậu đang có linh dược đang phát triển'
-                    ];
-                } else {
-                    return [
-                        'success' => false,
-                        'message' => 'Chậu đang có linh dược đang phát triển'
-                    ];
-                }
-            } else {
+            if ($checkPot->pot_time_start == 0) {
                 return [
                     'success' => false,
                     'message' => 'Bạn chưa gieo hạt cho chậu linh dược này!'
                 ];
             }
-        }catch(\Exception $e) {
+
+            // Kiểm tra thời gian phát triển của chậu
+            $potInfo = $this->potModel->where('pot_id', $potId)->first();
+
+            if ((time() - $checkPot->pot_time_start) < $potInfo->pot_growth * 3600) {
+                return [
+                    'success' => false,
+                    'message' => 'Chậu đang có linh dược đang phát triển'
+                ];
+            }
+
+            // Lấy danh sách cây
+            $getListTree = $this->itemModel->where('item_type', 'Tree')->get(['id', 'item_name'])->toArray();
+            shuffle($getListTree);
+            $idTree = $getListTree[0]['id'];
+            $nameTree = $getListTree[0]['item_name'];
+            $quantityTree = 1;
+            $point = 10;
+
+            // Cập nhật vật phẩm cho người dùng
+            $receive = $this->userService->updateItem($userId, $idTree, $quantityTree, $point);
+            if (!$receive['success']) {
+                return [
+                    'success' => false,
+                    'message' => 'Thu hoạch không thành công'
+                ];
+            }
+
+            // Cập nhật trạng thái chậu
+            $update = $this->gardenModel->where([
+                'user_id' => $userId,
+                'pot_id' => $potId
+            ])->update([
+                'pot_time_start' => 0,
+                'updated_at' => time(),
+            ]);
+
+            if (!$update) {
+                return [
+                    'success' => false,
+                    'message' => 'Thu hoạch không thành công'
+                ];
+            }
+
+            // Ghi log thu hoạch
+            $point = 10;
+            $this->logService->log($userId, 'garden_harvest', ['user_id' => $userId, 'pot_id' => $potId], "Thu hoạch thành công nhận được {$quantityTree} {$nameTree}", $point);
+            // Commit transaction
+            DB::commit();
+
+            return [
+                'success' => true,
+                'data' => [],
+                'message' => "Thu hoạch thành công nhận được {$quantityTree} cây {$nameTree}"
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         }
     }
+
 }
