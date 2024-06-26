@@ -709,11 +709,12 @@ button.submit img, .btn-google img {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 .nhacbaodanh img {
     width: 100%;
-    animation: scaleImage 3s linear infinite;
+    /*animation: scaleImage 3s linear infinite;*/
 }
 
 .glow-on-hover {
