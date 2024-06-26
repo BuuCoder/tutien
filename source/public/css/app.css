@@ -766,7 +766,7 @@ button.submit img, .btn-google img {
         height: 35px;
         font-size: 12px;
         background: linear-gradient(rgba(255, 87, 34, 1), rgba(251, 140, 0, 0.8))!important;
-        box-shadow: 1px 1px 15px rgba(255, 111, 0, 0.2) !important;
+        box-shadow: none!important;
     }
 
     .nhacbaodanh {
