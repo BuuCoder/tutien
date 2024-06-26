@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Be Vietnam Pro", sans-serif;
+    /*font-family: "Be Vietnam Pro", sans-serif;*/
     font-weight: 700;
     font-style: normal;
 }
@@ -787,6 +787,7 @@ button.submit img, .btn-google img {
 
 .musicButton img {
     width: 100%;
+    display: none;
 }
 
 body.dark:after {
@@ -851,19 +852,16 @@ body.dark:after {
     width: 100%;
     padding: 0 20px 20px 20px;
     display: flex;
-    gap: 10px;
+    gap: 40px;
 }
 
 .main_board .card {
-    background: rgba(0, 0, 0, 0.6);
     width: 100%;
     height: 100%;
     border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px;
-    border: 2px solid #787878;
 }
 
 
@@ -935,7 +933,6 @@ body.dark:after {
 
 .swiper .card .card_item img {
     width: 100%;
-    height: 300px;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -1047,15 +1044,54 @@ body.dark:after {
 }
 
 .container_table_rank .table_rank table thead {
-    background: black;
+    background: rgba(0, 0, 0, 0.61);
+    background: url(/images/banner/banner_bxh.jpg);
+    background-size: cover;
+    background-position: bottom;
     height: 60px;
 }
 
 .table_rank table tbody tr {
-    background: rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.42);
     color: white;
     height: 60px;
     border-bottom: 1px solid black;
+}
+
+.table_rank table tbody tr td:nth-child(2){
+    font-family: "Great Vibes", cursive;
+}
+
+.table_rank table tbody tr td:first-child, .table_rank table tbody tr td:last-child {
+    font-family: "Bebas Neue", sans-serif;
+}
+
+
+.table_rank table tbody tr:first-child td{
+    color: #d5d501;
+    font-size: 22px;
+}
+
+.table_rank table tbody tr:nth-child(3) td{
+    color: #e50000;
+    font-size: 21px;
+}
+
+.table_rank table tbody tr:nth-child(2) td{
+    color: #00c3ab;
+    font-size: 20px;
+}
+
+.table_rank table tbody tr:first-child td img{
+    border: 3px solid yellow;
+}
+
+.table_rank table tbody tr:nth-child(3) td img{
+    border: 3px solid red;
+}
+
+.table_rank table tbody tr:nth-child(2) td img{
+    border: 3px solid #00ffe0;
 }
 
 .container_table_rank .table_rank table thead {
@@ -1081,4 +1117,22 @@ body.dark:after {
     border-radius: 50%
 }
 
+
+@media (max-width: 567px) {
+
+    .table_rank table tbody tr:first-child td{
+        font-size: 20px;
+    }
+
+    .table_rank table tbody tr:nth-child(3) td{
+        font-size: 18px;
+    }
+
+    .table_rank table tbody tr:nth-child(2) td{
+        font-size: 17px;
+    }
+    .table_rank{
+        font-size: 16px;
+    }
+}
 

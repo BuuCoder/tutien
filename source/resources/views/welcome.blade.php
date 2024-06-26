@@ -7,6 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toast.css') }}">
     <link rel="stylesheet" href="{{ asset('css/swiper.bundle.min.css') }}">
@@ -83,7 +90,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-5.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -91,7 +98,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3-1.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-6.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -99,7 +106,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_10.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-1.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -107,7 +114,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-4.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -115,15 +122,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3-1.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_10.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-3.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -143,7 +142,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-6.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -151,7 +150,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3-1.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-1.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -159,31 +158,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_10.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3-1.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_10.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-4.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -201,7 +176,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-1.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -209,7 +184,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3-1.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-2.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -217,7 +192,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_10.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-3.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -225,23 +200,7 @@
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_3-1.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img src="{{ asset('/images/background_phong_canh_10.jpg') }}" alt="">
+                                            <img src="{{ asset('/images/banner/banner-4.jpg') }}" alt="">
                                             <div class="content"><p>What is Lorem Ipsum?</p></div>
                                         </div>
                                     </div>
@@ -255,9 +214,6 @@
             <div class="right">
                 <div class="card" style="display: flex; justify-content: flex-start; align-items: flex-start;">
                     <div class="container_table_rank">
-                        <div class="title_table_rank">
-                            <img style="width:100%" src="{{ asset('images/bang-xep-hang.png') }}" alt="Bảng xếp hạng" title="Bảng xếp hạng">
-                        </div>
                         <div class="table_rank">
                             <table cellspacing="0" cellpadding="0">
                                 <thead>
@@ -268,15 +224,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for($i = 0; $i <= 15; $i++)
+                                    @for($i = 0; $i <= 29; $i++)
                                         <tr>
                                             <td>{{ $i+1 }}</td>
                                             <td>
                                                 <div class="user">
-                                                    <img src="{{ asset('/images/background_phong_canh_4.jpg') }}"> <span>Majinbuu</span>
+                                                    <img src="{{ asset('/images/banner/banner-7.jpg') }}"> <span>Majinbuu Tu Tiên</span>
                                                 </div>
                                             </td>
-                                            <td>10000</td>
+                                            <td>{{1000000 - 10223 * $i}}</td>
                                         </tr>
                                     @endfor
                                 </tbody>
