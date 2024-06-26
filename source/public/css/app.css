@@ -624,6 +624,7 @@ button.submit img, .btn-google img {
 
     .duoc_vien .card small{
         font-size: 10px;
+        text-align: center;
     }
 
     .duoc_vien .card img.chaucay {
@@ -641,8 +642,8 @@ button.submit img, .btn-google img {
     position: relative;
     width: 100%;
     min-height: 100%;
-    background: white;
-    background: url(/images/background_phong_canh_12.jpg);
+    /*background: white;*/
+    /*background: url(/images/background_phong_canh_12.jpg);*/
     background-size: cover;
     background-position: center;
     display: flex;
@@ -728,63 +729,6 @@ button.submit img, .btn-google img {
     border-radius: 10px;
 }
 
-.glow-on-hover:before {
-    content: '';
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    /*animation: glowing 20s linear infinite;*/
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;
-}
-
-.glow-on-hover:active {
-    color: #fff
-}
-
-.glow-on-hover:active:after {
-    background: transparent;
-}
-
-.glow-on-hover:hover {
-    color: #000000;
-}
-
-.glow-on-hover:hover:before {
-    opacity: 1;
-}
-
-.glow-on-hover:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-}
-
-@keyframes glowing {
-    0% {
-        background-position: 0 0;
-    }
-    50% {
-        background-position: 400% 0;
-    }
-    100% {
-        background-position: 0 0;
-    }
-}
-
 @media (max-width: 1200px) {
     .content_bao_danh {
         width: 100%;
@@ -824,6 +768,12 @@ button.submit img, .btn-google img {
 
     .nhacbaodanh {
         width: 300px;
+    }
+
+    .glow-on-hover{
+        margin-top: 20px;
+        color: #ffffff;
+        background: rgba(0, 0, 0, 0.5);
     }
 }
 
