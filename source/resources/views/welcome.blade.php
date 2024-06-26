@@ -91,7 +91,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-5.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SUMMARY</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +103,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-6.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SUMMARY</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +115,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-1.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SUMMARY</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +127,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-4.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SUMMARY</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +139,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-3.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SUMMARY</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +163,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-6.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SPRING</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +175,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-1.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SPRING</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +187,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-4.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SPRING</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -177,7 +209,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-1.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SPRING</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +221,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-2.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SPRING</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +233,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-3.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SPRING</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -201,7 +245,11 @@
                                     <div class="card">
                                         <div class="card_item">
                                             <img src="{{ asset('/images/banner/banner-4.jpg') }}" alt="">
-                                            <div class="content"><p>What is Lorem Ipsum?</p></div>
+                                            <div class="content">
+                                                <h3>EVENT HOLIDAY SPRING</h3>
+                                                <p>What is Event Holiday Summary?</p>
+                                                <p>What is Event Holiday Summary</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
