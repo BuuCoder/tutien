@@ -140,10 +140,10 @@
     <p>Được tạo bởi Majinbuu &copy; Copy right 2024 </p>
     <p>Chúc các bạn tham gia chơi vui vẻ nhé!</p>
 </div>
-<audio id="backgroundMusic" loop>
-    <source src="./audio/batpham.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+{{--<audio id="backgroundMusic" loop>--}}
+{{--    <source src="./audio/batpham.mp3" type="audio/mpeg">--}}
+{{--    Your browser does not support the audio element.--}}
+{{--</audio>--}}
 <script>
     // Lấy các phần tử button_open và button_close
     const buttonOpen = document.querySelector('.button_open');
@@ -183,6 +183,10 @@
     setTimeout(function () {
         document.querySelector('.toast-panel').style.display = 'none';
     },3000)
+
+    document.querySelector('.close').addEventListener('click', function () {
+        document.querySelector('.toast-panel').style.display = 'none';
+    });
 </script>
 </body>
 </html>

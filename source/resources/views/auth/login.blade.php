@@ -63,6 +63,12 @@
         </div>
     @endif
 </div>
+
+<script>
+    document.querySelector('.close').addEventListener('click', function () {
+        document.querySelector('.toast-panel').style.display = 'none';
+    });
+</script>
 </body>
 </html>
 
