@@ -764,7 +764,7 @@ button.submit img, .btn-google img {
         gap: 10px;
     }
 
-    .container_baodanh .date .row .date_item.active{
+    .container_baodanh .date .row .date_item{
         width: 35px;
         height: 35px;
         font-size: 12px;
