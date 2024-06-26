@@ -103,7 +103,7 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
 
                     $point = 5;
                     $updatePoint = $this->userService->updatePoint($userId, $point);
-
+                    DB::commit();
                     if(!$updatePoint['success']){
                         throw new \Exception('Cập nhật điểm không thành công __0012');
                     }
@@ -152,6 +152,7 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
                     'message' => 'Bạn đã điểm danh thành công'
                 ];
             } else {
+                DB::commit();
                 return [
                     'success' => false,
                     'message' => 'Bạn đã điểm danh cho ngày hôm nay rồi'
