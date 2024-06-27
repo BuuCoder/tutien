@@ -9,6 +9,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toast.css') }}">
 </head>
@@ -17,6 +20,7 @@
     <img class="open-music" src="{{ asset('images/open-music.png') }}" alt="Nhạc nền" title="Mở nhạc">
     <img class="off-music" src="{{ asset('images/off-music.png') }}" alt="Nhạc nền" title="Tắt nhạc" style="display: none;">
 </button>
+<img class="logo_mobile" src="{{ asset('images/tu-tien-gioi-3.png') }}" alt="">
 <div class="wrapper_game">
     <div class="heading_game">
         <ul class="menu_game">
@@ -104,7 +108,9 @@
                         </div>
                         <form class="row" action="{{ route('checkin') }}" method="POST">
                             @csrf
-                            <button class="glow-on-hover" type="submit">Báo Danh Hôm Nay</button>
+                            <button class="glow-on-hover" type="submit">
+                                <img src="{{ asset('images/button-bao-danh.png') }}" alt="">
+                            </button>
                         </form>
                     </div>
                 </div>
