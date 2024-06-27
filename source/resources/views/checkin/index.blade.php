@@ -29,11 +29,11 @@
                 <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-thuong-hoi-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game active">
-                <a href=""><img src="{{ asset('images/button-tu-luyen.png') }}" alt=""></a>
+                <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/button-tu-luyen.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-tu-luyen-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game main">
-                <a href=""><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
+                <a href="/"><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-chinh-dien-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
@@ -51,11 +51,11 @@
                 <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-thuong-hoi-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game active">
-                <a href=""><img src="{{ asset('images/button-tu-luyen.png') }}" alt=""></a>
+                <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/button-tu-luyen.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-tu-luyen-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
-                <a href=""><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
+                <a href="/"><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-chinh-dien-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">

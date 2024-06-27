@@ -266,9 +266,9 @@
                             <table cellspacing="0" cellpadding="0">
                                 <thead>
                                     <tr>
-                                        <td>Top</td>
-                                        <td>Đạo hữu</td>
-                                        <td>Tu vi</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </thead>
                                 <tbody>

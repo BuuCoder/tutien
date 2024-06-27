@@ -72,6 +72,7 @@ body::-webkit-scrollbar-thumb {
     /*min-height: 100vh;*/
 }
 .logo_mobile{
+    display: none;
     position: absolute;
     top: 20px;
     left: 50%;
@@ -268,7 +269,7 @@ body::-webkit-scrollbar-thumb {
         display: none;
     }
 
-    .show_button_open {
+    .show_button_open , .logo_mobile{
         display: block;
     }
 
@@ -919,14 +920,16 @@ body.dark:after {
 }
 
 @media (max-width: 768px) {
+    .main_board {
+        margin-top: 70px;
+    }
     .main_board .bottom {
         flex-direction: column;
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     .main_board {
-        margin-top: 70px;
         padding: 0;
     }
 
@@ -1095,13 +1098,18 @@ body.dark:after {
     border-collapse: collapse;
 }
 
-.container_table_rank .table_rank table thead {
+.container_table_rank .table_rank table thead tr{
     background: rgba(0, 0, 0, 0.61);
     background: url(/images/banner/banner_bxh.jpg);
     background-size: cover;
-    background-position: bottom;
-    height: 60px;
+    background-position: center;
+    height: 80px;
 }
+
+.container_table_rank .table_rank table thead tr td{
+    text-align: center;
+}
+
 
 .table_rank table tbody tr {
     background-color: rgba(0, 0, 0, 0.6);
