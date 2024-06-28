@@ -7,6 +7,11 @@ use \App\Http\Controllers\GardenController;
 use \App\Http\Controllers\ShopController;
 use \App\Http\Controllers\AccountController;
 
+
+Route::get('', function () {
+    return view('welcome');
+})->name('welcome');
+
 Route::middleware('Unauthorized')->group(function () {
     Route::get('dang-nhap', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('dang-nhap', [AuthController::class, 'login']);
@@ -16,10 +21,6 @@ Route::middleware('Unauthorized')->group(function () {
 });
 
 Route::middleware('Authorization')->group(function () {
-    Route::get('', function () {
-        return view('welcome');
-    });
-
     Route::get('/diem-danh-hang-ngay', [CheckInController::class, 'index']);
     Route::post('/diem-danh-hang-ngay', [CheckInController::class, 'checkIn'])->name('checkin');
 

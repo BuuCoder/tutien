@@ -78,7 +78,7 @@ body::-webkit-scrollbar-thumb {
     left: 50%;
     transform: translate(-50%, 0);
     width: 150px;
-    z-index: 1;
+    z-index: 3;
 }
 .heading_game {
     position: relative;
@@ -232,7 +232,7 @@ body::-webkit-scrollbar-thumb {
     right: 20px;
     top: 20px;
     display: none;
-    z-index: 2;
+    z-index: 7;
 }
 
 @media (max-width: 768px) {

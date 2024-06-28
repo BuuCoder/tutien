@@ -167,7 +167,10 @@ body {
 }
 
 .daila, .bangten .dailaki {
-    background-image: url(/images/bangten/bangten1.gif);
+    background-image: url(/images/bangten/bangten2.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .bangten .tuvi {
@@ -401,6 +404,9 @@ body {
 }
 
 @media (max-width: 765px) {
+    .account{
+        padding-top: 70px;
+    }
     .container_account {
         flex-direction: column;
         justify-content: center;

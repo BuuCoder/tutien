@@ -41,7 +41,11 @@
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
-                <a href="./login.html"><img src="{{ asset('images/button-dang-nhap.png') }}" alt=""></a>
+                <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+            </li>
+            <li class="item_menu_game">
+                <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
             </li>
         </ul>
         <ul class="menu_game_mobile">
@@ -63,7 +67,11 @@
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
-                <a href="./login.html"><img src="{{ asset('images/button-dang-nhap.png') }}" alt=""></a>
+                <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+            </li>
+            <li class="item_menu_game">
+                <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
             </li>
         </ul>
 

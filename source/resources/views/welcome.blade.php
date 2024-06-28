@@ -44,9 +44,19 @@
                 <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>
             </li>
-            <li class="item_menu_game">
-                <a href="./login.html"><img src="{{ asset('images/button-dang-nhap.png') }}" alt=""></a>
-            </li>
+            @if(session()->get('user'))
+                <li class="item_menu_game">
+                    <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
+                    <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
+                </li>
+            @else
+                <li class="item_menu_game">
+                    <a href="/dang-nhap"><img src="{{ asset('images/button-dang-nhap.png') }}" alt=""></a>
+                </li>
+            @endif
         </ul>
         <ul class="menu_game_mobile">
             <img class="button_close" width="40" height="40" src="{{ asset('images/button-close.png') }}" alt="">
@@ -66,9 +76,19 @@
                 <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>
             </li>
-            <li class="item_menu_game">
-                <a href="./login.html"><img src="{{ asset('images/button-dang-nhap.png') }}" alt=""></a>
-            </li>
+            @if(session()->get('user'))
+                <li class="item_menu_game">
+                    <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
+                    <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-xuat"><img src="{{ asset('images/button-dang-xuat.png') }}" alt=""></a>
+                </li>
+            @else
+                <li class="item_menu_game">
+                    <a href="/dang-nhap"><img src="{{ asset('images/button-dang-nhap.png') }}" alt=""></a>
+                </li>
+            @endif
         </ul>
 {{--        <div class="main_content">--}}
 {{--            <div class="character">--}}

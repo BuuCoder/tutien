@@ -54,6 +54,7 @@
 <body>
 <img class="button_open show_button_open" width="40" height="40" src="{{ asset('/images/button-open.png') }}" alt="Mở menu"
      title="Mở menu">
+<img class="logo_mobile" src="{{ asset('images/tu-tien-gioi-3.png') }}" alt="">
 <div class="heading_game">
     <ul class="menu_game_mobile">
         <img class="button_close" width="40" height="40" src="{{ asset('/images/button-close.png') }}" alt="Đóng menu" title="Đóng menu">
@@ -61,18 +62,21 @@
             <a href="" title="Thương hội"><img src="{{ asset('/images/button-thuong-hoi.png') }}" alt="Thương hội" title="Thương hội"></a>
         </li>
         <li class="item_menu_game">
-            <a href="./tuluyen.html" title="Tu luyện"><img src="{{ asset('/images/button-tu-luyen.png') }}" alt="Tu luyện" title="Tu luyện"></a>
+            <a href="/diem-danh-hang-ngay" title="Tu luyện"><img src="{{ asset('/images/button-tu-luyen.png') }}" alt="Tu luyện" title="Tu luyện"></a>
         </li>
         <li class="item_menu_game">
-            <a href="" title="Chính điện"><img class="main" src="{{ asset('/images/button-chinh-dien.png') }}" alt="Chính điện"
+            <a href="/" title="Chính điện"><img class="main" src="{{ asset('/images/button-chinh-dien.png') }}" alt="Chính điện"
                                                title="Chính điện"></a>
         </li>
         <li class="item_menu_game">
             <a href="" title="Luận bàn"><img src="{{ asset('/images/button-luan-ban.png') }}" alt="Luận bàn" title="Luận bàn"></a>
         </li>
         <li class="item_menu_game">
-            <a href="./login.html" title="Đăng nhập"><img src="{{ asset('/images/button-dang-nhap.png') }}" alt="Đăng nhập"
-                                                          title="Đăng nhập"></a>
+            <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
+            <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+        </li>
+        <li class="item_menu_game">
+            <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
         </li>
     </ul>
 </div>
