@@ -1,0 +1,474 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Great Vibes", cursive;
+    font-weight: 700;
+    font-style: normal;
+}
+
+#dot,
+#ball {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#dot {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    z-index: 10;
+}
+
+#ball {
+    width: 30px;
+    height: 30px;
+    background-image: url(/images/cuoihac.png);
+    background-size: cover;
+    z-index: 5;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 0s 600000s, color 0s 600000s !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+html {
+    position: relative;
+}
+
+body {
+    width: 100%;
+    min-width: 375px;
+    min-height: 100vh;
+    height: auto;
+    background-image: url(/images/background_phong_canh_13.jpg);
+    background-color: #a0a7ab;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0 auto;
+}
+
+.wrapper_account {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.container_account {
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.top_account {
+    width: 100%;
+    height: 0px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top_account img.cover {
+    width: 100%;
+    height: 100%;
+    /*object-fit: cover;*/
+}
+
+.account {
+    width: 30%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*margin-top: -100px;*/
+    z-index: 1;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    padding: 15px;
+    display: flex;
+    box-shadow: rgb(90, 90, 90) 0px 20px 30px -10px;
+}
+
+.avatar img {
+    background: white;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.name_account {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.name_account p {
+    color: transparent;
+    -webkit-background-clip: text;
+    background-position: center;
+    font-size: 25px;
+    font-family: "Great Vibes", cursive;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.bangten {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.bangten div {
+    background: white;
+    border-radius: 8px;
+    width: fit-content;
+    padding: 5px 15px 0 15px;
+    color: white;
+    background-position: center;
+    font-family: "Great Vibes", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.daila, .bangten .dailaki {
+    background-image: url(/images/bangten/bangten1.gif);
+}
+
+.bangten .tuvi {
+    width: 100%;
+    text-align: center;
+    background: none;
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.account .badge {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.account .jewelry img {
+    height: 40px !important;
+}
+
+.account .fire img {
+    height: 40px !important;
+}
+
+.account .friend img {
+    height: 60px !important;
+}
+
+.account_info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+}
+
+.left_box {
+    width: 100%;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 5px;
+    font-size: 35px;
+    position: relative;
+}
+
+.left_box .line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.left_box .tamphap {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left_box span.label {
+    font-size: 20px !important;
+    color: white;
+}
+
+.left_box span.num {
+    font-size: 25px;
+    font-family: "Bebas Neue", sans-serif;
+    font-style: normal;
+    color: white;
+}
+
+.center_box {
+    width: 30%;
+    background: none;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.right_box {
+    width: 30%;
+    background: none;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.item_container {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px;
+    position: sticky;
+    top: 0;
+}
+
+.item_container h2 {
+    width: 100%;
+    color: white;
+    text-align: left;
+    font-size: 35px;
+}
+
+.item_container .item {
+    width: 50%;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    position: sticky;
+    top: 10px;
+}
+
+.item_container .square {
+    width: 80px;
+    height: 80px;
+    flex: 0 0 80px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 2px solid #ffe086;
+}
+
+.item_container .square img {
+    max-height: 80%;
+    object-fit: cover;
+}
+
+.item_container .square .quantity {
+    color: white;
+    font-size: 18px;
+    font-family: "Bebas Neue", sans-serif;
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+    font-weight: bold;
+}
+
+.item_container .log {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: white;
+}
+
+.item_container .log table {
+    width: fit-content;
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0 20px;
+}
+
+.item_container .log table thead td {
+    font-size: 22px;
+    text-align: center;
+}
+
+.item_container .log table td {
+    padding: 10px;
+    border-bottom: 1px solid white;
+    /*font-family: "Bebas Neue", sans-serif;*/
+}
+
+.item_container .log table tr td:first-child {
+    width: 47%;
+}
+
+@media (max-width: 1300px) {
+    .wrapper_account {
+        padding: 0;
+    }
+
+    .account .badge {
+        padding: 0 20px;
+    }
+
+    .account_info {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .left_box {
+        width: 100%;
+    }
+
+    .center_box, .right_box {
+        width: 45%;
+    }
+
+    .left_box span.label {
+        font-size: 17px !important;
+    }
+
+    .left_box, .left_box p, .left_box span.num {
+        font-size: 22px !important;
+    }
+
+    .left_box p {
+        display: block;
+    }
+}
+
+@media (max-width: 1120px) {
+    .account, .item_container {
+        width: 50%;
+    }
+
+    .item_container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .item_container .item {
+        width: 100%;
+    }
+}
+
+@media (max-width: 765px) {
+    .container_account {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .item_container, .account {
+        width: 100%;
+    }
+
+    .account, .item_container ,.item_container .item {
+        position: relative;
+    }
+
+    .item_container {
+        padding: 20px;
+    }
+
+    .item_container .log table {
+        width: 100%;
+        padding: 0 5px;
+    }
+
+    .item_container .log table td {
+        padding: 5px;
+    }
+
+    .center_box, .right_box {
+        width: 100%;
+    }
+
+    .left_box {
+        gap: 10px;
+        /*justify-content: flex-start;*/
+        /*align-items: flex-start;*/
+    }
+
+    .left_box .line {
+        /*flex-direction: column;*/
+        /*justify-content: flex-start;*/
+        /*align-items: flex-start;*/
+        gap: 2px;
+    }
+
+    #ball {
+        display: none;
+    }
+
+    .account .jewelry img {
+        height: 40px !important;
+    }
+
+    .item_container .item {
+        justify-content: space-around;
+        gap: 20px;
+    }
+
+    .item_container .square {
+        width: 60px;
+        height: 60px;
+        flex: 0 0 60px;
+    }
+
+    .item_container .square img {
+        max-height: 60%;
+    }
+
+    .item_container .log table tr td:first-child {
+        width: 80px;
+        font-size: 13px;
+    }
+}

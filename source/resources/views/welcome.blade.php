@@ -79,8 +79,8 @@
 {{--            </div>--}}
 {{--        </div>--}}
         <div class="main_board">
-            <div class="left">
-                <div class="top">
+            <div class="left" id="left">
+                <div class="top" id="top">
                     <div class="card">
                         <div class="swiper swiper-coverflow">
                             <div class="swiper-button-next btn-swiper"></div>
@@ -152,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bottom">
+                <div class="bottom" id="bottom">
                     <div class="card">
                         <div class="swiper swiper-coverflow">
                             <div class="swiper-button-next btn-swiper"></div>
@@ -259,7 +259,7 @@
                     </div>
                 </div>
             </div>
-            <div class="right">
+            <div class="right" id="right">
                 <div class="card" style="display: flex; justify-content: flex-start; align-items: flex-start;">
                     <div class="container_table_rank">
                         <div class="table_rank">
@@ -366,6 +366,19 @@
 
         },
     });
+    function matchHeight() {
+        const top = document.getElementById('top');
+        const bottom = document.getElementById('bottom');
+
+        const right = document.getElementById('right');
+
+        const totalHeight = top.offsetHeight + bottom.offsetHeight;
+        right.style.height = `${totalHeight}px`;
+    }
+
+    window.onload = matchHeight;
+    window.onresize = matchHeight;
 </script>
+
 </body>
 </html>
