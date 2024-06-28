@@ -87,7 +87,7 @@
     <div class="container_account">
         <div class="account">
             <div class="avatar daila">
-                <img src="{{ asset('/images/background_phong_canh_3-1.jpg') }}" alt="">
+                <img src="{{ asset('/images/banner/avt.png') }}" alt="">
             </div>
             <div class="name_account">
                 <img style="height: 70px" src="{{ asset('/images/honglenhbai.gif') }}" alt="">
