@@ -167,7 +167,7 @@ body {
 }
 
 .daila, .bangten .dailaki {
-    background-image: url(/images/bangten/bangten2.gif);
+    background-image: url(/images/bangten/bangten3.gif);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -401,6 +401,9 @@ body {
     .item_container .item {
         width: 100%;
     }
+    .item_container ,.item_container .item {
+        position: relative;
+    }
 }
 
 @media (max-width: 765px) {
@@ -416,7 +419,7 @@ body {
         width: 100%;
     }
 
-    .account, .item_container ,.item_container .item {
+    .account{
         position: relative;
     }
 
@@ -476,5 +479,9 @@ body {
     .item_container .log table tr td:first-child {
         width: 80px;
         font-size: 13px;
+    }
+    .left_box span.label {
+        font-size: 17px !important;
+        padding: 0 5px;
     }
 }
