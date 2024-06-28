@@ -68,9 +68,9 @@
             <a href="/" title="Chính điện"><img class="main" src="{{ asset('/images/button-chinh-dien.png') }}" alt="Chính điện"
                                                title="Chính điện"></a>
         </li>
-        <li class="item_menu_game">
-            <a href="" title="Luận bàn"><img src="{{ asset('/images/button-luan-ban.png') }}" alt="Luận bàn" title="Luận bàn"></a>
-        </li>
+{{--        <li class="item_menu_game">--}}
+{{--            <a href="" title="Luận bàn"><img src="{{ asset('/images/button-luan-ban.png') }}" alt="Luận bàn" title="Luận bàn"></a>--}}
+{{--        </li>--}}
         <li class="item_menu_game active">
             <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
             <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>

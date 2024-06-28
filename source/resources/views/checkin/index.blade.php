@@ -36,10 +36,10 @@
                 <a href="/"><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-chinh-dien-active.png') }}" alt=""></a>
             </li>
-            <li class="item_menu_game">
-                <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>
-            </li>
+{{--            <li class="item_menu_game">--}}
+{{--                <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>--}}
+{{--                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>--}}
+{{--            </li>--}}
             <li class="item_menu_game">
                 <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
@@ -62,10 +62,10 @@
                 <a href="/"><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-chinh-dien-active.png') }}" alt=""></a>
             </li>
-            <li class="item_menu_game">
-                <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>
-            </li>
+{{--            <li class="item_menu_game">--}}
+{{--                <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>--}}
+{{--                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>--}}
+{{--            </li>--}}
             <li class="item_menu_game">
                 <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
                 <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
