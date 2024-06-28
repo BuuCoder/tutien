@@ -48,7 +48,7 @@ html {
 
 body {
     width: 100%;
-    min-width: 375px;
+    min-width: 320px;
     min-height: 100vh;
     height: auto;
     background-image: url(/images/background_phong_canh_13.jpg);
