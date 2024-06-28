@@ -17,7 +17,7 @@
     right: 10px;
     top: 100px;
     width: fit-content;
-    z-index: 5;
+    z-index: 8;
     transform: translateX(100%);
     animation: slideIn 0.8s forwards;
 }
