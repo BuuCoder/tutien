@@ -36,7 +36,7 @@
 {{--<h3>Lịch sử:</h3>--}}
 
 
-<!doctype html>
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -52,31 +52,39 @@
     <link rel="stylesheet" href="{{ asset('css/account.css') }}">
 </head>
 <body>
-<img class="button_open show_button_open" width="40" height="40" src="{{ asset('/images/button-open.png') }}" alt="Mở menu"
+<img class="button_open show_button_open" width="40" height="40" src="{{ asset('/images/button-open.png') }}"
+     alt="Mở menu"
      title="Mở menu">
 <img class="logo_mobile" src="{{ asset('images/tu-tien-gioi-3.png') }}" alt="">
 <div class="heading_game">
     <ul class="menu_game_mobile">
-        <img class="button_close" width="40" height="40" src="{{ asset('/images/button-close.png') }}" alt="Đóng menu" title="Đóng menu">
+        <img class="button_close" width="40" height="40" src="{{ asset('/images/button-close.png') }}" alt="Đóng menu"
+             title="Đóng menu">
         <li class="item_menu_game">
-            <a href="" title="Thương hội"><img src="{{ asset('/images/button-thuong-hoi.png') }}" alt="Thương hội" title="Thương hội"></a>
+            <a href="" title="Thương hội"><img src="{{ asset('/images/button-thuong-hoi.png') }}" alt="Thương hội"
+                                               title="Thương hội"></a>
         </li>
         <li class="item_menu_game">
-            <a href="/diem-danh-hang-ngay" title="Tu luyện"><img src="{{ asset('/images/button-tu-luyen.png') }}" alt="Tu luyện" title="Tu luyện"></a>
+            <a href="/diem-danh-hang-ngay" title="Tu luyện"><img src="{{ asset('/images/button-tu-luyen.png') }}"
+                                                                 alt="Tu luyện" title="Tu luyện"></a>
         </li>
         <li class="item_menu_game">
-            <a href="/" title="Chính điện"><img class="main" src="{{ asset('/images/button-chinh-dien.png') }}" alt="Chính điện"
-                                               title="Chính điện"></a>
+            <a href="/" title="Chính điện"><img class="main" src="{{ asset('/images/button-chinh-dien.png') }}"
+                                                alt="Chính điện"
+                                                title="Chính điện"></a>
         </li>
-{{--        <li class="item_menu_game">--}}
-{{--            <a href="" title="Luận bàn"><img src="{{ asset('/images/button-luan-ban.png') }}" alt="Luận bàn" title="Luận bàn"></a>--}}
-{{--        </li>--}}
+        {{--        <li class="item_menu_game">--}}
+        {{--            <a href="" title="Luận bàn"><img src="{{ asset('/images/button-luan-ban.png') }}" alt="Luận bàn" title="Luận bàn"></a>--}}
+        {{--        </li>--}}
         <li class="item_menu_game active">
             <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
-            <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+            <a class="active" href="javascript:void(0)"><img class="main"
+                                                             src="{{ asset('images/button-tai-khoan-active.png') }}"
+                                                             alt=""></a>
         </li>
         <li class="item_menu_game">
-            <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
+            <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}"
+                                                        alt="Đăng xuất" title="Đăng xuất"></a>
         </li>
     </ul>
 </div>
@@ -86,62 +94,66 @@
     </div>
     <div class="container_account">
         <div class="account">
-            <div class="avatar daila">
+            <div class="avatar {{ $allRanks[$user['level_id']]['rank_class_name'] }}">
                 <img src="{{ asset('/images/banner/avt.png') }}" alt="">
             </div>
             <div class="name_account">
                 <img style="height: 70px" src="{{ asset('/images/honglenhbai.gif') }}" alt="">
-                <p class="daila">{{ $user['name'] }}</p>
+                <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}">{{ $user['name'] }}</p>
             </div>
             <div class="bangten">
-                <div class="dailaki">Đại La Kim Tiên</div>
+                <div
+                    class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}">{{ $allRanks[$user['level_id']]['rank_name'] }}</div>
             </div>
-{{--             <div class="badge friend">--}}
-{{--               <div class=""><img style="height: 70px" src="{{ asset('/images/laotiennhan.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 70px" src="{{ asset('/images/haunghe.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 70px" src="{{ asset('/images/thienthan.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 70px" src="{{ asset('/images/thienthan2.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 70px" src="{{ asset('/images/sugia.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 70px" src="{{ asset('/images/sugiahacam.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 70px" src="{{ asset('/images/hoathachsi.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 70px" src="{{ asset('/images/tiennhancuoihac.gif') }}" alt=""></div>--}}
-{{--             </div>--}}
-{{--             <div class="badge jewelry">--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif2.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif3.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif4.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif5.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif6.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif7.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif8.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif9.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif10.gif') }}" alt=""></div>--}}
-{{--             </div>--}}
-{{--             <div class="badge fire">--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa1.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa2.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa3.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa8.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa4.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa5.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa6.gif') }}" alt=""></div>--}}
-{{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa7.gif') }}" alt=""></div>--}}
-{{--             </div>--}}
+            {{--             <div class="badge friend">--}}
+            {{--               <div class=""><img style="height: 70px" src="{{ asset('/images/laotiennhan.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 70px" src="{{ asset('/images/haunghe.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 70px" src="{{ asset('/images/thienthan.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 70px" src="{{ asset('/images/thienthan2.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 70px" src="{{ asset('/images/sugia.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 70px" src="{{ asset('/images/sugiahacam.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 70px" src="{{ asset('/images/hoathachsi.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 70px" src="{{ asset('/images/tiennhancuoihac.gif') }}" alt=""></div>--}}
+            {{--             </div>--}}
+            {{--             <div class="badge jewelry">--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif2.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif3.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif4.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif5.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif6.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif7.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif8.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif9.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/newgif10.gif') }}" alt=""></div>--}}
+            {{--             </div>--}}
+            {{--             <div class="badge fire">--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa1.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa2.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa3.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa8.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa4.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa5.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa6.gif') }}" alt=""></div>--}}
+            {{--               <div class=""><img style="height: 30px" src="{{ asset('/images/dihoa7.gif') }}" alt=""></div>--}}
+            {{--             </div>--}}
             <div class="left_box name_account">
                 <div class="line name"><span class="label">Danh Xưng </span>
-                    <p class="daila">Majinbuu Tu Tiên</p>
+                    <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}">{{ $user['name'] }}</p>
                 </div>
                 <div class="line tuvi"><span class="label">Tu vi </span>
-                    <p class="daila"><span class="num">{{ $user['points'] }}/90000</span> (Kim Tiên Kỳ)</p>
+                    <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}"><span class="num">{{ $user['points'] }}/{{ $allRanks[$user['level_id']]['rank_milestone'] }}</span>
+                        ({{ $allRanks[$user['level_id']]['rank_name'] }})</p>
                 </div>
                 <div class="line tuoitho"><span class="label">Tuổi thọ </span>
-                    <p class="daila"><span class="num">198</span> tuổi</p>
+                    <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}"><span class="num">198</span> tuổi
+                    </p>
                 </div>
                 <div class="line tamphap">
                     <span class="label">Đạo Pháp </span>
-                    <p class="daila" style="text-align:center">Nhất nhân nhất kiếm bình thiên hạ Nhất nhân nhất kiếm bình thiên hạ
-                        Nhất nhân nhất kiếm bình
-                        thiên hạ</p>
+                    <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}"
+                       style="text-align:center; word-break: break-word">
+                        {{ $user['description'] }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -331,6 +343,26 @@
         </div>
     </div>
 </div>
+<div class="toast-panel">
+    @if (session('success'))
+        <div class="toast-item success">
+            <div class="toast success">
+                <label for="t-success" class="close"></label>
+                <h3>Thành công!</h3>
+                <p>{{ session('success') }}</p>
+            </div>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="toast-item error">
+            <div class="toast error">
+                <label for="t-error" class="close"></label>
+                <h3>Lỗi!</h3>
+                <p>{{ session('error') }}</p>
+            </div>
+        </div>
+    @endif
+</div>
 <div class="footer">
     <img src="{{ asset('/images/tu-tien-gioi-3.png') }}" alt="">
     <p>Được tạo bởi Majinbuu &copy; Copy right 2024 </p>
@@ -385,6 +417,15 @@
             button.style.opacity = 0;
         }, 4000);
     });
+
+    setTimeout(function () {
+        document.querySelector('.toast-panel').style.display = 'none';
+    }, 5000)
+
+    document.querySelector('.close').addEventListener('click', function () {
+        document.querySelector('.toast-panel').style.display = 'none';
+    });
+
 </script>
 </body>
 </html>

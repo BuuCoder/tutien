@@ -103,11 +103,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /*margin-top: -100px;*/
     z-index: 1;
     gap: 10px;
     background: rgba(0, 0, 0, 0.5);
     position: sticky;
+    backdrop-filter: blur(2px);
     top: 0;
 }
 
@@ -166,8 +166,15 @@ body {
     font-style: normal;
 }
 
-.daila, .bangten .dailaki {
-    background-image: url(/images/bangten/bangten3.gif);
+.luyen_khi_ky, .bangten .luyen_khi_ky {
+    background-image: url(/images/bangten/bangten11.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.truc_co_ky, .bangten .truc_co_ky {
+    background-image: url(/images/bangten/bangten1.gif);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -401,15 +408,17 @@ body {
     .item_container .item {
         width: 100%;
     }
-    .item_container ,.item_container .item {
+
+    .item_container, .item_container .item {
         position: relative;
     }
 }
 
 @media (max-width: 765px) {
-    .account{
+    .account {
         padding-top: 70px;
     }
+
     .container_account {
         flex-direction: column;
         justify-content: center;
@@ -419,7 +428,7 @@ body {
         width: 100%;
     }
 
-    .account{
+    .account {
         position: relative;
     }
 
@@ -480,6 +489,7 @@ body {
         width: 80px;
         font-size: 13px;
     }
+
     .left_box span.label {
         font-size: 17px !important;
         padding: 0 5px;

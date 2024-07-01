@@ -82,6 +82,7 @@ class EloquentUserRepository implements UserRepositoryInterface
                 'email' => $user->email,
                 'points' => $user->points,
                 'money' => $user->money,
+                'description' => $user->user_description,
                 'system_id' => $user->system_id,
                 'level_id' => $user->level_id,
                 'item' => json_decode($user->user_item, true),

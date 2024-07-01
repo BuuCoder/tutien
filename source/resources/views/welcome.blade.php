@@ -6,7 +6,9 @@
     <title>Tu tiên - Game By MajinBuu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -21,37 +23,48 @@
 <body>
 <button class="musicButton" title="Nhạc nền">
     <img class="open-music" src="{{ asset('images/open-music.png') }}" alt="Nhạc nền" title="Mở nhạc">
-    <img class="off-music" src="{{ asset('images/off-music.png') }}" alt="Nhạc nền" title="Tắt nhạc" style="display: none;">
+    <img class="off-music" src="{{ asset('images/off-music.png') }}" alt="Nhạc nền" title="Tắt nhạc"
+         style="display: none;">
 </button>
-<img class="button_open show_button_open" width="40" height="40" src="{{ asset('images/button-open.png') }}" alt="Mở menu" title="Mở menu">
+<img class="button_open show_button_open" width="40" height="40" src="{{ asset('images/button-open.png') }}"
+     alt="Mở menu" title="Mở menu">
 <img class="logo_mobile" src="{{ asset('images/tu-tien-gioi-3.png') }}" alt="">
 <div class="wrapper_game">
     <div class="heading_game">
         <ul class="menu_game">
             <li class="item_menu_game">
                 <a href=""><img src="{{ asset('images/button-thuong-hoi.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-thuong-hoi-active.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img
+                        src="{{ asset('images/button-thuong-hoi-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
                 <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/button-tu-luyen.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-tu-luyen-active.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-tu-luyen-active.png') }}"
+                                                                 alt=""></a>
             </li>
             <li class="item_menu_game main active">
                 <a href="/"><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-chinh-dien-active.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img class="main"
+                                                                 src="{{ asset('images/button-chinh-dien-active.png') }}"
+                                                                 alt=""></a>
             </li>
             @if(session()->get('user'))
                 <li class="item_menu_game">
                     <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
-                    <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+                    <a class="active" href="javascript:void(0)"><img class="main"
+                                                                     src="{{ asset('images/button-tai-khoan-active.png') }}"
+                                                                     alt=""></a>
                 </li>
                 <li class="item_menu_game">
-                    <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
+                    <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}"
+                                                                alt="Đăng xuất" title="Đăng xuất"></a>
                 </li>
             @else
                 <li class="item_menu_game">
                     <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>
-                    <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>
+                    <a class="active" href="javascript:void(0)"><img class="main"
+                                                                     src="{{ asset('images/button-luan-ban-active.png') }}"
+                                                                     alt=""></a>
                 </li>
                 <li class="item_menu_game">
                     <a href="/dang-nhap"><img src="{{ asset('images/button-dang-nhap.png') }}" alt=""></a>
@@ -62,20 +75,26 @@
             <img class="button_close" width="40" height="40" src="{{ asset('images/button-close.png') }}" alt="">
             <li class="item_menu_game">
                 <a href=""><img src="{{ asset('images/button-thuong-hoi.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-thuong-hoi-active.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img
+                        src="{{ asset('images/button-thuong-hoi-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
                 <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/button-tu-luyen.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-tu-luyen-active.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-tu-luyen-active.png') }}"
+                                                                 alt=""></a>
             </li>
             <li class="item_menu_game active">
                 <a href="/"><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-chinh-dien-active.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img class="main"
+                                                                 src="{{ asset('images/button-chinh-dien-active.png') }}"
+                                                                 alt=""></a>
             </li>
             @if(session()->get('user'))
                 <li class="item_menu_game">
                     <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
-                    <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+                    <a class="active" href="javascript:void(0)"><img class="main"
+                                                                     src="{{ asset('images/button-tai-khoan-active.png') }}"
+                                                                     alt=""></a>
                 </li>
                 <li class="item_menu_game">
                     <a href="/dang-xuat"><img src="{{ asset('images/button-dang-xuat.png') }}" alt=""></a>
@@ -83,21 +102,23 @@
             @else
                 <li class="item_menu_game">
                     <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>
-                    <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>
+                    <a class="active" href="javascript:void(0)"><img class="main"
+                                                                     src="{{ asset('images/button-luan-ban-active.png') }}"
+                                                                     alt=""></a>
                 </li>
                 <li class="item_menu_game">
                     <a href="/dang-nhap"><img src="{{ asset('images/button-dang-nhap.png') }}" alt=""></a>
                 </li>
             @endif
         </ul>
-{{--        <div class="main_content">--}}
-{{--            <div class="character">--}}
-{{--                <img src="{{ asset('images/character-tutien.png') }}" alt="Nhân vật Tu tiên" title="Nhân vật Tu tiên">--}}
-{{--            </div>--}}
-{{--            <div class="title">--}}
-{{--                <img src="{{ asset('images/tu-tien-gioi-2.png') }}" alt="Tu tiên giới" title="Tu tiên giới">--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        {{--        <div class="main_content">--}}
+        {{--            <div class="character">--}}
+        {{--                <img src="{{ asset('images/character-tutien.png') }}" alt="Nhân vật Tu tiên" title="Nhân vật Tu tiên">--}}
+        {{--            </div>--}}
+        {{--            <div class="title">--}}
+        {{--                <img src="{{ asset('images/tu-tien-gioi-2.png') }}" alt="Tu tiên giới" title="Tu tiên giới">--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
         <div class="main_board">
             <div class="left" id="left">
                 <div class="top" id="top">
@@ -114,7 +135,8 @@
                                             <div class="content">
                                                 <h3>EVENT HOLIDAY SUMMARY</h3>
                                                 <p>What is Event Holiday Summary?</p>
-                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is
+                                                    Event Holiday Holiday Summary is Event Holiday Summary</p>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +148,8 @@
                                             <div class="content">
                                                 <h3>EVENT HOLIDAY SUMMARY</h3>
                                                 <p>What is Event Holiday Summary?</p>
-                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is
+                                                    Event Holiday Holiday Summary is Event Holiday Summary</p>
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +161,8 @@
                                             <div class="content">
                                                 <h3>EVENT HOLIDAY SUMMARY</h3>
                                                 <p>What is Event Holiday Summary?</p>
-                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is
+                                                    Event Holiday Holiday Summary is Event Holiday Summary</p>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +174,8 @@
                                             <div class="content">
                                                 <h3>EVENT HOLIDAY SUMMARY</h3>
                                                 <p>What is Event Holiday Summary?</p>
-                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is
+                                                    Event Holiday Holiday Summary is Event Holiday Summary</p>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +187,8 @@
                                             <div class="content">
                                                 <h3>EVENT HOLIDAY SUMMARY</h3>
                                                 <p>What is Event Holiday Summary?</p>
-                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is Event Holiday Holiday Summary is Event Holiday Summary</p>
+                                                <p>What is Event Holiday Summary is Event Holiday Holiday Summary is
+                                                    Event Holiday Holiday Summary is Event Holiday Summary</p>
                                             </div>
                                         </div>
                                     </div>
@@ -285,24 +311,24 @@
                         <div class="table_rank">
                             <table cellspacing="0" cellpadding="0">
                                 <thead>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @for($i = 0; $i <= 29; $i++)
-                                        <tr>
-                                            <td>{{ $i+1 }}</td>
-                                            <td>
-                                                <div class="user">
-                                                    <img src="{{ asset('/images/banner/banner-7.jpg') }}"> <span>Majinbuu Tu Tiên</span>
-                                                </div>
-                                            </td>
-                                            <td>{{1000000 - 10223 * $i}}</td>
-                                        </tr>
-                                    @endfor
+                                @for($i = 0; $i <= 29; $i++)
+                                    <tr>
+                                        <td>{{ $i+1 }}</td>
+                                        <td>
+                                            <div class="user">
+                                                <img src="{{ asset('/images/banner/banner-7.jpg') }}"> <span>Majinbuu Tu Tiên</span>
+                                            </div>
+                                        </td>
+                                        <td>{{1000000 - 10223 * $i}}</td>
+                                    </tr>
+                                @endfor
                                 </tbody>
                             </table>
                         </div>
@@ -311,6 +337,26 @@
             </div>
         </div>
     </div>
+</div>
+<div class="toast-panel">
+    @if (session('success'))
+        <div class="toast-item success">
+            <div class="toast success">
+                <label for="t-success" class="close"></label>
+                <h3>Thành công!</h3>
+                <p>{{ session('success') }}</p>
+            </div>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="toast-item error">
+            <div class="toast error">
+                <label for="t-error" class="close"></label>
+                <h3>Lỗi!</h3>
+                <p>{{ session('error') }}</p>
+            </div>
+        </div>
+    @endif
 </div>
 <div class="footer">
     <img src="{{ asset('images/tu-tien-gioi-3.png') }}" alt="">
@@ -329,13 +375,13 @@
     const menuGameMobile = document.querySelector('.menu_game_mobile');
 
     // Xử lý sự kiện khi click vào button_open
-    buttonOpen.addEventListener('click', function() {
+    buttonOpen.addEventListener('click', function () {
         menuGameMobile.classList.add('show_menu_mobile'); // Thêm class show_menu_mobile
         buttonOpen.classList.remove('show_button_open'); // Thêm class show_menu_mobile
     });
 
     // Xử lý sự kiện khi click vào button_close
-    buttonClose.addEventListener('click', function() {
+    buttonClose.addEventListener('click', function () {
         menuGameMobile.classList.remove('show_menu_mobile'); // Xóa class show_menu_mobile
         buttonOpen.classList.add('show_button_open'); // Thêm class show_menu_mobile
     });
@@ -386,6 +432,7 @@
 
         },
     });
+
     function matchHeight() {
         const top = document.getElementById('top');
         const bottom = document.getElementById('bottom');
@@ -398,6 +445,14 @@
 
     window.onload = matchHeight;
     window.onresize = matchHeight;
+
+    setTimeout(function () {
+        document.querySelector('.toast-panel').style.display = 'none';
+    }, 5000)
+
+    document.querySelector('.close').addEventListener('click', function () {
+        document.querySelector('.toast-panel').style.display = 'none';
+    });
 </script>
 
 </body>

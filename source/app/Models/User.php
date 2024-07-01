@@ -28,6 +28,7 @@ class User extends Model
         'user_name',
         'password',
         'email',
+        'user_description',
         'points',
         'money',
         'system_id',
