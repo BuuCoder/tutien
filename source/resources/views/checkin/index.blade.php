@@ -15,68 +15,68 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toast.css') }}">
 </head>
-<img class="button_open show_button_open" width="40" height="40" src="{{ asset('images/button-open.png') }}" alt="">
+<img class="button_open show_button_open" width="40" height="40" src="{{ asset('images/components/button-open.png') }}" alt="">
 <button class="musicButton" title="Nhạc nền">
-    <img class="open-music" src="{{ asset('images/open-music.png') }}" alt="Nhạc nền" title="Mở nhạc">
-    <img class="off-music" src="{{ asset('images/off-music.png') }}" alt="Nhạc nền" title="Tắt nhạc" style="display: none;">
+    <img class="open-music" src="{{ asset('images/components/open-music.png') }}" alt="Nhạc nền" title="Mở nhạc">
+    <img class="off-music" src="{{ asset('images/components/off-music.png') }}" alt="Nhạc nền" title="Tắt nhạc" style="display: none;">
 </button>
-<img class="logo_mobile" src="{{ asset('images/tu-tien-gioi-3.png') }}" alt="">
+<img class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}" alt="">
 <div class="wrapper_game">
     <div class="heading_game">
         <ul class="menu_game">
             <li class="item_menu_game">
-                <a href=""><img src="{{ asset('images/button-thuong-hoi.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-thuong-hoi-active.png') }}" alt=""></a>
+                <a href=""><img src="{{ asset('images/components/button-thuong-hoi.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/components/button-thuong-hoi-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game active">
-                <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/button-tu-luyen.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-tu-luyen-active.png') }}" alt=""></a>
+                <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/components/button-tu-luyen.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/components/button-tu-luyen-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game main">
-                <a href="/"><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-chinh-dien-active.png') }}" alt=""></a>
+                <a href="/"><img class="main" src="{{ asset('images/components/button-chinh-dien.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-chinh-dien-active.png') }}" alt=""></a>
             </li>
 {{--            <li class="item_menu_game">--}}
-{{--                <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>--}}
-{{--                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>--}}
+{{--                <a href=""><img src="{{ asset('images/components/button-luan-ban.png') }}" alt=""></a>--}}
+{{--                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-luan-ban-active.png') }}" alt=""></a>--}}
 {{--            </li>--}}
             <li class="item_menu_game">
-                <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+                <a href="/tai-khoan"><img src="{{ asset('images/components/button-tai-khoan.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-tai-khoan-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
-                <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
+                <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/components/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
             </li>
         </ul>
         <ul class="menu_game_mobile">
-            <img class="button_close" width="40" height="40" src="{{ asset('images/button-close.png') }}" alt="">
+            <img class="button_close" width="40" height="40" src="{{ asset('images/components/button-close.png') }}" alt="">
             <li class="item_menu_game">
-                <a href=""><img src="{{ asset('images/button-thuong-hoi.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-thuong-hoi-active.png') }}" alt=""></a>
+                <a href=""><img src="{{ asset('images/components/button-thuong-hoi.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/components/button-thuong-hoi-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game active">
-                <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/button-tu-luyen.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/button-tu-luyen-active.png') }}" alt=""></a>
+                <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/components/button-tu-luyen.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/components/button-tu-luyen-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
-                <a href="/"><img class="main" src="{{ asset('images/button-chinh-dien.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-chinh-dien-active.png') }}" alt=""></a>
+                <a href="/"><img class="main" src="{{ asset('images/components/button-chinh-dien.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-chinh-dien-active.png') }}" alt=""></a>
             </li>
 {{--            <li class="item_menu_game">--}}
-{{--                <a href=""><img src="{{ asset('images/button-luan-ban.png') }}" alt=""></a>--}}
-{{--                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-luan-ban-active.png') }}" alt=""></a>--}}
+{{--                <a href=""><img src="{{ asset('images/components/button-luan-ban.png') }}" alt=""></a>--}}
+{{--                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-luan-ban-active.png') }}" alt=""></a>--}}
 {{--            </li>--}}
             <li class="item_menu_game">
-                <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/button-tai-khoan-active.png') }}" alt=""></a>
+                <a href="/tai-khoan"><img src="{{ asset('images/components/button-tai-khoan.png') }}" alt=""></a>
+                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-tai-khoan-active.png') }}" alt=""></a>
             </li>
             <li class="item_menu_game">
-                <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
+                <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/components/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
             </li>
         </ul>
 
         <div class="banner_tuluyen">
-            <img src="{{ asset('images/background_phong_canh_6.jpg') }}" alt="">
+            <img src="{{ asset('images/background/background_phong_canh_6.jpg') }}" alt="">
         </div>
 
         <div class="container_tuluyen">
@@ -84,14 +84,14 @@
                 <ul>
                     <li class="active">
                         <a href="">
-                            <img src="{{ asset('images/button-bao-danh.png') }}" alt="">
-                            <img class="active" src="{{ asset('images/button-bao-danh-active.png') }}" alt="">
+                            <img src="{{ asset('images/components/button-bao-danh.png') }}" alt="">
+                            <img class="active" src="{{ asset('images/components/button-bao-danh-active.png') }}" alt="">
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('garden') }}">
-                            <img src="{{ asset('images/button-duoc-vien.png') }}" alt="">
-                            <img class="active" src="{{ asset('images/button-duoc-vien-active.png') }}" alt="">
+                            <img src="{{ asset('images/components/button-duoc-vien.png') }}" alt="">
+                            <img class="active" src="{{ asset('images/components/button-duoc-vien-active.png') }}" alt="">
                         </a>
                     </li>
                 </ul>
@@ -117,13 +117,13 @@
                         <form class="row" action="{{ route('checkin') }}" method="POST">
                             @csrf
                             <button class="glow-on-hover" type="submit">
-                                <img src="{{ asset('images/button-bao-danh.png') }}" alt="">
+                                <img src="{{ asset('images/components/button-bao-danh.png') }}" alt="">
                             </button>
                         </form>
                     </div>
                 </div>
                 <div class="nhacbaodanh">
-                    <img src="{{ asset('images/hanlap=baodanh.png') }}" alt="">
+                    <img src="{{ asset('images/components/han_lap_bao_danh.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -150,14 +150,14 @@
     @endif
 </div>
 <div class="footer">
-    <img src="{{ asset('images/tu-tien-gioi-3.png') }}" alt="">
+    <img src="{{ asset('images/components/tu-tien-gioi-3.png') }}" alt="">
     <p>Được tạo bởi Majinbuu &copy; Copy right 2024 </p>
     <p>Chúc các bạn tham gia chơi vui vẻ nhé!</p>
 </div>
-{{--<audio id="backgroundMusic" loop>--}}
-{{--    <source src="./audio/batpham.mp3" type="audio/mpeg">--}}
-{{--    Your browser does not support the audio element.--}}
-{{--</audio>--}}
+<audio id="backgroundMusic" loop>
+    <source src="{{ asset('audio/batpham.mp3') }}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 <script>
     // Lấy các phần tử button_open và button_close
     const buttonOpen = document.querySelector('.button_open');

@@ -15,29 +15,29 @@
 <div class="wrapper_login">
     <div class="container_login">
         <a href="#" title="Trang chủ">
-            <img class="title" src="{{ asset("images/tu-tien-gioi-3.png") }}" alt="Tu tiên giới" title="Tu tiên giới">
+            <img class="title" src="{{ asset("images/components/tu-tien-gioi-3.png") }}" alt="Tu tiên giới" title="Tu tiên giới">
         </a>
 
         <form method="POST" class="form-login" action="{{ route('login') }}">
             @csrf
-            <img width="300" height="auto" src="{{ asset("images/bac-dau-co-tinh-vuc.png") }}" alt="Bắc Đẩu cổ tinh vực"
+            <img width="300" height="auto" src="{{ asset("images/components/bac-dau-co-tinh-vuc.png") }}" alt="Bắc Đẩu cổ tinh vực"
                  title="Bắc Đẩu cổ tinh vực">
             <div class="group_input">
-                <img class="icon" height="30" src="{{ asset("images/username.png") }}" alt="">
+                <img class="icon" height="30" src="{{ asset("images/components/username.png") }}" alt="">
                 <input type="text" id="username" name="username" value="{{ old('username') }}" placeholder="Tên tài khoản">
             </div>
 
             <div class="group_input">
-                <img class="icon" height="30" src="{{ asset("images/password.png") }}" alt="">
+                <img class="icon" height="30" src="{{ asset("images/components/password.png") }}" alt="">
                 <input type="password" id="password" name="password" placeholder="Mật khẩu">
             </div>
 
             <div class="group_button">
                 <button class="submit" title="Đăng nhập">
-                    <img src="{{ asset("images/button-dang-nhap.png") }}" alt="Đăng nhập" title="Đăng nhập">
+                    <img src="{{ asset("images/components/button-dang-nhap.png") }}" alt="Đăng nhập" title="Đăng nhập">
                 </button>
                 <a href="/dang-nhap/google" target="_parent" class="btn-google" title="Đăng nhập Google">
-                    <img src="{{ asset("images/button-dang-nhap-google.png") }}" alt="Đăng nhập Google" title="Đăng nhập Google">
+                    <img src="{{ asset("images/components/button-dang-nhap-google.png") }}" alt="Đăng nhập Google" title="Đăng nhập Google">
                 </a>
             </div>
         </form>

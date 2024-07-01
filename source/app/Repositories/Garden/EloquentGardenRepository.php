@@ -140,6 +140,8 @@ class EloquentGardenRepository implements GardenRepositoryInterface
             // Lấy danh sách cây
             $getListTree = $this->itemModel->where('item_type', 'Tree')->get(['id', 'item_name'])->toArray();
             shuffle($getListTree);
+            shuffle($getListTree);
+            shuffle($getListTree);
             $idTree = $getListTree[0]['id'];
             $nameTree = $getListTree[0]['item_name'];
             $quantityTree = 1;

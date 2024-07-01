@@ -60,8 +60,6 @@ class AccountController
                 return redirect()->route('welcome')->with('error', 'Tài khoản hiện không khả dụng vui lòng liên hệ với Admin');
             }
 
-            //Check điểm và update level nếu có vấn đề về điểm
-
             return view('account/index', [
                 'allBadges' => $this->allBadges,
                 'allItems' => $this->allItems,

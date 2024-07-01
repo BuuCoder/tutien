@@ -90,7 +90,6 @@
 }
 
 .toast p {
-    min-width: 250px;
     position: relative;
     font-size: 14px;
     z-index: 1;
@@ -300,7 +299,6 @@
     }
 
     .toast p {
-        min-width: 200px;
         font-size: 12px;
     }
 

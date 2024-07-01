@@ -28,7 +28,7 @@
 {{--            $item_name = $allItems[$itemId]['item_name'];--}}
 {{--        @endphp--}}
 {{--        @if ($badge_image)--}}
-{{--            <img src="{{ asset('/images/duocvien/' . $item_image) }}" alt="{{ $item_name }}" title="{{ $item_name }}">--}}
+{{--            <img src="{{ asset('/images/garden/' . $item_image) }}" alt="{{ $item_name }}" title="{{ $item_name }}">--}}
 {{--            Số lượng: {{ $itemQuantity }}--}}
 {{--        @endif--}}
 {{--    @endforeach--}}
@@ -52,45 +52,45 @@
     <link rel="stylesheet" href="{{ asset('css/account.css') }}">
 </head>
 <body>
-<img class="button_open show_button_open" width="40" height="40" src="{{ asset('/images/button-open.png') }}"
+<img class="button_open show_button_open" width="40" height="40" src="{{ asset('/images/components/button-open.png') }}"
      alt="Mở menu"
      title="Mở menu">
-<img class="logo_mobile" src="{{ asset('images/tu-tien-gioi-3.png') }}" alt="">
+<img class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}" alt="">
 <div class="heading_game">
     <ul class="menu_game_mobile">
-        <img class="button_close" width="40" height="40" src="{{ asset('/images/button-close.png') }}" alt="Đóng menu"
+        <img class="button_close" width="40" height="40" src="{{ asset('/images/components/button-close.png') }}" alt="Đóng menu"
              title="Đóng menu">
         <li class="item_menu_game">
-            <a href="" title="Thương hội"><img src="{{ asset('/images/button-thuong-hoi.png') }}" alt="Thương hội"
+            <a href="" title="Thương hội"><img src="{{ asset('/images/components/button-thuong-hoi.png') }}" alt="Thương hội"
                                                title="Thương hội"></a>
         </li>
         <li class="item_menu_game">
-            <a href="/diem-danh-hang-ngay" title="Tu luyện"><img src="{{ asset('/images/button-tu-luyen.png') }}"
+            <a href="/diem-danh-hang-ngay" title="Tu luyện"><img src="{{ asset('/images/components/button-tu-luyen.png') }}"
                                                                  alt="Tu luyện" title="Tu luyện"></a>
         </li>
         <li class="item_menu_game">
-            <a href="/" title="Chính điện"><img class="main" src="{{ asset('/images/button-chinh-dien.png') }}"
+            <a href="/" title="Chính điện"><img class="main" src="{{ asset('/images/components/button-chinh-dien.png') }}"
                                                 alt="Chính điện"
                                                 title="Chính điện"></a>
         </li>
         {{--        <li class="item_menu_game">--}}
-        {{--            <a href="" title="Luận bàn"><img src="{{ asset('/images/button-luan-ban.png') }}" alt="Luận bàn" title="Luận bàn"></a>--}}
+        {{--            <a href="" title="Luận bàn"><img src="{{ asset('/images/components/button-luan-ban.png') }}" alt="Luận bàn" title="Luận bàn"></a>--}}
         {{--        </li>--}}
         <li class="item_menu_game active">
-            <a href="/tai-khoan"><img src="{{ asset('images/button-tai-khoan.png') }}" alt=""></a>
+            <a href="/tai-khoan"><img src="{{ asset('images/components/button-tai-khoan.png') }}" alt=""></a>
             <a class="active" href="javascript:void(0)"><img class="main"
-                                                             src="{{ asset('images/button-tai-khoan-active.png') }}"
+                                                             src="{{ asset('images/components/button-tai-khoan-active.png') }}"
                                                              alt=""></a>
         </li>
         <li class="item_menu_game">
-            <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/button-dang-xuat.png') }}"
+            <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/components/button-dang-xuat.png') }}"
                                                         alt="Đăng xuất" title="Đăng xuất"></a>
         </li>
     </ul>
 </div>
 <div class="wrapper_account">
     <div class="top_account">
-        <img class="cover" src="{{ asset('/images/background_phong_canh_account.jpg') }}" alt="">
+        <img class="cover" src="{{ asset('/images/background/background_phong_canh_account.jpg') }}" alt="">
     </div>
     <div class="container_account">
         <div class="account">
@@ -101,7 +101,7 @@
                 <img style="height: 70px" src="{{ asset('/images/honglenhbai.gif') }}" alt="">
                 <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}">{{ $user['name'] }}</p>
             </div>
-            <div class="bangten">
+            <div class="box_name">
                 <div
                     class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}">{{ $allRanks[$user['level_id']]['rank_name'] }}</div>
             </div>
@@ -159,59 +159,22 @@
         </div>
         <div class="item_container">
             <div class="item">
-                <h2>Vật Phẩm Của Bạn</h2>
-                <div class="square">
-                    <img src="{{ asset('/images/duocvien/linh-duoc-hoa.png') }}" alt="">
-                    <div class="quantity">1000</div>
+                <div class="" style="width: 100%;">
+                    <h2>Vật Phẩm Của Bạn</h2>
+                    <p style="font-size: 14px; padding: 10px 0; color: white; display: flex; flex-direction: row; gap: 3px; justify-content: center; align-items: center;  background: rgba(0,0,0,0.6); border-radius: 8px">
+                        Nguyên Tiên Thạch: <span style="font-family: 'Bebas Neue';">{{$user['money']}}</span>
+                        <img width="18" src="{{ asset('/images/gem/bach-ngoc.png') }}" alt="Tiên nguyên thạch" title="Tiên nguyên thạch">
+                    </p>
                 </div>
-                <div class="square">
-                    <img src="{{ asset('/images/duocvien/linh-duoc-moc.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/duocvien/linh-duoc-kim.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/duocvien/linh-duoc-tho.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/duocvien/linh-duoc-thuy.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/nguyenthach/bach-ngoc.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/nguyenthach/hac-thach.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/nguyenthach/nguyen-hoa-thach.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/nguyenthach/nguyen-hoang-thach.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/nguyenthach/nguyen-hong-thach.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/nguyenthach/nguyen-moc-thach.png') }}"">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/nguyenthach/nguyen-tho-thach.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
-                <div class="square">
-                    <img src="{{ asset('/images/nguyenthach/nguyen-thuy-thach.png') }}" alt="">
-                    <div class="quantity">1000</div>
-                </div>
+
+                @foreach($user['item'] as $itemId => $itemQuantity)
+                    @if($itemQuantity > 0)
+                        <div class="square">
+                            <img src="{{ asset('/images/'.strtolower($allItems[$itemId]['item_type']).'/'. $allItems[$itemId]['item_image']) }}" alt="">
+                            <div class="quantity">{{$itemQuantity}}</div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
             <div class="item">
                 <h2>Lịch Sử Nhận Thưởng</h2>
@@ -224,70 +187,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi thu hoạch cây abc</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi báo danh</td>
-                        </tr>
-                        <tr>
-                            <td>26/06/2024 10:20:46</td>
-                            <td>Nhận được 20 tu vi khi thu hoạch cây abc</td>
-                        </tr>
                         <tr>
                             <td>26/06/2024 10:20:46</td>
                             <td>Nhận được 20 tu vi khi báo danh</td>
@@ -364,7 +263,7 @@
     @endif
 </div>
 <div class="footer">
-    <img src="{{ asset('/images/tu-tien-gioi-3.png') }}" alt="">
+    <img src="{{ asset('/images/components/tu-tien-gioi-3.png') }}" alt="">
     <p>Được tạo bởi Majinbuu &copy; Copy right 2024 </p>
     <p>Chúc các bạn tham gia chơi vui vẻ nhé!</p>
 </div>

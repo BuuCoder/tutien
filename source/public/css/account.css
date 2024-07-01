@@ -24,7 +24,7 @@
 #ball {
     width: 30px;
     height: 30px;
-    background-image: url(/images/cuoihac.png);
+    background-image: url(/images/components/cuoi_hac.png);
     background-size: cover;
     z-index: 5;
 }
@@ -51,7 +51,7 @@ body {
     min-width: 320px;
     min-height: 100vh;
     height: auto;
-    background-image: url(/images/background_phong_canh_13.jpg);
+    background-image: url(/images/background/background_phong_canh_13.jpg);
     background-color: #a0a7ab;
     background-repeat: no-repeat;
     background-size: cover;
@@ -146,7 +146,7 @@ body {
     font-style: normal;
 }
 
-.bangten {
+.box_name {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -154,7 +154,7 @@ body {
     align-items: center;
 }
 
-.bangten div {
+.box_name div {
     background: white;
     border-radius: 8px;
     width: fit-content;
@@ -166,21 +166,21 @@ body {
     font-style: normal;
 }
 
-.luyen_khi_ky, .bangten .luyen_khi_ky {
-    background-image: url(/images/bangten/bangten11.gif);
+.luyen_khi_ky, .box_name .luyen_khi_ky {
+    background: gray;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
-.truc_co_ky, .bangten .truc_co_ky {
-    background-image: url(/images/bangten/bangten1.gif);
+.truc_co_ky, .box_name .truc_co_ky {
+    background-image: url(/images/box_name/truc-co-ky.gif);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
-.bangten .tuvi {
+.box_name .tuvi {
     width: 100%;
     text-align: center;
     background: none;
@@ -471,7 +471,7 @@ body {
     }
 
     .item_container .item {
-        justify-content: space-around;
+        justify-content: flex-start;
         gap: 20px;
     }
 
