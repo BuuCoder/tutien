@@ -28,7 +28,7 @@ class LogService
     public function getLogByUserId($userId){
         $accept_action = [
             'garden_harvest',
-            'checkin',
+            'check_in',
             'update_point'
         ];
 
