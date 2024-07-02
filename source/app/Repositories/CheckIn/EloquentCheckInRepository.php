@@ -76,8 +76,9 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
                 $createCheckIn = $this->createCheckIn($userId);
                 return $createCheckIn;
             }
-
-            if ($checkIn->before_checkin < Carbon::now()->format('d/m/Y')) {
+            $beforeCheckinDate = Carbon::createFromFormat('d/m/Y', $checkIn->before_checkin)->startOfDay();
+            $today = Carbon::now()->startOfDay();
+            if ($beforeCheckinDate->lt($today)) {
                 if (($checkIn->count_checkin + 1) == 15) {
 
                     $point = 150;

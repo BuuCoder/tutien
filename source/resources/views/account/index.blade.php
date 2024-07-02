@@ -1,10 +1,3 @@
-{{--<h3>Thông tin:</h3>--}}
-{{--Tên: {{ $user['name'] }}--}}
-{{--Tu vi: {{ $user['points'] }}--}}
-{{--ID hệ thống: {{ $user['system_id'] }}--}}
-{{--ID Cấp bậc: {{ $user['level_id'] }}--}}
-{{--Nguyên thạch: {{ $user['money']}}--}}
-
 {{--<h3>Huy hiệu</h3>--}}
 {{--@if ($user['badge'])--}}
 {{--    @foreach($user['badge'] as $badgeId)--}}
@@ -20,37 +13,10 @@
 {{--    @endforeach--}}
 {{--@endif--}}
 
-{{--<h3>Vật Phẩm:</h3>--}}
-{{--@if($user['item'])--}}
-{{--    @foreach($user['item'] as $itemId => $itemQuantity)--}}
-{{--        @php--}}
-{{--            $item_image = $allItems[$itemId]['item_image'];--}}
-{{--            $item_name = $allItems[$itemId]['item_name'];--}}
-{{--        @endphp--}}
-{{--        @if ($badge_image)--}}
-{{--            <img src="{{ asset('/images/garden/' . $item_image) }}" alt="{{ $item_name }}" title="{{ $item_name }}">--}}
-{{--            Số lượng: {{ $itemQuantity }}--}}
-{{--        @endif--}}
-{{--    @endforeach--}}
-{{--@endif--}}
-{{--<h3>Lịch sử:</h3>--}}
 
-
-    <!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tu tiên giới - Tài khoản của bạn</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/toast.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/account.css') }}">
-</head>
+@include('layout.header')
 <body>
 <img class="button_open show_button_open" width="40" height="40" src="{{ asset('/images/components/button-open.png') }}"
      alt="Mở menu"
@@ -242,89 +208,31 @@
         </div>
     </div>
 </div>
-<div class="toast-panel">
-    @if (session('success'))
-        <div class="toast-item success">
-            <div class="toast success">
-                <label for="t-success" class="close"></label>
-                <h3>Thành công!</h3>
-                <p>{{ session('success') }}</p>
-            </div>
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="toast-item error">
-            <div class="toast error">
-                <label for="t-error" class="close"></label>
-                <h3>Lỗi!</h3>
-                <p>{{ session('error') }}</p>
-            </div>
-        </div>
-    @endif
-</div>
-<div class="footer">
-    <img src="{{ asset('/images/components/tu-tien-gioi-3.png') }}" alt="">
-    <p>Được tạo bởi Majinbuu &copy; Copy right 2024 </p>
-    <p>Chúc các bạn tham gia chơi vui vẻ nhé!</p>
-</div>
-<div id="dot"></div>
-<div id="ball"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+@include('layout.toast')
+@include('layout.footer')
+
+<script src="{{ asset("js/jquery-3.7.1.min.js") }}"></script>
+<script src="{{ asset('js/gsap-3.9.1.min.js') }}"></script>
+<script src="{{ asset("js/main.js") }}"></script>
 
 <script>
-    const buttonOpen = document.querySelector('.button_open');
-    const buttonClose = document.querySelector('.button_close');
-    const menuGameMobile = document.querySelector('.menu_game_mobile');
+    $(document).ready(function() {
+        let scrollTimeout;
 
-    buttonOpen.addEventListener('click', function () {
-        menuGameMobile.classList.add('show_menu_mobile');
-        buttonOpen.classList.remove('show_button_open');
+        $(window).on('scroll', function() {
+            const $button = $('.button_open');
+
+            $button.css('opacity', 1);
+
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+
+            scrollTimeout = setTimeout(function() {
+                $button.css('opacity', 0);
+            }, 4000);
+        });
     });
-
-    buttonClose.addEventListener('click', function () {
-        menuGameMobile.classList.remove('show_menu_mobile');
-        buttonOpen.classList.add('show_button_open');
-    });
-
-    var mouse = {x: 0, y: 0};
-    var dot = document.getElementById("dot");
-    var ball = document.getElementById("ball");
-
-    gsap.set(dot, {xPercent: -50, yPercent: -50});
-    gsap.set(ball, {xPercent: -50, yPercent: -50});
-
-    document.addEventListener("mousemove", (e) => {
-        mouse.x = (e.clientX - 60);
-        mouse.y = e.clientY - 30;
-
-        gsap.to(dot, {x: mouse.x, y: mouse.y, duration: 0.05});
-
-        gsap.to(ball, {x: mouse.x, y: mouse.y, duration: 0.2});
-    });
-    let scrollTimeout;
-
-    window.addEventListener('scroll', () => {
-        const button = document.querySelector('.button_open');
-
-        button.style.opacity = 1;
-
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
-
-        scrollTimeout = setTimeout(() => {
-            button.style.opacity = 0;
-        }, 4000);
-    });
-
-    setTimeout(function () {
-        document.querySelector('.toast-panel').style.display = 'none';
-    }, 5000)
-
-    document.querySelector('.close').addEventListener('click', function () {
-        document.querySelector('.toast-panel').style.display = 'none';
-    });
-
 </script>
 </body>
 </html>

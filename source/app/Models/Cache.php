@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cache extends Model
 {
-    protected $table = 'cache';
+    protected $table = 'caches';
 
     protected $fillable = [
         'key', 'value', 'expiration'
