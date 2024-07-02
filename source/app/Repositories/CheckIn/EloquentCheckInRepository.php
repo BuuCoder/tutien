@@ -49,16 +49,16 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
             }
 
             if ($createCheckIn) {
-                $this->logService->log($userId, 'check_in', $createCheckIn, "Bạn đã điểm danh thành công ngày thứ 1", $point);
+                $this->logService->log($userId, 'check_in', $createCheckIn, "Bạn đã báo danh thành công ngày thứ 1", $point);
                 DB::commit();
                 return [
                     'success' => true,
-                    'message' => 'Bạn đã điểm danh thành công'
+                    'message' => 'Bạn đã báo danh thành công'
                 ];
             }
             return [
                 'success' => false,
-                'message' => 'Điểm danh không thành công.'
+                'message' => 'Báo danh không thành công.'
             ];
         }catch(\Exception $e){
             DB::rollback();
@@ -91,11 +91,11 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
                     $checkIn->count_checkin = 15;
                     $checkIn->before_checkin = Carbon::now()->format('d/m/Y');
                     $checkIn->save();
-                    $this->logService->log($userId, 'check_in', $checkIn, "Bạn đã điểm danh thành công ngày thứ 15", $point);
+                    $this->logService->log($userId, 'check_in', $checkIn, "Bạn đã báo danh thành công ngày thứ 15", $point);
                     DB::commit();
                     return [
                         'success' => true,
-                        'message' => 'Bạn đã điểm danh đầy đủ bạn sẽ nhận được phần thưởng xứng đáng!'
+                        'message' => 'Bạn đã báo danh đầy đủ bạn sẽ nhận được phần thưởng xứng đáng!'
                     ];
 
                 }
@@ -112,11 +112,11 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
                     $checkIn->count_checkin = 1;
                     $checkIn->before_checkin = Carbon::now()->format('d/m/Y');
                     $checkIn->save();
-                    $this->logService->log($userId, 'checkin', $checkIn, "Bạn đã điểm danh thành công ngày thứ 1", $point);
+                    $this->logService->log($userId, 'checkin', $checkIn, "Bạn đã báo danh thành công ngày thứ 1", $point);
                     DB::commit();
                     return [
                         'success' => true,
-                        'message' => 'Bạn đã điểm danh thành công'
+                        'message' => 'Bạn đã báo danh thành công'
                     ];
                 }
                 $checkIn->count_checkin = $checkIn->count_checkin + 1;
@@ -146,17 +146,17 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
 
                 $checkIn->before_checkin = Carbon::now()->format('d/m/Y');
                 $checkIn->save();
-                $this->logService->log($userId, 'checkin', $checkIn, "Bạn đã điểm danh thành công ngày thứ {$checkIn->count_checkin}" , $point);
+                $this->logService->log($userId, 'checkin', $checkIn, "Bạn đã báo danh thành công ngày thứ {$checkIn->count_checkin}" , $point);
                 DB::commit();
                 return [
                     'success' => true,
-                    'message' => 'Bạn đã điểm danh thành công'
+                    'message' => 'Bạn đã báo danh thành công'
                 ];
             } else {
                 DB::commit();
                 return [
                     'success' => false,
-                    'message' => 'Bạn đã điểm danh cho ngày hôm nay rồi'
+                    'message' => 'Bạn đã báo danh cho ngày hôm nay rồi'
                 ];
             }
         }catch(\Exception $e) {

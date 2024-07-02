@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\BadgeService;
 use App\Services\ItemService;
+use App\Services\LogService;
 use App\Services\RankService;
 use App\Services\SystemService;
 use App\Services\UserService;
@@ -17,6 +18,7 @@ class AccountController
     protected $itemService;
     protected $rankService;
     protected $systemService;
+    protected $logService;
 
     protected $allBadges;
     protected $allItems;
@@ -28,7 +30,8 @@ class AccountController
         BadgeService  $badgeService,
         ItemService   $itemService,
         RankService   $rankService,
-        SystemService $systemService
+        SystemService $systemService,
+        LogService $logService,
     )
     {
         $this->userService = $userService;
@@ -36,6 +39,7 @@ class AccountController
         $this->itemService = $itemService;
         $this->rankService = $rankService;
         $this->systemService = $systemService;
+        $this->logService = $logService;
         try {
             $this->allBadges = $this->badgeService->checkCacheBadge();
             $this->allItems = $this->itemService->checkCacheItems();
@@ -59,12 +63,16 @@ class AccountController
                 Log::error('Xem tài khoản thất bại lỗi không xác thực được rank người dùng có ID : ' . $userInfo['user_id']);
                 return redirect()->route('welcome')->with('error', 'Tài khoản hiện không khả dụng vui lòng liên hệ với Admin');
             }
-
+            $logData = $this->logService->getLogByUserId($user['user_id']);
+            if(empty($logData)){
+                $logData = [];
+            }
             return view('account/index', [
                 'allBadges' => $this->allBadges,
                 'allItems' => $this->allItems,
                 'allSystems' => $this->allSystems,
                 'allRanks' => $this->allRanks,
+                'logData' => $logData,
                 'user' => $userInfo,
             ]);
         } catch (\Exception $e) {

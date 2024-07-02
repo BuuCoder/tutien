@@ -1,82 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu tiên - Game By MajinBuu</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/toast.css') }}">
-</head>
+@include('layout.header')
 <body>
-<img class="button_open show_button_open" width="40" height="40" src="{{ asset('/images/components/button-open.png') }}" alt="">
 <button class="musicButton" title="Nhạc nền">
-    <img class="open-music" src="{{ asset('/images/components/open-music.png') }}" alt="Nhạc nền" title="Mở nhạc">
-    <img class="off-music" src="{{ asset('/images/components/off-music.png') }}" alt="Nhạc nền" title="Tắt nhạc" style="display: none;">
+    <img loading="lazy" class="open-music"
+         src="{{ asset('images/components/open-music.png') }}"
+         alt="Nhạc nền" title="Mở nhạc">
+    <img loading="lazy" class="off-music"
+         src="{{ asset('images/components/off-music.png') }}"
+         alt="Nhạc nền" title="Tắt nhạc" style="display: none;">
 </button>
-<img class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}" alt="">
+<img loading="lazy" class="button_open show_button_open" width="40" height="40"
+     src="{{ asset('images/components/button-open.png') }}"
+     alt="Mở menu" title="Mở menu"
+>
+<img loading="lazy" class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}"
+     alt="Tu Tiên Giới" title="Tu Tiên Giới">
 <div class="wrapper_game">
     <div class="heading_game">
         <ul class="menu_game">
             <li class="item_menu_game">
-                <a href=""><img src="{{ asset('images/components/button-thuong-hoi.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/components/button-thuong-hoi-active.png') }}" alt=""></a>
+                <a href="" title="Thương Hội">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-thuong-hoi.png') }}"
+                         alt="Thương Hội" title="Thương Hội">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Thương Hội">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-thuong-hoi-active.png') }}"
+                         alt="Thương Hội" title="Thương Hội">
+                </a>
             </li>
             <li class="item_menu_game active">
-                <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/components/button-tu-luyen.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/components/button-tu-luyen-active.png') }}" alt=""></a>
+                <a href="/bao-danh-hang-ngay" title="Tu Luyện">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-tu-luyen.png') }}"
+                         alt="Tu Luyện" title="Tu Luyện">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Tu Luyện">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-tu-luyen-active.png') }}"
+                         alt="Tu Luyện" title="Tu Luyện">
+                </a>
             </li>
             <li class="item_menu_game main">
-                <a href="/"><img class="main" src="{{ asset('images/components/button-chinh-dien.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-chinh-dien-active.png') }}" alt=""></a>
+                <a href="/" title="Chính Điện">
+                    <img loading="lazy" class="main"
+                         src="{{ asset('images/components/button-chinh-dien.png') }}"
+                         alt="Chính Điện" title="Chính Điện">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Chính Điện">
+                    <img loading="lazy" class="main"
+                         src="{{ asset('images/components/button-chinh-dien-active.png') }}"
+                         alt="Chính Điện" title="Chính Điện">
+                </a>
             </li>
-{{--            <li class="item_menu_game">--}}
-{{--                <a href=""><img src="{{ asset('images/components/button-luan-ban.png') }}" alt=""></a>--}}
-{{--                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-luan-ban-active.png') }}" alt=""></a>--}}
-{{--            </li>--}}
-            <li class="item_menu_game">
-                <a href="/tai-khoan"><img src="{{ asset('images/components/button-tai-khoan.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-tai-khoan-active.png') }}" alt=""></a>
-            </li>
-            <li class="item_menu_game">
-                <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/components/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
-            </li>
+            @if(session()->get('user'))
+                <li class="item_menu_game">
+                    <a href="/tai-khoan" title="Tài Khoản">
+                        <img loading="lazy"
+                             src="{{ asset('images/components/button-tai-khoan.png') }}"
+                             alt="Tài Khoản" title="Tài Khoản">
+                    </a>
+                    <a class="active" href="javascript:void(0)" title="Tài Khoản">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-tai-khoan-active.png') }}"
+                             alt="Tài Khoản" title="Tài Khoản">
+                    </a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-xuat" title="Đăng xuất">
+                        <img loading="lazy"
+                             src="{{ asset('/images/components/button-dang-xuat.png') }}"
+                             alt="Đăng xuất" title="Đăng xuất">
+                    </a>
+                </li>
+            @else
+                <li class="item_menu_game">
+                    <a href="">
+                        <img loading="lazy" src="{{ asset('images/components/button-luan-ban.png') }}" alt="">
+                    </a>
+                    <a class="active" href="javascript:void(0)">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-luan-ban-active.png') }}" alt="">
+                    </a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-nhap" title="Đăng Nhập">
+                        <img loading="lazy"
+                             src="{{ asset('images/components/button-dang-nhap.png') }}"
+                             alt="Đăng Nhập" title="Đăng Nhập">
+                    </a>
+                </li>
+            @endif
         </ul>
         <ul class="menu_game_mobile">
-            <img class="button_close" width="40" height="40" src="{{ asset('images/components/button-close.png') }}" alt="">
+            <img loading="lazy" class="button_close" width="40" height="40"
+                 src="{{ asset('images/components/button-close.png') }}"
+                 alt="Đóng Menu" title="Đóng Menu"
+            >
             <li class="item_menu_game">
-                <a href=""><img src="{{ asset('images/components/button-thuong-hoi.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/components/button-thuong-hoi-active.png') }}" alt=""></a>
+                <a href="" title="Thương Hội">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-thuong-hoi.png') }}"
+                         alt="Thương Hội" title="Thương Hội">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Thương Hội">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-thuong-hoi-active.png') }}"
+                         alt="Thương Hội" title="Thương Hội">
+                </a>
             </li>
             <li class="item_menu_game active">
-                <a href="/diem-danh-hang-ngay"><img src="{{ asset('images/components/button-tu-luyen.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img src="{{ asset('images/components/button-tu-luyen-active.png') }}" alt=""></a>
+                <a href="/bao-danh-hang-ngay" title="Tu Luyện">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-tu-luyen.png') }}"
+                         alt="Tu Luyện" title="Tu Luyện">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Tu Luyện">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-tu-luyen-active.png') }}"
+                         alt="Tu Luyện" title="Tu Luyện">
+                </a>
             </li>
-            <li class="item_menu_game">
-                <a href="/"><img class="main" src="{{ asset('images/components/button-chinh-dien.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-chinh-dien-active.png') }}" alt=""></a>
+            <li class="item_menu_game main">
+                <a href="/" title="Chính Điện">
+                    <img loading="lazy" class="main"
+                         src="{{ asset('images/components/button-chinh-dien.png') }}"
+                         alt="Chính Điện" title="Chính Điện">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Chính Điện">
+                    <img loading="lazy" class="main"
+                         src="{{ asset('images/components/button-chinh-dien-active.png') }}"
+                         alt="Chính Điện" title="Chính Điện">
+                </a>
             </li>
-{{--            <li class="item_menu_game">--}}
-{{--                <a href=""><img src="{{ asset('images/components/button-luan-ban.png') }}" alt=""></a>--}}
-{{--                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-luan-ban-active.png') }}" alt=""></a>--}}
-{{--            </li>--}}
-            <li class="item_menu_game">
-                <a href="/tai-khoan"><img src="{{ asset('images/components/button-tai-khoan.png') }}" alt=""></a>
-                <a class="active" href="javascript:void(0)"><img class="main" src="{{ asset('images/components/button-tai-khoan-active.png') }}" alt=""></a>
-            </li>
-            <li class="item_menu_game">
-                <a href="/dang-xuat" title="Đăng nhập"><img src="{{ asset('/images/components/button-dang-xuat.png') }}" alt="Đăng xuất" title="Đăng xuất"></a>
-            </li>
+            @if(session()->get('user'))
+                <li class="item_menu_game">
+                    <a href="/tai-khoan" title="Tài Khoản">
+                        <img loading="lazy"
+                             src="{{ asset('images/components/button-tai-khoan.png') }}"
+                             alt="Tài Khoản" title="Tài Khoản">
+                    </a>
+                    <a class="active" href="javascript:void(0)" title="Tài Khoản">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-tai-khoan-active.png') }}"
+                             alt="Tài Khoản" title="Tài Khoản">
+                    </a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-xuat" title="Đăng xuất">
+                        <img loading="lazy"
+                             src="{{ asset('/images/components/button-dang-xuat.png') }}"
+                             alt="Đăng xuất" title="Đăng xuất">
+                    </a>
+                </li>
+            @else
+                <li class="item_menu_game">
+                    <a href="">
+                        <img loading="lazy" src="{{ asset('images/components/button-luan-ban.png') }}" alt="">
+                    </a>
+                    <a class="active" href="javascript:void(0)">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-luan-ban-active.png') }}" alt="">
+                    </a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-nhap" title="Đăng Nhập">
+                        <img loading="lazy"
+                             src="{{ asset('images/components/button-dang-nhap.png') }}"
+                             alt="Đăng Nhập" title="Đăng Nhập">
+                    </a>
+                </li>
+            @endif
         </ul>
-        <div class="banner_tuluyen">
+        <div class="banner_practice">
             <img src="{{ asset('/images/background/background_phong_canh_7.png') }}" alt="">
         </div>
-        <div class="container_tuluyen">
-            <div class="menu_tuluyen">
+        <div class="container_practice">
+            <div class="menu_practice">
                 <ul>
                     <li>
                         <a href="{{ route('checkin') }}">
@@ -92,7 +194,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="content content_tuluyen">
+            <div class="content content_practice">
                 <div class="group_card duoc_vien">
                     @foreach($dataAllPot as $pot)
                         <div class="card">
@@ -136,130 +238,65 @@
         </div>
     </div>
 </div>
-<div class="toast-panel">
-    @if (session('success'))
-        <div class="toast-item success">
-            <div class="toast success">
-                <label for="t-success" class="close"></label>
-                <h3>Thành công!</h3>
-                <p>{{ session('success') }}</p>
-            </div>
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="toast-item error">
-            <div class="toast error">
-                <label for="t-error" class="close"></label>
-                <h3>Lỗi!</h3>
-                <p>{{ session('error') }}</p>
-            </div>
-        </div>
-    @endif
-</div>
-<div class="footer">
-    <img src="{{ asset('/images/components/tu-tien-gioi-3.png') }}" alt="">
-    <p>Được tạo bởi Majinbuu &copy; Copy right 2024 </p>
-    <p>Chúc các bạn tham gia chơi vui vẻ nhé!</p>
-</div>
-<audio id="backgroundMusic" loop>
-    <source src="{{ asset('audio/batpham.mp3') }}" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+
+@include('layout.toast')
+@include('layout.footer')
+
+<script src="{{ asset("js/jquery-3.7.1.min.js") }}"></script>
+<script src="{{ asset('js/gsap-3.9.1.min.js') }}"></script>
+<script src="{{ asset("js/main.js") }}"></script>
 <script>
-    // Lấy các phần tử button_open và button_close
-    const buttonOpen = document.querySelector('.button_open');
-    const buttonClose = document.querySelector('.button_close');
-    const menuGameMobile = document.querySelector('.menu_game_mobile');
+    $(document).ready(function() {
+        const $countdownElements = $('.countdown');
 
-    // Xử lý sự kiện khi click vào button_open
-    buttonOpen.addEventListener('click', function () {
-        menuGameMobile.classList.add('show_menu_mobile'); // Thêm class show_menu_mobile
-        buttonOpen.classList.remove('show_button_open'); // Thêm class show_menu_mobile
-    });
+        $countdownElements.each(function() {
+            startCountdown($(this));
+        });
 
-    // Xử lý sự kiện khi click vào button_close
-    buttonClose.addEventListener('click', function () {
-        menuGameMobile.classList.remove('show_menu_mobile'); // Xóa class show_menu_mobile
-        buttonOpen.classList.add('show_button_open'); // Thêm class show_menu_mobile
-    });
+        function startCountdown($element) {
+            let timeRemaining = parseTime($element.text());
+            console.log($element.text());
 
-    const musicButton = document.querySelector('.musicButton');
-    const backgroundMusic = document.getElementById('backgroundMusic');
-    const openMusicImg = document.querySelector('.open-music');
-    const offMusicImg = document.querySelector('.off-music');
+            // Cập nhật ngay lập tức
+            updateCountdown($element, timeRemaining);
 
-    // Xử lý sự kiện khi người dùng bấm vào nút nhạc nền
-    musicButton.addEventListener('click', function () {
-        if (backgroundMusic.paused) {
-            backgroundMusic.play();
-            openMusicImg.style.display = 'none';
-            offMusicImg.style.display = 'block';
-        } else {
-            backgroundMusic.pause();
-            openMusicImg.style.display = 'block';
-            offMusicImg.style.display = 'none';
+            const interval = setInterval(function() {
+                timeRemaining--;
+                updateCountdown($element, timeRemaining);
+
+                if (timeRemaining < 0) {
+                    clearInterval(interval);
+                    $element.text('00:00:00');
+                    performAction($element);
+                }
+            }, 1000);
         }
-    });
 
-    setTimeout(function () {
-        document.querySelector('.toast-panel').style.display = 'none';
-    },5000)
-
-
-    // Lấy danh sách tất cả các phần tử <p> có class "countdown"
-    const countdownElements = document.querySelectorAll('.countdown');
-
-    // Duyệt qua từng phần tử và bắt đầu đếm ngược
-    countdownElements.forEach(function(element) {
-        startCountdown(element);
-    });
-
-    // Hàm bắt đầu đếm ngược cho từng phần tử
-    function startCountdown(element) {
-        let timeRemaining = parseTime(element.textContent);
-        console.log(element.textContent);
-        const interval = setInterval(function() {
-            // Chuyển đổi thời gian còn lại thành định dạng hh:mm:ss
+        function updateCountdown($element, timeRemaining) {
             const hours = Math.floor(timeRemaining / 3600);
             const minutes = Math.floor((timeRemaining % 3600) / 60);
             const seconds = timeRemaining % 60;
-            element.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-            // Giảm thời gian còn lại đi 1 giây
-            timeRemaining--;
-
-            // Kiểm tra nếu đếm ngược kết thúc
-            if (timeRemaining < 0) {
-                clearInterval(interval);
-                element.textContent = '00:00:00';
-                performAction(element);
-            }
-        }, 1000); // Mỗi giây (1000ms)
-    }
-
-    // Hàm chuyển đổi định dạng hh:mm:ss thành tổng số giây
-    function parseTime(timeString) {
-        const parts = timeString.split(':');
-        const hours = parseInt(parts[0], 10);
-        const minutes = parseInt(parts[1], 10);
-        const seconds = parseInt(parts[2], 10);
-        return hours * 3600 + minutes * 60 + seconds;
-    }
-
-    // Hàm thực hiện action khi đếm ngược kết thúc cho từng phần tử
-    function performAction(element) {
-        const formId = `form#form-${element.id}`;
-        const formElement = document.querySelector(formId);
-
-        if (formElement) {
-            formElement.style.display = "block";
-        } else {
-            console.error(`Không tìm thấy form với id ${element.id}`);
+            $element.text(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
         }
-    }
 
-    document.querySelector('.close').addEventListener('click', function () {
-        document.querySelector('.toast-panel').style.display = 'none';
+        function parseTime(timeString) {
+            const parts = timeString.split(':');
+            const hours = parseInt(parts[0], 10);
+            const minutes = parseInt(parts[1], 10);
+            const seconds = parseInt(parts[2], 10);
+            return hours * 3600 + minutes * 60 + seconds;
+        }
+
+        function performAction($element) {
+            const formId = `form#form-${$element.attr('id')}`;
+            const $formElement = $(formId);
+
+            if ($formElement.length) {
+                $formElement.show();
+            } else {
+                console.error(`Không tìm thấy form với id ${$element.attr('id')}`);
+            }
+        }
     });
 </script>
 </body>

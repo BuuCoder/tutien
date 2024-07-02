@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use App\Models\Log;
+use Carbon\Carbon;
 
 class LogService
 {
@@ -22,5 +23,24 @@ class LogService
         }catch (\Exception $e){
             throw new \Exception('Cập nhật log không thành công __009 : '. $e->getMessage());
         }
+    }
+
+    public function getLogByUserId($userId){
+        $accept_action = [
+            'garden_harvest',
+            'checkin',
+            'update_point'
+        ];
+
+        $startDate = Carbon::now()->subDays(1)->startOfDay()->timestamp;
+        $endDate = Carbon::now()->timestamp;
+
+        return $this->logModel
+            ->select('description','created_at')
+            ->whereIn('action', $accept_action)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'DESC')
+            ->get();
     }
 }

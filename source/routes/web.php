@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckInController;
 use \App\Http\Controllers\GardenController;
@@ -8,9 +9,7 @@ use \App\Http\Controllers\ShopController;
 use \App\Http\Controllers\AccountController;
 
 
-Route::get('', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('', [HomeController::class, 'index'])->name('welcome');
 
 Route::middleware('Unauthorized')->group(function () {
     Route::get('dang-nhap', [AuthController::class, 'showLoginForm'])->name('login');
@@ -21,8 +20,8 @@ Route::middleware('Unauthorized')->group(function () {
 });
 
 Route::middleware('Authorization')->group(function () {
-    Route::get('/diem-danh-hang-ngay', [CheckInController::class, 'index']);
-    Route::post('/diem-danh-hang-ngay', [CheckInController::class, 'checkIn'])->name('checkin');
+    Route::get('/bao-danh-hang-ngay', [CheckInController::class, 'index']);
+    Route::post('/bao-danh-hang-ngay', [CheckInController::class, 'checkIn'])->name('checkin');
 
     Route::get('/duoc-dien', [GardenController::class, 'index'])->name('garden');
     Route::post('/gieo-linh-duoc', [GardenController::class, 'grow'])->name('grow');

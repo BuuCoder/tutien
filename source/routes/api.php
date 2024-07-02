@@ -3,6 +3,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckInController;
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/diem-danh-hang-ngay', [CheckInController::class, 'index']);
-    Route::post('/diem-danh-hang-ngay', [CheckInController::class, 'checkIn'])->name('checkin');
+    Route::get('/bao-danh-hang-ngay', [CheckInController::class, 'index']);
+    Route::post('/bao-danh-hang-ngay', [CheckInController::class, 'checkIn'])->name('checkin');
 });

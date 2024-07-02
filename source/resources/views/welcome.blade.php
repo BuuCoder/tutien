@@ -14,7 +14,8 @@
      src="{{ asset('images/components/button-open.png') }}"
      alt="Mở menu" title="Mở menu"
 >
-<img loading="lazy" class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}" alt="Tu Tiên Giới" title="Tu Tiên Giới">
+<img loading="lazy" class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}" alt="Tu Tiên Giới"
+     title="Tu Tiên Giới">
 <div class="wrapper_game">
     <div class="heading_game">
         <ul class="menu_game">
@@ -31,7 +32,7 @@
                 </a>
             </li>
             <li class="item_menu_game">
-                <a href="/diem-danh-hang-ngay" title="Tu Luyện">
+                <a href="/bao-danh-hang-ngay" title="Tu Luyện">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-tu-luyen.png') }}"
                          alt="Tu Luyện" title="Tu Luyện">
@@ -80,7 +81,8 @@
                         <img loading="lazy" src="{{ asset('images/components/button-luan-ban.png') }}" alt="">
                     </a>
                     <a class="active" href="javascript:void(0)">
-                        <img loading="lazy" class="main" src="{{ asset('images/components/button-luan-ban-active.png') }}" alt="">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-luan-ban-active.png') }}" alt="">
                     </a>
                 </li>
                 <li class="item_menu_game">
@@ -110,7 +112,7 @@
                 </a>
             </li>
             <li class="item_menu_game">
-                <a href="/diem-danh-hang-ngay" title="Tu Luyện">
+                <a href="/bao-danh-hang-ngay" title="Tu Luyện">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-tu-luyen.png') }}"
                          alt="Tu Luyện" title="Tu Luyện">
@@ -159,7 +161,8 @@
                         <img loading="lazy" src="{{ asset('images/components/button-luan-ban.png') }}" alt="">
                     </a>
                     <a class="active" href="javascript:void(0)">
-                        <img loading="lazy" class="main" src="{{ asset('images/components/button-luan-ban-active.png') }}" alt="">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-luan-ban-active.png') }}" alt="">
                     </a>
                 </li>
                 <li class="item_menu_game">
@@ -415,53 +418,48 @@
 <script src="{{ asset("js/main.js") }}"></script>
 
 <script>
-    var swiper = new Swiper(".swiper-coverflow", {
-        effect: "coverflow",
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: "auto",
-        loop: true,
-        coverflowEffect: {
-            rotate: 0,
-            stretch: 0,
-            depth: 300,
-            modifier: 2,
-            slideShadows: false,
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-            dynamicBullets: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        autoplay: {
-            delay: 4000,
-        },
-    });
+    $(document).ready(function () {
+        var swiper = new Swiper(".swiper-coverflow", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 300,
+                modifier: 2,
+                slideShadows: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            autoplay: {
+                delay: 4000,
+            },
+        });
 
-    function matchHeight() {
-        const top = document.getElementById('top');
-        const bottom = document.getElementById('bottom');
-        const right = document.getElementById('right');
+        function matchHeight() {
+            const $top = $('#top');
+            const $bottom = $('#bottom');
+            const $right = $('#right');
 
-        const totalHeight = top.offsetHeight + bottom.offsetHeight;
+            const totalHeight = $top.outerHeight() + $bottom.outerHeight();
 
-        right.style.height = `${totalHeight}px`;
-    }
+            $right.css('height', `${totalHeight}px`);
+        }
 
-    window.onload = matchHeight;
-    window.onresize = matchHeight;
-
-    setTimeout(function () {
-        document.querySelector('.toast-panel').style.display = 'none';
-    }, 5000)
-
-    document.querySelector('.close').addEventListener('click', function () {
-        document.querySelector('.toast-panel').style.display = 'none';
+        $(window).on('load', matchHeight);
+        $(window).on('resize', matchHeight);
     });
 </script>
+
 </body>
 </html>

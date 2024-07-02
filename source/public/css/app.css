@@ -488,52 +488,52 @@ button.submit img, .btn-google img {
     }
 }
 
-.container_tuluyen {
+.container_practice {
     padding: 0 100px;
     display: flex;
     flex-grow: 1;
     margin-bottom: 50px;
 }
 
-.menu_tuluyen {
+.menu_practice {
     width: 20%;
 }
 
-.menu_tuluyen ul {
+.menu_practice ul {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.menu_tuluyen ul li {
+.menu_practice ul li {
     padding: 20px;
     width: 100%;
     display: block;
 }
 
-.menu_tuluyen ul li:hover {
+.menu_practice ul li:hover {
     background: rgba(255, 255, 255, 0.2);
     /*backdrop-filter: blur(8px);*/
 }
 
-.menu_tuluyen ul li img.active {
+.menu_practice ul li img.active {
     display: none;
 }
 
-.menu_tuluyen ul li.active img {
+.menu_practice ul li.active img {
     display: none;
 }
 
-.menu_tuluyen ul li.active img.active {
+.menu_practice ul li.active img.active {
     display: block;
 }
 
-.menu_tuluyen ul li a {
+.menu_practice ul li a {
     width: 100%;
     display: block;
 }
 
-.menu_tuluyen ul li a img {
+.menu_practice ul li a img {
     width: 100%;
 }
 
@@ -544,12 +544,12 @@ button.submit img, .btn-google img {
     /*backdrop-filter: blur(10px);*/
 }
 
-.banner_tuluyen {
+.banner_practice {
     width: 100%;
     padding: 0 100px 50px 100px;
 }
 
-.banner_tuluyen img {
+.banner_practice img {
     width: 100%;
 }
 
@@ -597,39 +597,39 @@ button.submit img, .btn-google img {
 
 
 @media (max-width: 1200px) {
-    .container_tuluyen {
+    .container_practice {
         padding: 0px 10px 10px 10px;
         flex-direction: column;
         /*max-height: calc(100vh - 150px);*/
         overflow: auto;
     }
 
-    .banner_tuluyen {
+    .banner_practice {
         padding: 0;
     }
 
-    .menu_tuluyen, .content_tuluyen {
+    .menu_practice, .content_practice {
         width: 100%;
     }
 
-    .menu_tuluyen ul {
+    .menu_practice ul {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-around;
         gap: 0
     }
 
-    .menu_tuluyen ul li {
+    .menu_practice ul li {
         width: 200px;
         padding: 10px;
     }
 
-    .menu_tuluyen ul li img {
+    .menu_practice ul li img {
         width: 100%;
         padding: 10px;
     }
 
-    .content_tuluyen {
+    .content_practice {
         padding: 10px;
         border-radius: 8px;
     }
@@ -642,19 +642,19 @@ button.submit img, .btn-google img {
 }
 
 @media (max-width: 500px) {
-    .container_tuluyen {
+    .container_practice {
         margin-bottom: 20px;
     }
 
-    .banner_tuluyen {
+    .banner_practice {
         margin: 80px 0 0 0;
     }
 
-    .menu_tuluyen ul li {
+    .menu_practice ul li {
         width: 50%;
         padding: 5px;
     }
-    .menu_tuluyen ul li:hover {
+    .menu_practice ul li:hover {
         background: none;
     }
     .group_card{
@@ -692,7 +692,7 @@ button.submit img, .btn-google img {
 
 
 /*Baodanh*/
-.container_baodanh {
+.container_checkin {
     position: relative;
     width: 100%;
     min-height: 500px;
@@ -705,7 +705,7 @@ button.submit img, .btn-google img {
     align-items: flex-start;
 }
 
-.container_baodanh::after {
+.container_checkin::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -714,7 +714,7 @@ button.submit img, .btn-google img {
     background-image: linear-gradient(to left top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3));
 }
 
-.container_baodanh .date {
+.container_checkin .date {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -722,7 +722,7 @@ button.submit img, .btn-google img {
     z-index: 3;
 }
 
-.container_baodanh .date .row {
+.container_checkin .date .row {
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -730,7 +730,7 @@ button.submit img, .btn-google img {
     align-items: center;
 }
 
-.container_baodanh .date .row .date_item {
+.container_checkin .date .row .date_item {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -741,12 +741,12 @@ button.submit img, .btn-google img {
     color: #000;
 }
 
-.container_baodanh .date .row .date_item.active {
+.container_checkin .date .row .date_item.active {
     background: linear-gradient(to top right, hsla(88, 50%, 60%, 1), rgba(38, 198, 218, 1) 50%);
     color: #fff;
 }
 
-.nhacbaodanh {
+.remind_checkin {
     width: 500px;
     position: absolute;
     bottom: 0;
@@ -755,7 +755,7 @@ button.submit img, .btn-google img {
     overflow: hidden;
 }
 
-.nhacbaodanh img {
+.remind_checkin img {
     width: 100%;
     /*animation: scaleImage 3s linear infinite;*/
 }
@@ -776,48 +776,48 @@ button.submit img, .btn-google img {
     width: 100%;
 }
 @media (max-width: 1200px) {
-    .content_bao_danh {
+    .content_checkin {
         width: 100%;
         align-items: center;
     }
 
-    .nhacbaodanh {
+    .remind_checkin {
         width: 40%;
     }
 }
 
 @media (max-width: 567px) {
-    .content_bao_danh {
+    .content_checkin {
         padding: 10px;
     }
 
-    .container_baodanh {
+    .container_checkin {
         justify-content: center;
         min-height: 500px;
     }
 
-    .content_bao_danh {
+    .content_checkin {
         width: 100%;
         align-items: center;
     }
 
-    .container_baodanh .date {
+    .container_checkin .date {
         padding: 30px 10px 10px 10px;
         gap: 10px;
     }
 
-    .container_baodanh .date .row .date_item{
+    .container_checkin .date .row .date_item{
         width: 35px;
         height: 35px;
         font-size: 12px;
     }
 
-    .container_baodanh .date .row .date_item.active{
+    .container_checkin .date .row .date_item.active{
         background: linear-gradient(to top right, hsla(88, 50%, 60%, 1), rgba(38, 198, 218, 1) 50%);
         box-shadow: none!important;
     }
 
-    .nhacbaodanh {
+    .remind_checkin {
         width: 300px;
         animation: unset;
     }
@@ -853,7 +853,7 @@ body.dark:after {
     z-index: -1;
 }
 
-.dark .container_baodanh::after, body.dark:after {
+.dark .container_checkin::after, body.dark:after {
     background-image: linear-gradient(to left top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1));
 }
 
