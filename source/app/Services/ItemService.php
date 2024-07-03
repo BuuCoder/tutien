@@ -42,4 +42,14 @@ class ItemService
 
         return $transformedItemData;
     }
+
+    public function buyItem($userId, $itemId)
+    {
+        return $this->itemRepository->buy($userId, $itemId);
+    }
+
+    public function sellItem($userId, $itemId)
+    {
+        return $this->itemRepository->sell($userId, $itemId);
+    }
 }

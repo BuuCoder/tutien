@@ -1,8 +1,10 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CheckInController;
+use App\Http\Controllers\ShopController;
 
-Route::middleware('auth:api')->group(function () {
-    Route::get('/bao-danh-hang-ngay', [CheckInController::class, 'index']);
-    Route::post('/bao-danh-hang-ngay', [CheckInController::class, 'checkIn'])->name('checkin');
+Route::middleware(['Authorization', 'throttle:1,1'])->prefix('v1')->group(function () {
+    Route::post('/mua-huy-hieu', [ShopController::class, 'buyBadge']);
+    Route::post('/ban-huy-hieu', [ShopController::class, 'sellBadge']);
+    Route::post('/mua-vat-pham', [ShopController::class, 'buyItem']);
+    Route::post('/ban-vat-pham', [ShopController::class, 'sellItem']);
 });

@@ -214,11 +214,7 @@
                                 <p id="{{$pot->pot_id}}" class="countdown">{{ date('H:i:s', ($pot->pot_growth * 3600 - (time() - $dataPortUser[$pot->pot_id]->pot_time_start))) }}</p>
                                 <small>Linh dược đang phát triển</small>
                                 <img class="chaucay" src="{{ asset('/images/garden/hoa-dang-phat-trien.png') }}" alt="">
-                                <form id="form-{{$pot->pot_id}}" action="{{ route('harvest') }}" method="POST" style="display: none">
-                                    @csrf
-                                    <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
-                                    <button type="submit">Thu hoạch</button>
-                                </form>
+                                <div style="min-height: 50px"></div>
                             @else
                                 <p>00:00:00</p>
                                 <small>Linh dược trưởng thành</small>

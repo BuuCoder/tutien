@@ -21,7 +21,7 @@ class LogService
                 'created_at' => time(),
             ]);
         }catch (\Exception $e){
-            throw new \Exception('Cập nhật log không thành công __009 : '. $e->getMessage());
+            throw new \Exception('Cập nhật log không thành công (row: 24) : '. $e->getMessage());
         }
     }
 

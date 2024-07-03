@@ -168,7 +168,7 @@
                         <div class="square">
                             <img
                                 src="{{ asset('/images/'.strtolower($allItems[$itemId]['item_type']).'/'. $allItems[$itemId]['item_image']) }}"
-                                alt="">
+                                alt="{{ $allItems[$itemId]['item_name'] }}" title="{{ $allItems[$itemId]['item_name'] }}">
                             <div class="quantity">{{$itemQuantity}}</div>
                         </div>
                     @endif

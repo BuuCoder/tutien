@@ -8,6 +8,7 @@ use App\Models\Pot;
 use App\Services\LogService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class EloquentGardenRepository implements GardenRepositoryInterface
 {
@@ -139,21 +140,22 @@ class EloquentGardenRepository implements GardenRepositoryInterface
 
             // Lấy danh sách cây
             $getListTree = $this->itemModel->where('item_type', 'Tree')->get(['id', 'item_name'])->toArray();
-            shuffle($getListTree);
-            shuffle($getListTree);
-            shuffle($getListTree);
+            $this->fisherYatesShuffle($getListTree);
             $idTree = $getListTree[0]['id'];
             $nameTree = $getListTree[0]['item_name'];
             $quantityTree = 1;
             $point = 10;
 
             // Cập nhật vật phẩm cho người dùng
-            $receive = $this->userService->updateItem($userId, $idTree, $quantityTree, $point);
-            if (!$receive['success']) {
-                return [
-                    'success' => false,
-                    'message' => 'Thu hoạch không thành công'
-                ];
+            $receiveItem = $this->userService->updateItem($userId, $idTree, $quantityTree, 'add');
+            if (!$receiveItem['success']) {
+                throw new \Exception('Thu hoạch không thành công (row: 152): không thể cập nhật vật phẩm');
+            }
+
+            // Cập nhật điểm cho người dùng
+            $receivePoint = $this->userService->updatePoint($userId, $point, 'add');
+            if (!$receivePoint['success']) {
+                throw new \Exception('Thu hoạch không thành công (row: 158): không thể cập nhật điểm');
             }
 
             // Cập nhật trạng thái chậu
@@ -166,15 +168,12 @@ class EloquentGardenRepository implements GardenRepositoryInterface
             ]);
 
             if (!$update) {
-                return [
-                    'success' => false,
-                    'message' => 'Thu hoạch không thành công'
-                ];
+                throw new \Exception('Thu hoạch không thành công (row: 171) : không thể cập nhật trạng thái chậu');
             }
 
             // Ghi log thu hoạch
-            $point = 10;
             $this->logService->log($userId, 'garden_harvest', ['user_id' => $userId, 'pot_id' => $potId], "Thu hoạch thành công nhận được {$quantityTree} {$nameTree}", $point);
+
             // Commit transaction
             DB::commit();
 
@@ -185,8 +184,26 @@ class EloquentGardenRepository implements GardenRepositoryInterface
             ];
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            Log::error('Lỗi khi thu hoạch: ' . $e->getMessage(), [
+                'user_id' => $userId,
+                'pot_id' => $potId,
+                'exception' => $e
+            ]);
+
+            return [
+                'success' => false,
+                'message' => 'Có lỗi xảy ra trong quá trình thu hoạch. Vui lòng thử lại sau.'
+            ];
         }
     }
 
+    function fisherYatesShuffle(&$array) {
+        $n = count($array);
+        for ($i = $n - 1; $i > 0; $i--) {
+            $j = mt_rand(0, $i);
+            $temp = $array[$i];
+            $array[$i] = $array[$j];
+            $array[$j] = $temp;
+        }
+    }
 }

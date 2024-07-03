@@ -39,9 +39,10 @@ class CheckInController extends Controller
     {
         $userID = session()->get('user')['user_id'];
         $checkInAction = $this->checkInService->checkIn($userID);
-        if($checkInAction['success']){
+
+        if ($checkInAction['success']) {
             return redirect()->route('checkin')->with('success', $checkInAction['message']);
-        }else{
+        } else {
             return redirect()->route('checkin')->with('error', $checkInAction['message']);
         }
     }

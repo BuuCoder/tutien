@@ -7,6 +7,7 @@ use App\Services\UserService;
 use Carbon\Carbon;
 use App\Services\LogService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class EloquentCheckInRepository implements CheckInRepositoryInterface
 {
@@ -34,6 +35,7 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
     {
         try {
             DB::beginTransaction();
+
             $createCheckIn = $this->checkInModel->create([
                 'user_id' => $userId,
                 'count_checkin' => 1,
@@ -41,28 +43,38 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
                 'received_gift' => 0,
                 'created_at' => time()
             ]);
+
+            if (!$createCheckIn) {
+                throw new \Exception('Báo danh không thành công (row: 48)');
+            }
+
             $point = 5;
             $updatePoint = $this->userService->updatePoint($userId, $point);
 
-            if(!$updatePoint['success']){
-                throw new \Exception('Cập nhật điểm không thành công __0010');
+            if (!$updatePoint['success']) {
+                throw new \Exception('Cập nhật điểm không thành công (row: 55)');
             }
 
-            if ($createCheckIn) {
-                $this->logService->log($userId, 'check_in', $createCheckIn, "Bạn đã báo danh thành công ngày thứ 1", $point);
-                DB::commit();
-                return [
-                    'success' => true,
-                    'message' => 'Bạn đã báo danh thành công'
-                ];
-            }
+            $this->logService->log($userId, 'check_in', $createCheckIn, "Bạn đã báo danh thành công ngày thứ 1", $point);
+
+            DB::commit();
+
+            return [
+                'success' => true,
+                'message' => 'Bạn đã báo danh thành công'
+            ];
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            Log::error('Error in createCheckIn: ' . $e->getMessage(), [
+                'user_id' => $userId,
+                'exception' => $e
+            ]);
+
             return [
                 'success' => false,
-                'message' => 'Báo danh không thành công.'
+                'message' => 'Có lỗi xảy ra trong quá trình báo danh. Vui lòng thử lại sau.'
             ];
-        }catch(\Exception $e){
-            DB::rollback();
-            throw $e;
         }
     }
 
@@ -70,98 +82,85 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
     {
         try {
             DB::beginTransaction();
+
             $checkIn = $this->getCheckIn($userId);
             $point = 0;
+
             if (!$checkIn) {
                 $createCheckIn = $this->createCheckIn($userId);
+                if (!$createCheckIn['success']) {
+                    DB::rollBack();
+                    Log::error('Error in createCheckIn: ' . $createCheckIn['message'], [
+                        'user_id' => $userId
+                    ]);
+                    return [
+                        'success' => false,
+                        'message' => $createCheckIn['message']
+                    ];
+                }
+                DB::commit();
                 return $createCheckIn;
             }
+
             $beforeCheckinDate = Carbon::createFromFormat('d/m/Y', $checkIn->before_checkin)->startOfDay();
             $today = Carbon::now()->startOfDay();
-            if ($beforeCheckinDate->lt($today)) {
-                if (($checkIn->count_checkin + 1) == 15) {
 
-                    $point = 150;
-                    $updatePoint = $this->userService->updatePoint($userId, $point);
-
-                    if(!$updatePoint['success']){
-                        throw new \Exception('Cập nhật điểm không thành công __0011');
-                    }
-
-                    $checkIn->count_checkin = 15;
-                    $checkIn->before_checkin = Carbon::now()->format('d/m/Y');
-                    $checkIn->save();
-                    $this->logService->log($userId, 'check_in', $checkIn, "Bạn đã báo danh thành công ngày thứ 15", $point);
-                    DB::commit();
-                    return [
-                        'success' => true,
-                        'message' => 'Bạn đã báo danh đầy đủ bạn sẽ nhận được phần thưởng xứng đáng!'
-                    ];
-
-                }
-
-                if ($checkIn->count_checkin == 15) {
-
-                    $point = 5;
-                    $updatePoint = $this->userService->updatePoint($userId, $point);
-                    DB::commit();
-                    if(!$updatePoint['success']){
-                        throw new \Exception('Cập nhật điểm không thành công __0012');
-                    }
-
-                    $checkIn->count_checkin = 1;
-                    $checkIn->before_checkin = Carbon::now()->format('d/m/Y');
-                    $checkIn->save();
-                    $this->logService->log($userId, 'checkin', $checkIn, "Bạn đã báo danh thành công ngày thứ 1", $point);
-                    DB::commit();
-                    return [
-                        'success' => true,
-                        'message' => 'Bạn đã báo danh thành công'
-                    ];
-                }
-                $checkIn->count_checkin = $checkIn->count_checkin + 1;
-
-                switch ($checkIn->count_checkin){
-                    case 11:
-                        $point = 60;
-                        break;
-                    case 12:
-                        $point = 70;
-                        break;
-                    case 13:
-                        $point = 80;
-                        break;
-                    case 14:
-                        $point = 90;
-                        break;
-                    default:
-                        $point = $checkIn->count_checkin * 5;
-                        break;
-                }
-                $updatePoint = $this->userService->updatePoint($userId, $point);
-
-                if(!$updatePoint['success']){
-                    throw new \Exception('Cập nhật điểm không thành công __0010');
-                }
-
-                $checkIn->before_checkin = Carbon::now()->format('d/m/Y');
-                $checkIn->save();
-                $this->logService->log($userId, 'checkin', $checkIn, "Bạn đã báo danh thành công ngày thứ {$checkIn->count_checkin}" , $point);
-                DB::commit();
-                return [
-                    'success' => true,
-                    'message' => 'Bạn đã báo danh thành công'
-                ];
-            } else {
+            if ($beforeCheckinDate->gte($today)) {
                 DB::commit();
                 return [
                     'success' => false,
                     'message' => 'Bạn đã báo danh cho ngày hôm nay rồi'
                 ];
             }
-        }catch(\Exception $e) {
+
+            $checkIn->count_checkin = ($checkIn->count_checkin == 15) ? 1 : $checkIn->count_checkin + 1;
+
+            $point = match ($checkIn->count_checkin) {
+                1 => 5,
+                11 => 60,
+                12 => 70,
+                13 => 80,
+                14 => 90,
+                15 => 150,
+                default => $checkIn->count_checkin * 5,
+            };
+
+            $updatePoint = $this->userService->updatePoint($userId, $point);
+            if (!$updatePoint['success']) {
+                DB::rollBack();
+                Log::error('Error in updatePoint: ' . $updatePoint['message'], [
+                    'user_id' => $userId
+                ]);
+                return [
+                    'success' => false,
+                    'message' => $updatePoint['message']
+                ];
+            }
+
+            $checkIn->before_checkin = Carbon::now()->format('d/m/Y');
+            $checkIn->save();
+
+            $logMessage = ($checkIn->count_checkin == 1) ? "Bạn đã báo danh thành công ngày thứ 1" : "Bạn đã báo danh thành công ngày thứ {$checkIn->count_checkin}";
+            $this->logService->log($userId, 'checkin', $checkIn, $logMessage, $point);
+
+            DB::commit();
+            return [
+                'success' => true,
+                'message' => 'Bạn đã báo danh thành công'
+            ];
+
+        } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+
+            Log::error('Error in updateCheckIn: ' . $e->getMessage(), [
+                'user_id' => $userId,
+                'exception' => $e
+            ]);
+
+            return [
+                'success' => false,
+                'message' => 'Có lỗi xảy ra trong quá trình báo danh. Vui lòng thử lại sau.'
+            ];
         }
     }
 }

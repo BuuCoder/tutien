@@ -46,4 +46,14 @@ class BadgeService
 
         return $transformedBadgeData;
     }
+
+    public function buyBadge($userId, $badgeId)
+    {
+        return $this->badgeRepository->buy($userId, $badgeId);
+    }
+
+    public function sellBadge($userId, $badgeId)
+    {
+        return $this->badgeRepository->sell($userId, $badgeId);
+    }
 }

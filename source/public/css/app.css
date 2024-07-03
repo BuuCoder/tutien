@@ -639,15 +639,14 @@ button.submit img, .btn-google img {
     .duoc_vien .card {
         width: 45%;
     }
+    .banner_practice {
+        margin: 80px 0 0 0;
+    }
 }
 
 @media (max-width: 500px) {
     .container_practice {
         margin-bottom: 20px;
-    }
-
-    .banner_practice {
-        margin: 80px 0 0 0;
     }
 
     .menu_practice ul li {

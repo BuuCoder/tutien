@@ -19,7 +19,7 @@ Route::middleware('Unauthorized')->group(function () {
     Route::get('/login_google/callback', [AuthController::class, 'handleGoogleCallback']);
 });
 
-Route::middleware('Authorization')->group(function () {
+Route::middleware(['Authorization', 'throttle:30,1'])->group(function () {
     Route::get('/bao-danh-hang-ngay', [CheckInController::class, 'index']);
     Route::post('/bao-danh-hang-ngay', [CheckInController::class, 'checkIn'])->name('checkin');
 

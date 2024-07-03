@@ -93,6 +93,27 @@ class EloquentUserRepository implements UserRepositoryInterface
         return false;
     }
 
+    public function getUserInfoById($userId){
+        $user = $this->userModel::where('user_id', $userId)->first();
+        if ($user) {
+            $userInfo = [
+                'user_id' => $user->user_id,
+                'name' => $user->name,
+                'user_name' => $user->user_name,
+                'email' => $user->email,
+                'points' => $user->points,
+                'money' => $user->money,
+                'description' => $user->user_description,
+                'system_id' => $user->system_id,
+                'level_id' => $user->level_id,
+                'item' => json_decode($user->user_item, true),
+                'badge' => json_decode($user->user_badge, true),
+            ];
+            return $userInfo;
+        }
+        return false;
+    }
+
     public function createUserLoginGoogle($data)
     {
         $checkUser = $this->findByEmail($data->email);
@@ -134,10 +155,9 @@ class EloquentUserRepository implements UserRepositoryInterface
         ]);
     }
 
-    public function updateItem($userId, $itemId, $quantity, $point)
+    public function updateItem($userId, $itemId, $quantity, $action)
     {
         try {
-            // Lấy thông tin người dùng từ session
             $user = session()->get('user');
             if ($userId != $user['user_id']) {
                 return [
@@ -146,8 +166,7 @@ class EloquentUserRepository implements UserRepositoryInterface
                 ];
             }
 
-            // Lấy thông tin người dùng từ database
-            $userInfo = $this->userModel->where('user_id', $user['user_id'])->first(['user_id', 'user_name', 'user_item']);
+            $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'user_item']);
             if (!$userInfo) {
                 return [
                     'success' => false,
@@ -155,59 +174,66 @@ class EloquentUserRepository implements UserRepositoryInterface
                 ];
             }
 
-            // Cập nhật vật phẩm của người dùng
             $itemUserOld = $itemUser = json_decode($userInfo->user_item, true);
             if ($itemUser == null) {
                 $itemUser = [$itemId => $quantity];
             } else {
                 if (isset($itemUser[$itemId])) {
-                    $itemUser[$itemId] += $quantity;
+                    if ($action == 'add') {
+                        $itemUser[$itemId] += $quantity;
+                    } elseif ($action == 'minus') {
+                        $itemUser[$itemId] -= $quantity;
+                        if ($itemUser[$itemId] < 0) {
+                            return [
+                                'success' => false,
+                                'message' => 'Số lượng vật phẩm không hợp lệ'
+                            ];
+                        }
+                    }
                 } else {
-                    $itemUser[$itemId] = $quantity;
+                    if ($action == 'add') {
+                        $itemUser[$itemId] = $quantity;
+                    } elseif ($action == 'minus') {
+                        return [
+                            'success' => false,
+                            'message' => 'Người dùng không có vật phẩm này'
+                        ];
+                    }
                 }
             }
 
-            // Cập nhật lại thông tin vật phẩm của người dùng trong database
-            $update = $this->userModel->where('user_id', $user['user_id'])->update([
+            $update = $this->userModel->where('user_id', $userId)->update([
                 'user_item' => json_encode($itemUser)
             ]);
 
             if ($update) {
-                // Ghi log thay đổi vật phẩm
-                $this->logService->log($user['user_id'], 'update_item', [
+                $this->logService->log($userId, 'update_item', [
                     'old_item' => $itemUserOld,
                     'new_item' => $itemUser,
                     'item_change' => [
                         'item_id' => $itemId,
                         'item_quantity' => $quantity
                     ]
-                ], 'Thay đổi vật phẩm thành công');
+                ], 'Thành công');
 
-                // Cập nhật điểm cho người dùng
-                $updatePoint = $this->updatePoint($userId, $point, "add");
-                if ($updatePoint['success']) {
-                    return [
-                        'success' => true,
-                        'message' => 'Cập nhật vật phẩm thành công'
-                    ];
-                } else {
-                    // Nếu cập nhật điểm không thành công, rollback transaction từ hàm gọi
-                    throw new \Exception('Cập nhật điểm không thành công __001');
-                }
-            } else {
-                // Nếu cập nhật vật phẩm không thành công, rollback transaction từ hàm gọi
-                throw new \Exception('Cập nhật vật phẩm không thành công __002');
+                return [
+                    'success' => true,
+                    'message' => 'Cập nhật vật phẩm thành công'
+                ];
             }
-        } catch (\Exception $e) {
-            // Ném ngoại lệ để transaction có thể rollback từ hàm gọi
+
+            return [
+                'success' => false,
+                'message' => 'Cập nhật vật phẩm không thành công'
+            ];
+        }catch(\Exception $e){
             throw $e;
         }
     }
 
-    public function updatePoint($userId, $point, $action = 'add')
+    public function updatePoint($userId, $point, $action)
     {
         try {
-            // Lấy thông tin người dùng từ session
             $user = session()->get('user');
             if ($userId != $user['user_id']) {
                 return [
@@ -216,46 +242,208 @@ class EloquentUserRepository implements UserRepositoryInterface
                 ];
             }
 
-            // Lấy thông tin người dùng từ database
             $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'points']);
             if (!$userInfo) {
-                throw new \Exception('Người dùng không tồn tại __003');
+                return [
+                    'success' => false,
+                    'message' => 'Người dùng không tồn tại'
+                ];
             }
-            if($point == 0){
-                throw new \Exception('Số điểm không hợp lệ __003');
-            }
-            $pointOld = $userInfo['points'];
 
-            // Kiểm tra và cập nhật điểm
+            if ($point <= 0) {
+                return [
+                    'success' => false,
+                    'message' => 'Số tu vi không hợp lệ'
+                ];
+            }
+
+            $pointOld = $userInfo->points;
+
             if ($action === 'add') {
                 $pointNew = $pointOld + $point;
             } else if ($action === 'minus') {
                 $pointNew = $pointOld - $point;
+                if ($pointNew < 0) {
+                    return [
+                        'success' => false,
+                        'message' => 'Số tu vi không thể nhỏ hơn 0'
+                    ];
+                }
             } else {
-                throw new \Exception('Hành động không hợp lệ __004');
+                return [
+                    'success' => false,
+                    'message' => 'Hành động không hợp lệ'
+                ];
             }
 
-            // Cập nhật điểm của người dùng
+            $update = $this->userModel->where('user_id', $userId)->update(['points' => $pointNew]);
+
+            if (!$update) {
+                return [
+                    'success' => false,
+                    'message' => 'Cập nhật tu vi không thành công'
+                ];
+            }
+
+            $logMessage = $action == 'add' ? "Nhận thêm {$point} tu vi" : "Mất đi {$point} tu vi";
+            $this->logService->log($userId, 'update_point', ['pointOld' => $pointOld, 'pointNew' => $pointNew], $logMessage, $point);
+
+            return [
+                'success' => true,
+                'message' => 'Cập nhật tu vi thành công'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function updateMoney($userId, $money, $action)
+    {
+        try {
+            $user = session()->get('user');
+            if ($userId != $user['user_id']) {
+                return [
+                    'success' => false,
+                    'message' => 'Phiên đăng nhập thất bại'
+                ];
+            }
+
+            $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'money']);
+            if (!$userInfo) {
+                return [
+                    'success' => false,
+                    'message' => 'Người dùng không tồn tại'
+                ];
+            }
+            if ($money == 0) {
+                return [
+                    'success' => false,
+                    'message' => 'Số tiên nguyên thạch không hợp lệ'
+                ];
+            }
+            $moneyOld = $userInfo->money;
+
+            if ($action === 'add') {
+                $moneyNew = $moneyOld + $money;
+            } elseif ($action === 'minus') {
+                $moneyNew = $moneyOld - $money;
+                if ($moneyNew < 0) {
+                    return [
+                        'success' => false,
+                        'message' => 'Số tiên nguyên thạch không thể nhỏ hơn 0'
+                    ];
+                }
+            } else {
+                return [
+                    'success' => false,
+                    'message' => 'Hành động không hợp lệ'
+                ];
+            }
+
             $update = $this->userModel->where('user_id', $userId)->update([
-                'points' => $pointNew
+                'money' => $moneyNew
             ]);
 
             if (!$update) {
-                throw new \Exception('Cập nhật điểm không thành công __005');
+                return [
+                    'success' => false,
+                    'message' => 'Cập nhật tiên nguyên thạch không thành công'
+                ];
             }
 
-            // Ghi log thay đổi điểm
-            if ($action == 'add') {
-                $this->logService->log($userId, 'update_point', ['pointOld' => $pointOld, 'pointNew' => $pointNew], "Nhận thêm {$point} tu vi", $point);
-            } else if ($action == 'minus') {
-               $this->logService->log($userId, 'update_point', ['pointOld' => $pointOld, 'pointNew' => $pointNew], "Trừ ra {$point} tu vi", $point);
-            }
+            $logMessage = $action == 'add' ? "Nhận thêm {$money} tiên nguyên thạch" : "Mất đi {$money} tiên nguyên thạch";
+            $this->logService->log($userId, 'update_money', ['moneyOld' => $moneyOld, 'moneyNew' => $moneyNew], $logMessage, $money);
+
             return [
                 'success' => true,
-                'message' => 'Cập nhật điểm thành công'
+                'message' => 'Cập nhật tiên nguyên thạch thành công'
             ];
         } catch (\Exception $e) {
-            throw $e;
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function updateBadge($userId, $badgeId, $action)
+    {
+        try {
+            $user = session()->get('user');
+            if ($userId != $user['user_id']) {
+                return [
+                    'success' => false,
+                    'message' => 'Phiên đăng nhập thất bại'
+                ];
+            }
+
+            $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'user_badge']);
+            if (!$userInfo) {
+                return [
+                    'success' => false,
+                    'message' => 'Người dùng không tồn tại'
+                ];
+            }
+
+            $badgesOld = $badges = json_decode($userInfo->user_badge, true);
+            if ($badges == null) {
+                $badges = [];
+            }
+
+            if ($action === 'add') {
+                if (!in_array($badgeId, $badges)) {
+                    $badges[] = $badgeId;
+                } else {
+                    return [
+                        'success' => false,
+                        'message' => 'Người dùng đã có huy hiệu này'
+                    ];
+                }
+            } elseif ($action === 'remove') {
+                if (in_array($badgeId, $badges)) {
+                    $badges = array_filter($badges, function ($id) use ($badgeId) {
+                        return $id != $badgeId;
+                    });
+                } else {
+                    return [
+                        'success' => false,
+                        'message' => 'Người dùng không có huy hiệu này để xóa'
+                    ];
+                }
+            } else {
+                return [
+                    'success' => false,
+                    'message' => 'Hành động không hợp lệ'
+                ];
+            }
+
+            // Cập nhật badges của người dùng
+            $update = $this->userModel->where('user_id', $userId)->update([
+                'user_badge' => json_encode(array_values($badges))
+            ]);
+
+            if (!$update) {
+                return [
+                    'success' => false,
+                    'message' => 'Cập nhật huy hiệu không thành công'
+                ];
+            }
+
+            $logMessage = $action == 'add' ? "Mua huy hiệu có ID là: {$badgeId}" : "Bán huy hiệu có ID là: {$badgeId}";
+            $this->logService->log($userId, 'update_badge', ['badgesOld' => $badgesOld, 'badgesNew' => $badges], $logMessage, $badgeId);
+
+            return [
+                'success' => true,
+                'message' => 'Cập nhật huy hiệu thành công'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
     }
 }
