@@ -193,7 +193,7 @@
         <div class="item">
             <div class="item-content">
                 @if ($item['item_image'])
-                    <img src="{{ asset('images/'. $item['item_type']. '/' . $item['item_image']) }}" alt="{{ $item['item_name'] }}" title="{{ $item['item_name'] }}">
+                    <img src="{{ asset('images/'. strtolower($item['item_type']). '/' . $item['item_image']) }}" alt="{{ $item['item_name'] }}" title="{{ $item['item_name'] }}">
                 @endif
                 <p class="item-title">{{ $item['item_name'] }}</p>
                 <p class="item-description">{{ $item['item_description'] }}</p>
