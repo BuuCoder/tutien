@@ -2,9 +2,6 @@
 <html lang="en">
 @include('layout.header')
 <style>
-    body {
-        padding: 20px;
-    }
     .container {
         font-family: "Great Vibes", cursive;
         max-width: 100%;
@@ -145,7 +142,6 @@
     .modal-buttons button img{
         width: 100%;
     }
-
 
     @media (max-width: 1190px) {
         .badge, .item {
@@ -345,48 +341,48 @@
                 </li>
             @endif
         </ul>
-
-        <div class="container title" style="margin-top: 80px;">
-            <h1>Thương Hội</h1>
-        </div>
-        <div class="container title">
-            <h2>Huy hiệu</h2>
-        </div>
-        <div class="container">
-            @foreach ($allBadges as $badgeId => $badge)
-                <div class="badge">
-                    <div class="badge-content">
-                        @if ($badge['badge_image'])
-                            <img src="{{ asset('images/badge/'. $badge['badge_type']. '/' . $badge['badge_image']) }}"
-                                 alt="{{ $badge['badge_name'] }}" title="{{ $badge['badge_name'] }}">
-                        @endif
-                        <p class="badge-title">{{ $badge['badge_name'] }}</p>
-                        <p class="badge-description">{{ $badge['badge_description'] }}</p>
-                        <p class="badge-price">
-                            <span>
-                                <img src="{{ asset('/images/gem/bach-ngoc.png') }}" alt="">
-                            </span>
-                            {{ $badge['badge_price'] }}
-                        </p>
-                        <div class="group_button">
-                            @if (in_array($badgeId, $userBadges))
-                                <button class="sell-badge" data-badge-id="{{ $badgeId }}">
-                                    <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
-                                </button>
-                            @else
-                                <button class="buy-badge" data-badge-id="{{ $badgeId }}">
-                                    <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
-                                </button>
+        <div class="" style="padding: 20px">
+            <div class="container title" style="margin-top: 80px;">
+                <h1>Thương Hội</h1>
+            </div>
+            <div class="container title">
+                <h2>Huy hiệu</h2>
+            </div>
+            <div class="container">
+                @foreach ($allBadges as $badgeId => $badge)
+                    <div class="badge">
+                        <div class="badge-content">
+                            @if ($badge['badge_image'])
+                                <img src="{{ asset('images/badge/'. $badge['badge_type']. '/' . $badge['badge_image']) }}"
+                                     alt="{{ $badge['badge_name'] }}" title="{{ $badge['badge_name'] }}">
                             @endif
+                            <p class="badge-title">{{ $badge['badge_name'] }}</p>
+                            <p class="badge-description">{{ $badge['badge_description'] }}</p>
+                            <p class="badge-price">
+                                <span>
+                                    <img src="{{ asset('/images/gem/bach-ngoc.png') }}" alt="">
+                                </span>
+                                {{ $badge['badge_price'] }}
+                            </p>
+                            <div class="group_button">
+                                @if (in_array($badgeId, $userBadges))
+                                    <button class="sell-badge" data-badge-id="{{ $badgeId }}">
+                                        <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                    </button>
+                                @else
+                                    <button class="buy-badge" data-badge-id="{{ $badgeId }}">
+                                        <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
+                                    </button>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
-        <div class="container title">
-            <h2>Vật phẩm</h2>
-        </div>
-        <div class="container">
+                @endforeach
+            </div>
+            <div class="container title">
+                <h2>Vật phẩm</h2>
+            </div>
+            <div class="container">
             @foreach ($allItems as $itemId => $item)
                 <div class="item">
                     <div class="item-content">
@@ -409,7 +405,11 @@
                                 <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
                             </button>
                             @if (isset($userItems[$itemId]) && $userItems[$itemId] > 0)
-                                <button class="sell-item" data-item-id="{{ $itemId }}">
+                                <button class="sell-item" data-item-id="{{ $itemId }}" style="">
+                                    <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                </button>
+                            @else
+                                <button class="sell-item" data-item-id="{{ $itemId }}" style="display:none;">
                                     <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
                                 </button>
                             @endif
@@ -417,6 +417,7 @@
                     </div>
                 </div>
             @endforeach
+        </div>
         </div>
     </div>
 </div>
@@ -443,18 +444,23 @@
             if (response.status === 'success') {
                 showToast('success', response.message);
                 if (element.hasClass('buy-badge')) {
-                    element.removeClass('buy-badge').addClass('sell-badge').text('Bán');
+                    element.removeClass('buy-badge').addClass('sell-badge').find('img').attr('src', '/images/garden/button-thu-hoach.png');
                 } else if (element.hasClass('sell-badge')) {
-                    element.removeClass('sell-badge').addClass('buy-badge').text('Mua ngay');
+                    element.removeClass('sell-badge').addClass('buy-badge').find('img').attr('src', '/images/garden/button-gieo-linh-duoc.png');
                 } else if (element.hasClass('buy-item')) {
                     let quantityElement = element.closest('.item-content').find('.item-quantity');
                     let quantity = parseInt(quantityElement.text()) + 1;
                     quantityElement.text(quantity);
+                    if (quantity === 1) {
+                        element.siblings('.sell-item').show();
+                    }
                 } else if (element.hasClass('sell-item')) {
                     let quantityElement = element.closest('.item-content').find('.item-quantity');
                     let quantity = parseInt(quantityElement.text()) - 1;
+                    quantityElement.text(quantity);
                     if (quantity <= 0) {
-                        element.removeClass('sell-item').addClass('buy-item').text('Mua ngay');
+                        element.hide();
+                        element.siblings('.buy-item').show();
                         quantityElement.text(0);
                     } else {
                         quantityElement.text(quantity);
