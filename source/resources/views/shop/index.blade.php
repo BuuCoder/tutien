@@ -367,11 +367,11 @@
                             <div class="group_button">
                                 @if (in_array($badgeId, $userBadges))
                                     <button class="sell-badge" data-badge-id="{{ $badgeId }}">
-                                        <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                        <img src="{{ asset('/images/components/button-ban.png') }}" alt="">
                                     </button>
                                 @else
                                     <button class="buy-badge" data-badge-id="{{ $badgeId }}">
-                                        <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
+                                        <img src="{{ asset('/images/components/button-mua.png') }}" alt="">
                                     </button>
                                 @endif
                             </div>
@@ -402,15 +402,15 @@
                         <br>
                         <div class="group_button">
                             <button class="buy-item" data-item-id="{{ $itemId }}">
-                                <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
+                                <img src="{{ asset('/images/components/button-mua.png') }}" alt="">
                             </button>
                             @if (isset($userItems[$itemId]) && $userItems[$itemId] > 0)
                                 <button class="sell-item" data-item-id="{{ $itemId }}" style="">
-                                    <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                    <img src="{{ asset('/images/components/button-ban.png') }}" alt="">
                                 </button>
                             @else
                                 <button class="sell-item" data-item-id="{{ $itemId }}" style="display:none;">
-                                    <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                    <img src="{{ asset('/images/components/button-ban.png') }}" alt="">
                                 </button>
                             @endif
                         </div>
@@ -426,8 +426,8 @@
     <div class="modal-content">
         <p id="confirmMessage"></p>
         <div class="modal-buttons">
-            <button id="confirmYes"><img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt=""></button>
-            <button id="confirmNo"><img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt=""></button>
+            <button id="confirmYes"><img src="{{ asset('/images/components/button-dong-y.png') }}" alt=""></button>
+            <button id="confirmNo"><img src="{{ asset('/images/components/button-khong.png') }}" alt=""></button>
         </div>
     </div>
 </div>
@@ -444,9 +444,9 @@
             if (response.status === 'success') {
                 showToast('success', response.message);
                 if (element.hasClass('buy-badge')) {
-                    element.removeClass('buy-badge').addClass('sell-badge').find('img').attr('src', '/images/garden/button-thu-hoach.png');
+                    element.removeClass('buy-badge').addClass('sell-badge').find('img').attr('src', '/images/components/button-ban.png');
                 } else if (element.hasClass('sell-badge')) {
-                    element.removeClass('sell-badge').addClass('buy-badge').find('img').attr('src', '/images/garden/button-gieo-linh-duoc.png');
+                    element.removeClass('sell-badge').addClass('buy-badge').find('img').attr('src', '/images/components/button-mua.png');
                 } else if (element.hasClass('buy-item')) {
                     let quantityElement = element.closest('.item-content').find('.item-quantity');
                     let quantity = parseInt(quantityElement.text()) + 1;
