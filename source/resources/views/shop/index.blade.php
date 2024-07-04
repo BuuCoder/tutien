@@ -90,7 +90,7 @@
         align-items: center;
     }
     .group_button button{
-        width: 80px;
+        width: 120px;
         background: none;
         outline: none;
         border: none;
@@ -136,7 +136,7 @@
     }
 
     .modal-buttons button {
-        max-width: 80px;
+        max-width: 120px;
         background: none;
         border: none;
         outline: none;
