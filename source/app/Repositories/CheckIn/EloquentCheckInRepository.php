@@ -125,7 +125,7 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
                 default => $checkIn->count_checkin * 5,
             };
 
-            $updatePoint = $this->userService->updatePoint($userId, $point);
+            $updatePoint = $this->userService->updatePoint($userId, $point, 'add');
             if (!$updatePoint['success']) {
                 DB::rollBack();
                 Log::error('Error in updatePoint: ' . $updatePoint['message'], [

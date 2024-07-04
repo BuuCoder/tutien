@@ -20,7 +20,7 @@
     <div class="heading_game">
         <ul class="menu_game">
             <li class="item_menu_game">
-                <a href="" title="Thương Hội">
+                <a href="/thuong-hoi" title="Thương Hội">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-thuong-hoi.png') }}"
                          alt="Thương Hội" title="Thương Hội">
@@ -100,7 +100,7 @@
                  alt="Đóng Menu" title="Đóng Menu"
             >
             <li class="item_menu_game">
-                <a href="" title="Thương Hội">
+                <a href="/thuong-hoi" title="Thương Hội">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-thuong-hoi.png') }}"
                          alt="Thương Hội" title="Thương Hội">
@@ -205,22 +205,22 @@
                     <div class="date">
                         <div class="row">
                             @for($i = 1; $i <= 5; $i++)
-                                <div class="date_item @if($countCheckIn >= $i) active @endif">{{ $i }}</div>
+                                <div class="date_item @if($countCheckIn >= $i) active @endif" data-index="{{ $i }}">{{ $i }}</div>
                             @endfor
                         </div>
                         <div class="row">
                             @for($i = 6; $i <= 10; $i++)
-                                <div class="date_item @if($countCheckIn >= $i) active @endif">{{ $i }}</div>
+                                <div class="date_item @if($countCheckIn >= $i) active @endif" data-index="{{ $i }}">{{ $i }}</div>
                             @endfor
                         </div>
                         <div class="row">
                             @for($i = 11; $i <= 15; $i++)
-                                <div class="date_item @if($countCheckIn >= $i) active @endif">{{ $i }}</div>
+                                <div class="date_item @if($countCheckIn >= $i) active @endif" data-index="{{ $i }}">{{ $i }}</div>
                             @endfor
                         </div>
-                        <form class="row" action="{{ route('checkin') }}" method="POST">
+                        <form id="checkin-form" class="row">
                             @csrf
-                            <button class="glow-on-hover" type="submit">
+                            <button class="glow-on-hover" type="button" id="checkin-button">
                                 <img src="{{ asset('images/components/button-bao-danh.png') }}" alt="Báo Danh" title="Báo Danh">
                             </button>
                         </form>
@@ -240,7 +240,39 @@
 <script src="{{ asset("js/jquery-3.7.1.min.js") }}"></script>
 <script src="{{ asset('js/gsap-3.9.1.min.js') }}"></script>
 <script src="{{ asset("js/main.js") }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#checkin-button').on('click', function() {
+            let $button = $(this);
+            $button.attr("disabled", true);
+            $.ajax({
+                url: '/api/v1/diem-danh-hang-ngay',
+                type: 'POST',
+                data: $('#checkin-form').serialize(),
+                success: function(response) {
+                    if (response.status === 'success') {
+                        showToast('success', response.message);
+                        let activeItem = $('.date_item.active').last();
+                        let nextIndex = parseInt(activeItem.data('index')) + 1;
 
+                        if (nextIndex > 15) {
+                            $('.date_item').removeClass('active');
+                            $('.date_item[data-index="1"]').addClass('active');
+                        } else {
+                            $('.date_item[data-index="' + nextIndex + '"]').addClass('active');
+                        }
+                    } else {
+                        showToast('error', response.message);
+                    }
+                    $button.attr("disabled", false);
+                },
+                error: function() {
+                    showToast('error', 'Điểm danh không thành công');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
 

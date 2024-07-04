@@ -42,15 +42,21 @@ class GardenController
     public function grow(Request $request)
     {
         try {
-            $potId = $request->input('potId');
-            $user = session()->get('user');
-            $grow = $this->gardenService->grow($user['user_id'], $potId);
-            if ($grow['success']) {
-                return redirect()->route('garden')->with('success', $grow['message']);
+            if ($request->expectsJson()) {
+                $potId = $request->input('potId');
+                $user = session()->get('user');
+                $grow = $this->gardenService->grow($user['user_id'], $potId);
+                return $grow['success']
+                    ? responseSuccess([], $grow['message'], 200)
+                    : responseError($grow['message'], 400, []);
             }
-            return redirect()->route('garden')->with('error', $grow['message']);
+            return redirect()->route('garden')->with('error', 'Không thể gieo hạt');
         } catch (\Exception $e) {
             Log::error('Gieo hạt thất bại lỗi: ' . $e->getMessage());
+
+            if ($request->expectsJson()) {
+                return responseError('Không thể gieo hạt', 500, []);
+            }
             return redirect()->route('garden')->with('error', 'Không thể gieo hạt');
         }
     }
@@ -58,16 +64,23 @@ class GardenController
     public function harvest(Request $request)
     {
         try {
-            $potId = $request->input('potId');
-            $user = session()->get('user');
-            $harvest = $this->gardenService->harvest($user['user_id'], $potId);
-            if ($harvest['success']) {
-                return redirect()->route('garden')->with('success', $harvest['message']);
+            if ($request->expectsJson()) {
+                $potId = $request->input('potId');
+                $user = session()->get('user');
+                $harvest = $this->gardenService->harvest($user['user_id'], $potId);
+                return $harvest['success']
+                    ? responseSuccess([], $harvest['message'], 200)
+                    : responseError($harvest['message'], 400, []);
             }
-            return redirect()->route('garden')->with('error', $harvest['message']);
+            return redirect()->route('garden')->with('error', 'Không thể thu hoạch');
         } catch (\Exception $e) {
             Log::error('Thu hoạch thất bại lỗi: ' . $e->getMessage());
+
+            if ($request->expectsJson()) {
+                return responseError('Không thể thu hoạch', 500, []);
+            }
             return redirect()->route('garden')->with('error', 'Không thể thu hoạch');
         }
     }
+
 }

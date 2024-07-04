@@ -13,7 +13,7 @@
              alt="Đóng Menu" title="Đóng Menu"
         >
         <li class="item_menu_game">
-            <a href="" title="Thương Hội">
+            <a href="/thuong-hoi" title="Thương Hội">
                 <img loading="lazy"
                      src="{{ asset('images/components/button-thuong-hoi.png') }}"
                      alt="Thương Hội" title="Thương Hội">

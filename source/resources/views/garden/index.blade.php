@@ -20,7 +20,7 @@
     <div class="heading_game">
         <ul class="menu_game">
             <li class="item_menu_game">
-                <a href="" title="Thương Hội">
+                <a href="/thuong-hoi" title="Thương Hội">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-thuong-hoi.png') }}"
                          alt="Thương Hội" title="Thương Hội">
@@ -100,7 +100,7 @@
                  alt="Đóng Menu" title="Đóng Menu"
             >
             <li class="item_menu_game">
-                <a href="" title="Thương Hội">
+                <a href="/thuong-hoi" title="Thương Hội">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-thuong-hoi.png') }}"
                          alt="Thương Hội" title="Thương Hội">
@@ -197,36 +197,46 @@
             <div class="content content_practice">
                 <div class="group_card duoc_vien">
                     @foreach($dataAllPot as $pot)
-                        <div class="card">
+                        <div class="card" id="card-{{ $pot->pot_id }}">
                             <h3>{{ $pot->pot_name }}</h3>
+                            <p id="countdown-{{$pot->pot_id}}" class="countdown">
+                                @if($dataPortUser[$pot->pot_id]->pot_time_start == 0)
+                                    00:00:00
+                                @elseif(($dataPortUser[$pot->pot_id]->pot_time_start + $pot->pot_growth * 3600) > time())
+                                    {{ date('H:i:s', ($pot->pot_growth * 3600 - (time() - $dataPortUser[$pot->pot_id]->pot_time_start))) }}
+                                @else
+                                    00:00:00
+                                @endif
+                            </p>
+
                             @if($dataPortUser[$pot->pot_id]->pot_time_start == 0)
-                                <p>00:00:00</p>
                                 <small>Chưa có linh dược</small>
                                 <img class="chaucay" src="{{ asset('/images/garden/chau-hoa-cuong.png') }}" alt="">
-                                <form action="{{ route('grow') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
-                                    <button type="submit">
-                                        <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
-                                    </button>
-                                </form>
                             @elseif(($dataPortUser[$pot->pot_id]->pot_time_start + $pot->pot_growth * 3600) > time())
-                                <p id="{{$pot->pot_id}}" class="countdown">{{ date('H:i:s', ($pot->pot_growth * 3600 - (time() - $dataPortUser[$pot->pot_id]->pot_time_start))) }}</p>
                                 <small>Linh dược đang phát triển</small>
                                 <img class="chaucay" src="{{ asset('/images/garden/hoa-dang-phat-trien.png') }}" alt="">
-                                <div style="min-height: 50px"></div>
                             @else
-                                <p>00:00:00</p>
                                 <small>Linh dược trưởng thành</small>
                                 <img class="chaucay" src="{{ asset('/images/garden/hoa.png') }}" alt="">
-                                <form action="{{ route('harvest') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
-                                    <button type="submit">
-                                        <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
-                                    </button>
-                                </form>
                             @endif
+
+                            <form id="grow-form-{{ $pot->pot_id }}" class="grow-form" style="{{ $dataPortUser[$pot->pot_id]->pot_time_start != 0 ? 'display:none;' : '' }}">
+                                @csrf
+                                <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
+                                <button type="button" class="grow-button" data-pot-id="{{ $pot->pot_id }}">
+                                    <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
+                                </button>
+                            </form>
+
+                            <form id="harvest-form-{{ $pot->pot_id }}" class="harvest-form" style="{{ ($dataPortUser[$pot->pot_id]->pot_time_start == 0 || ($dataPortUser[$pot->pot_id]->pot_time_start + $pot->pot_growth * 3600) > time()) ? 'display:none;' : '' }}">
+                                @csrf
+                                <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
+                                <button type="button" class="harvest-button" data-pot-id="{{ $pot->pot_id }}">
+                                    <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                </button>
+                            </form>
+
+                            <input type="hidden" class="pot-growth" value="{{ $pot->pot_growth }}">
                         </div>
                     @endforeach
                 </div>
@@ -246,21 +256,22 @@
         const $countdownElements = $('.countdown');
 
         $countdownElements.each(function() {
-            startCountdown($(this));
+            const timeText = $(this).text();
+            if (timeText.trim() !== '00:00:00') {
+                startCountdown($(this));
+            }
         });
 
         function startCountdown($element) {
             let timeRemaining = parseTime($element.text());
-            console.log($element.text());
 
-            // Cập nhật ngay lập tức
             updateCountdown($element, timeRemaining);
 
             const interval = setInterval(function() {
                 timeRemaining--;
                 updateCountdown($element, timeRemaining);
 
-                if (timeRemaining < 0) {
+                if (timeRemaining <= 0) {
                     clearInterval(interval);
                     $element.text('00:00:00');
                     performAction($element);
@@ -284,16 +295,72 @@
         }
 
         function performAction($element) {
-            const formId = `form#form-${$element.attr('id')}`;
-            const $formElement = $(formId);
-
-            if ($formElement.length) {
-                $formElement.show();
-            } else {
-                console.error(`Không tìm thấy form với id ${$element.attr('id')}`);
-            }
+            const potId = $element.attr('id').split('-')[1];
+            $(`#harvest-form-${potId}`).show();
+            $(`#card-${potId} small`).text('Linh dược trưởng thành');
+            $(`#card-${potId} .chaucay`).attr('src', '/images/garden/hoa.png');
         }
+
+        $('.grow-button').on('click', function() {
+            const potId = $(this).data('pot-id');
+            const potGrowth = $(`#card-${potId} .pot-growth`).val();
+            $.ajax({
+                url: '/api/v1/gieo-linh-duoc',
+                type: 'POST',
+                data: $(`#grow-form-${potId}`).serialize(),
+                success: function(response) {
+                    if (response.status === 'success') {
+                        showToast('success', response.message);
+                        $(`#grow-form-${potId}`).hide();
+                        const timeGrowth = formatTime(potGrowth * 3600);
+                        const $countdownElement = $(`#countdown-${potId}`);
+                        $countdownElement.text(timeGrowth);
+                        if (timeGrowth !== '00:00:00') {
+                            startCountdown($countdownElement);
+                        }
+                        $(`#card-${potId} small`).text('Linh dược đang phát triển');
+                        $(`#card-${potId} .chaucay`).attr('src', '/images/garden/hoa-dang-phat-trien.png');
+                    } else {
+                        showToast('error', response.message);
+                    }
+                },
+                error: function() {
+                    showToast('error', 'Gieo hạt không thành công');
+                }
+            });
+        });
+
+        $('.harvest-button').on('click', function() {
+            const potId = $(this).data('pot-id');
+            $.ajax({
+                url: '/api/v1/thu-hoach',
+                type: 'POST',
+                data: $(`#harvest-form-${potId}`).serialize(),
+                success: function(response) {
+                    if (response.status === "success") {
+                        showToast('success', response.message);
+                        $(`#harvest-form-${potId}`).hide();
+                        $(`#grow-form-${potId}`).show();
+                        $(`#countdown-${potId}`).text('00:00:00');
+                        $(`#card-${potId} small`).text('Chưa có linh dược');
+                        $(`#card-${potId} .chaucay`).attr('src', '/images/garden/chau-hoa-cuong.png');
+                    } else {
+                        showToast('error', response.message);
+                    }
+                },
+                error: function() {
+                    showToast('error', 'Thu hoạch không thành công');
+                }
+            });
+        });
     });
+
+    function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
 </script>
 </body>
 </html>

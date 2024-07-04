@@ -48,8 +48,8 @@ class ShopController
             $result = $this->badgeService->buyBadge($user['user_id'], $badgeId);
 
             return $result['success']
-                ? responseSuccess([], $result['message'], 200, $isApi)
-                : responseError($result['message'], 500, [], $isApi);
+                ? responseSuccess([], $result['message'], 200)
+                : responseError($result['message'], 500, []);
         } catch (\Exception $e) {
             return responseError('Có lỗi xảy ra trong quá trình mua huy hiệu. Vui lòng thử lại sau.', 500, [], $isApi);
         }
@@ -65,8 +65,8 @@ class ShopController
             $result = $this->badgeService->sellBadge($user['user_id'], $badgeId);
 
             return $result['success']
-                ? responseSuccess([], $result['message'], 200, $isApi)
-                : responseError($result['message'], 500, [], $isApi);
+                ? responseSuccess([], $result['message'], 200)
+                : responseError($result['message'], 500, []);
         } catch (\Exception $e) {
             return responseError('Có lỗi xảy ra trong quá trình bán huy hiệu. Vui lòng thử lại sau.', 500, [], $isApi);
         }
@@ -82,8 +82,8 @@ class ShopController
             $result = $this->itemService->buyItem($user['user_id'], $itemId);
 
             return $result['success']
-                ? responseSuccess([], $result['message'], 200, $isApi)
-                : responseError($result['message'], 500, [], $isApi);
+                ? responseSuccess([], $result['message'], 200)
+                : responseError($result['message'], 500, []);
         } catch (\Exception $e) {
             return responseError('Có lỗi xảy ra trong quá trình mua vật phẩm. Vui lòng thử lại sau.', 500, [], $isApi);
         }
@@ -99,8 +99,8 @@ class ShopController
             $result = $this->itemService->sellItem($user['user_id'], $itemId);
 
             return $result['success']
-                ? responseSuccess([], $result['message'], 200, $isApi)
-                : responseError($result['message'], 500, [], $isApi);
+                ? responseSuccess([], $result['message'], 200)
+                : responseError($result['message'], 500, []);
         } catch (\Exception $e) {
             return responseError('Có lỗi xảy ra trong quá trình bán vật phẩm. Vui lòng thử lại sau.', 500, [], $isApi);
         }

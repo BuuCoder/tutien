@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\CheckInService;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class CheckInController extends Controller
 {
@@ -35,15 +36,16 @@ class CheckInController extends Controller
         ]);
     }
 
-    public function checkIn()
+    public function checkIn(Request $request)
     {
-        $userID = session()->get('user')['user_id'];
-        $checkInAction = $this->checkInService->checkIn($userID);
-
-        if ($checkInAction['success']) {
-            return redirect()->route('checkin')->with('success', $checkInAction['message']);
+        if ($request->expectsJson()) {
+            $userID = session()->get('user')['user_id'];
+            $checkInAction = $this->checkInService->checkIn($userID);
+            return $checkInAction['success']
+                ? responseSuccess([], $checkInAction['message'], 200)
+                : responseError($checkInAction['message'], 500, []);
         } else {
-            return redirect()->route('checkin')->with('error', $checkInAction['message']);
+            return redirect()->route('checkin')->with('error', 'Điểm danh không thành công!');
         }
     }
 }

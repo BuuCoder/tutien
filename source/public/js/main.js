@@ -6,7 +6,6 @@ $(document).ready(function () {
     const $backgroundMusic = $('#backgroundMusic')[0];
     const $openMusicImg = $('.open-music');
     const $offMusicImg = $('.off-music');
-    const $toastPanel = $('.toast-panel');
 
     $buttonOpen.on('click', function () {
         $menuGameMobile.addClass('show_menu_mobile');
@@ -30,14 +29,6 @@ $(document).ready(function () {
         }
     });
 
-    setTimeout(function () {
-        $toastPanel.hide();
-    }, 5000);
-
-    $(document).on('click', '.close', function () {
-        $toastPanel.hide();
-    });
-
     var mouse = {x: 0, y: 0};
     var $dot = $('#dot');
     var $ball = $('#ball');
@@ -52,4 +43,38 @@ $(document).ready(function () {
         gsap.to($dot, {x: mouse.x, y: mouse.y, duration: 0.05});
         gsap.to($ball, {x: mouse.x, y: mouse.y, duration: 0.2});
     });
+
+    window.showToast = function(type, message) {
+        let toastHtml = `<div class="toast-item ${type}">
+            <div class="toast ${type}">
+                <label for="t-${type}" class="close"></label>
+                <h3>${type === 'success' ? 'Thành công!' : 'Không thành công!'}</h3>
+                <p>${message}</p>
+            </div>
+        </div>`;
+
+        let $toast = $(toastHtml);
+        $('.toast-panel').append($toast);
+        $toast.find('.toast').fadeIn();
+
+        setTimeout(() => {
+            $toast.fadeOut(() => {
+                $toast.remove();
+            });
+        }, 3000);
+
+        $toast.find('.close').on('click', function() {
+            $toast.fadeOut(() => {
+                $toast.remove();
+            });
+        });
+    }
+
+    if ($('.toast-panel .toast-item').length > 0) {
+        setTimeout(() => {
+            $('.toast-panel .toast-item').fadeOut(() => {
+                $(this).remove();
+            });
+        }, 3000);
+    }
 });

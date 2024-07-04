@@ -12,33 +12,25 @@ if (! function_exists('currentController')) {
 }
 
 if (!function_exists('responseSuccess')) {
-    function responseSuccess($data = [], $message = 'Success', $code = 200, $isApi = 'false')
+    function responseSuccess($data = [], $message = 'Success', $code = 200)
     {
-        if ($isApi) {
-            return response()->json([
-                'code' => $code,
-                'status' => 'success',
-                'message' => $message,
-                'data' => $data,
-            ], $code);
-        } else {
-            return view('success', ['message' => $message, 'data' => $data]);
-        }
+        return response()->json([
+            'code' => $code,
+            'status' => 'success',
+            'message' => $message,
+            'data' => $data,
+        ]);
     }
 }
 
 if (!function_exists('responseError')) {
-    function responseError($message = 'Error', $code = 500, $data = [], $isApi = 'false')
+    function responseError($message = 'Error', $code = 500, $data = [])
     {
-        if ($isApi) {
-            return response()->json([
-                'code' => $code,
-                'status' => 'fail',
-                'message' => $message,
-                'data' => $data,
-            ], $code);
-        } else {
-            return view('error', ['message' => $message, 'data' => $data]);
-        }
+        return response()->json([
+            'code' => $code,
+            'status' => 'fail',
+            'message' => $message,
+            'data' => $data,
+        ]);
     }
 }
