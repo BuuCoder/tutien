@@ -91,6 +91,7 @@
         background: none;
         outline: none;
         border: none;
+        cursor: pointer;
     }
     .group_button button img{
         max-width: 100%;
@@ -106,23 +107,38 @@
         z-index: 10;
     }
 
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10;
+    }
+
     .modal {
-        width: 50%;
+        width: 80%;
+        max-width: 400px;
         display: none;
         position: fixed;
         top: 50%;
         left: 50%;
         font-family: "Great Vibes", cursive;
         transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.7);
+        background: url('/images/background/background_thong_bao.jpg');
+        background-size: cover;
+        background-position: center;
         padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
         z-index: 20;
         border-radius: 5px;
     }
 
     .modal-content {
         text-align: center;
+        font-size: 20px;
+        color: #fff;
     }
 
     .modal-buttons {
@@ -186,7 +202,7 @@
 <div class="wrapper_game">
     <div class="heading_game">
         <ul class="menu_game">
-            <li class="item_menu_game">
+            <li class="item_menu_game active">
                 <a href="/thuong-hoi" title="Thương Hội">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-thuong-hoi.png') }}"
@@ -198,7 +214,7 @@
                          alt="Thương Hội" title="Thương Hội">
                 </a>
             </li>
-            <li class="item_menu_game active">
+            <li class="item_menu_game">
                 <a href="/bao-danh-hang-ngay" title="Tu Luyện">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-tu-luyen.png') }}"
@@ -266,7 +282,7 @@
                  src="{{ asset('images/components/button-close.png') }}"
                  alt="Đóng Menu" title="Đóng Menu"
             >
-            <li class="item_menu_game">
+            <li class="item_menu_game active">
                 <a href="/thuong-hoi" title="Thương Hội">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-thuong-hoi.png') }}"
@@ -278,7 +294,7 @@
                          alt="Thương Hội" title="Thương Hội">
                 </a>
             </li>
-            <li class="item_menu_game active">
+            <li class="item_menu_game">
                 <a href="/bao-danh-hang-ngay" title="Tu Luyện">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-tu-luyen.png') }}"

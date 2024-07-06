@@ -198,6 +198,13 @@
                                  alt="Dược Viên" title="Dược Viên">
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('mine_cave') }}">
+                            <img src="{{ asset('/images/components/button-linh-son.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-linh-son-active.png') }}"
+                                 alt="">
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="content content_checkin">

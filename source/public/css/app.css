@@ -561,7 +561,7 @@ button.submit img, .btn-google img {
     justify-content: space-between;
 }
 
-.duoc_vien .card {
+.garden .card {
     width: 30%;
     margin: 10px;
     padding: 10px;
@@ -577,21 +577,21 @@ button.submit img, .btn-google img {
     color: white;
 }
 
-.duoc_vien .card h3 {
+.garden .card h3 {
 }
 
-.duoc_vien .card img.chaucay {
+.garden .card img.chaucay {
     width: 100px;
 }
 
-.duoc_vien .card button {
+.garden .card button {
     background: none;
     border: none;
     width: 150px;
     cursor: pointer;
 }
 
-.duoc_vien .card button img {
+.garden .card button img {
     width: 100%;
 }
 
@@ -636,7 +636,7 @@ button.submit img, .btn-google img {
 }
 
 @media (max-width: 768px) {
-    .duoc_vien .card {
+    .garden .card {
         width: 45%;
     }
     .banner_practice {
@@ -648,9 +648,16 @@ button.submit img, .btn-google img {
     .container_practice {
         margin-bottom: 20px;
     }
-
+    .menu_practice ul{
+        max-width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+    .menu_practice ul::-webkit-scrollbar {
+        width: 0;
+    }
     .menu_practice ul li {
-        width: 50%;
+        min-width: 180px;
         padding: 5px;
     }
     .menu_practice ul li:hover {
@@ -660,31 +667,31 @@ button.submit img, .btn-google img {
         justify-content: space-around;
         gap: 15px 0;
     }
-    .duoc_vien .card {
+    .garden .card {
         padding: 5px;
         margin: 0;
         min-height: 170px;
         gap: 5px;
     }
 
-    .duoc_vien .card h3 {
+    .garden .card h3 {
         font-size: 12px;
     }
 
-    .duoc_vien p{
+    .garden p{
         font-size: 10px;
     }
 
-    .duoc_vien .card small{
+    .garden .card small{
         font-size: 10px;
         text-align: center;
     }
 
-    .duoc_vien .card img.chaucay {
+    .garden .card img.chaucay {
         width: 40px;
     }
 
-    .duoc_vien .card button {
+    .garden .card button {
         width: 100px;
     }
 }
