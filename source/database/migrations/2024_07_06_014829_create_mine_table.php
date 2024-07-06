@@ -10,7 +10,7 @@ class CreateMineTable extends Migration
         Schema::create('mine', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->timestamp('mined_at');
+            $table->integer('mined_at');
         });
     }
 
