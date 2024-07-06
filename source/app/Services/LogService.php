@@ -29,7 +29,8 @@ class LogService
         $accept_action = [
             'garden_harvest',
             'check_in',
-            'update_point'
+            'update_point',
+            'mine'
         ];
 
         $startDate = Carbon::now()->subDays(1)->startOfDay()->timestamp;

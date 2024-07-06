@@ -10,6 +10,8 @@ use App\Repositories\Garden\EloquentGardenRepository;
 use App\Repositories\Garden\GardenRepositoryInterface;
 use App\Repositories\Item\EloquentItemRepository;
 use App\Repositories\Item\ItemRepositoryInterface;
+use App\Repositories\Mine\EloquentMineRepository;
+use App\Repositories\Mine\MineRepositoryInterface;
 use App\Repositories\Rank\EloquentRankRepository;
 use App\Repositories\Rank\RankRepositoryInterface;
 use App\Repositories\System\EloquentSystemRepository;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BadgeRepositoryInterface::class, EloquentBadgeRepository::class);
         $this->app->bind(SystemRepositoryInterface::class, EloquentSystemRepository::class);
         $this->app->bind(RankRepositoryInterface::class, EloquentRankRepository::class);
+        $this->app->bind(MineRepositoryInterface::class, EloquentMineRepository::class);
     }
 
     /**
