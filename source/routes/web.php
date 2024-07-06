@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckInController;
 use \App\Http\Controllers\GardenController;
 use \App\Http\Controllers\ShopController;
 use \App\Http\Controllers\AccountController;
+use \App\Http\Controllers\MineController;
 
 
 Route::get('', [HomeController::class, 'index'])->name('welcome');
@@ -32,5 +33,7 @@ Route::middleware(['Authorization', 'throttle:40,1'])->group(function () {
     Route::get('/tai-khoan', [AccountController::class, 'index'])->name('account');
 
     Route::get('/dang-xuat', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/mo-nguyen-thach', [MineController::class, 'index'])->name('mine_cave');
 
 });
