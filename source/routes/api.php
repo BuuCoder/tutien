@@ -4,6 +4,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\GardenController;
 use \App\Http\Controllers\MineController;
+use \App\Http\Controllers\CraftPotionController;
 
 /*
  * throttle:20,1 (accepted 20 request API in 1 min)
@@ -22,4 +23,5 @@ Route::middleware(['Authorization', 'throttle:20,1'])->prefix('v1')->group(funct
 
     Route::post('/khai-thac-nguyen-thach', [MineController::class, 'mine'])->name('mine');
 
+    Route::post('/luyen-dan-duoc', [CraftPotionController::class, 'craft'])->name('craft-potion.craft');
 });

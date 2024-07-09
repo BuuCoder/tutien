@@ -99,7 +99,17 @@ class EloquentGardenRepository implements GardenRepositoryInterface
                 'message' => 'Gieo hạt thất bại'
             ];
         } catch (\Exception $e) {
-            throw $e;
+            DB::rollBack();
+            Log::error('Lỗi khi gieo hạt: ' . $e->getMessage(), [
+                'user_id' => $userId,
+                'pot_id' => $potId,
+                'exception' => $e
+            ]);
+
+            return [
+                'success' => false,
+                'message' => 'Có lỗi xảy ra trong quá trình gieo hạt. Vui lòng thử lại sau.'
+            ];
         }
     }
 

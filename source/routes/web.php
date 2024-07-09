@@ -8,6 +8,7 @@ use \App\Http\Controllers\GardenController;
 use \App\Http\Controllers\ShopController;
 use \App\Http\Controllers\AccountController;
 use \App\Http\Controllers\MineController;
+use App\Http\Controllers\CraftPotionController;
 
 
 Route::get('', [HomeController::class, 'index'])->name('welcome');
@@ -35,5 +36,7 @@ Route::middleware(['Authorization', 'throttle:40,1'])->group(function () {
     Route::get('/dang-xuat', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/mo-nguyen-thach', [MineController::class, 'index'])->name('mine_cave');
+
+    Route::get('/phong-luyen-dan', [CraftPotionController::class, 'index'])->name('craft-potion.index');
 
 });
