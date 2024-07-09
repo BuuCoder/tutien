@@ -16,4 +16,5 @@ interface UserRepositoryInterface
     public function updatePoint($userId, $point, $action);
     public function updateMoney($userId, $point, $action);
     public function updateBadge($userId, $point, $action);
+    public function updatePotion($userId, $itemId, $quantity, $action);
 }

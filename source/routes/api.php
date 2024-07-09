@@ -23,5 +23,6 @@ Route::middleware(['Authorization', 'throttle:20,1'])->prefix('v1')->group(funct
 
     Route::post('/khai-thac-nguyen-thach', [MineController::class, 'mine'])->name('mine');
 
-    Route::post('/luyen-dan-duoc', [CraftPotionController::class, 'craft'])->name('craft-potion.craft');
+    Route::post('/luyen-dan-duoc', [CraftPotionController::class, 'craft'])->name('craft_potion.craft');
+    Route::post('/nhan-dan-duoc', [CraftPotionController::class, 'collect'])->name('craft_potion.collect');
 });

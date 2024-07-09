@@ -37,6 +37,6 @@ Route::middleware(['Authorization', 'throttle:40,1'])->group(function () {
 
     Route::get('/mo-nguyen-thach', [MineController::class, 'index'])->name('mine_cave');
 
-    Route::get('/phong-luyen-dan', [CraftPotionController::class, 'index'])->name('craft-potion.index');
+    Route::get('/phong-luyen-dan', [CraftPotionController::class, 'index'])->name('craft_potion');
 
 });

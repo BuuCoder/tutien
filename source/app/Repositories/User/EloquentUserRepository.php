@@ -446,4 +446,80 @@ class EloquentUserRepository implements UserRepositoryInterface
             ];
         }
     }
+
+    public function updatePotion($userId, $potionId, $quantity, $action)
+    {
+        try {
+            $user = session()->get('user');
+            if ($userId != $user['user_id']) {
+                return [
+                    'success' => false,
+                    'message' => 'Phiên đăng nhập thất bại'
+                ];
+            }
+
+            $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'user_potion']);
+            if (!$userInfo) {
+                return [
+                    'success' => false,
+                    'message' => 'Người dùng không tồn tại'
+                ];
+            }
+
+            $potionUserOld = $potionUser = json_decode($userInfo->user_potion, true);
+            if ($potionUser == null) {
+                $potionUser = [$potionId => $quantity];
+            } else {
+                if (isset($potionUser[$potionId])) {
+                    if ($action == 'add') {
+                        $potionUser[$potionId] += $quantity;
+                    } elseif ($action == 'minus') {
+                        $potionUser[$potionId] -= $quantity;
+                        if ($potionUser[$potionId] < 0) {
+                            return [
+                                'success' => false,
+                                'message' => 'Số lượng đan dược không hợp lệ'
+                            ];
+                        }
+                    }
+                } else {
+                    if ($action == 'add') {
+                        $potionUser[$potionId] = $quantity;
+                    } elseif ($action == 'minus') {
+                        return [
+                            'success' => false,
+                            'message' => 'Người dùng không có đan dược này'
+                        ];
+                    }
+                }
+            }
+
+            $update = $this->userModel->where('user_id', $userId)->update([
+                'user_potion' => json_encode($potionUser)
+            ]);
+
+            if ($update) {
+                $this->logService->log($userId, 'update_potion', [
+                    'old_potion' => $potionUserOld,
+                    'new_potion' => $potionUser,
+                    'potion_change' => [
+                        'potion_id' => $potionId,
+                        'potion_quantity' => $quantity
+                    ]
+                ], 'Thành công');
+
+                return [
+                    'success' => true,
+                    'message' => 'Cập nhật đan dược thành công'
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Cập nhật đan dược không thành công'
+            ];
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

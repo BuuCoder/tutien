@@ -22,9 +22,9 @@ class CraftPotionService
         $this->alchemyFurnaceRepository = $alchemyFurnaceRepository;
     }
 
-    public function craftPotion(array $data)
+    public function craftPotion($userId, $potionId, $furnaceId)
     {
-        // Logic for crafting potion
+        return $this->craftPotionRepository->craftPotion($userId, $potionId, $furnaceId);
     }
 
     public function getUserPotions($userId)
@@ -34,11 +34,16 @@ class CraftPotionService
         foreach ($userPotions as $userPotion) {
             $result[$userPotion['furnace_id']] = [
                 'potion_name' => $userPotion['potion']['name'],
-                'created_at' => strtotime($userPotion['created_at']),
+                'created_at' => $userPotion['created_at'],
                 'crafting_time' => $userPotion['crafting_time'],
             ];
         }
 
         return $result;
+    }
+
+    public function collectPotion($userId, $furnaceId)
+    {
+        return $this->craftPotionRepository->collectPotion($userId, $furnaceId);
     }
 }

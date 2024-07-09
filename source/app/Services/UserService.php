@@ -59,5 +59,9 @@ class UserService
     public function updateBadge($userId, $badgeId, $action){
         return $this->userRepository->updateBadge($userId, $badgeId, $action);
     }
+
+    public function updatePotion($userId, $itemId, $quantity, $action){
+       return $this->userRepository->updatePotion($userId, $itemId, $quantity, $action);
+    }
 }
 
