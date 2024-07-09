@@ -192,10 +192,17 @@
                             <img class="active" src="{{ asset('/images/components/button-duoc-vien-active.png') }}" alt="">
                         </a>
                     </li>
+                    <li class="">
+                        <a href="{{route('mine_cave')}}">
+                            <img src="{{ asset('/images/components/button-linh-son.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-linh-son-active.png') }}"
+                                 alt="">
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="content content_practice">
-                <div class="group_card duoc_vien">
+                <div class="group_card garden">
                     @foreach($dataAllPot as $pot)
                         <div class="card" id="card-{{ $pot->pot_id }}">
                             <h3>{{ $pot->pot_name }}</h3>

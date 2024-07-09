@@ -49,7 +49,7 @@ class EloquentCheckInRepository implements CheckInRepositoryInterface
             }
 
             $point = 5;
-            $updatePoint = $this->userService->updatePoint($userId, $point);
+            $updatePoint = $this->userService->updatePoint($userId, $point, 'add');
 
             if (!$updatePoint['success']) {
                 throw new \Exception('Cập nhật điểm không thành công (row: 55)');

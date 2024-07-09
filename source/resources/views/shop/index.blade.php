@@ -91,6 +91,7 @@
         background: none;
         outline: none;
         border: none;
+        cursor: pointer;
     }
     .group_button button img{
         max-width: 100%;
@@ -106,23 +107,38 @@
         z-index: 10;
     }
 
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10;
+    }
+
     .modal {
-        width: 50%;
+        width: 80%;
+        max-width: 400px;
         display: none;
         position: fixed;
         top: 50%;
         left: 50%;
         font-family: "Great Vibes", cursive;
         transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.7);
+        background: url('/images/background/background_thong_bao.jpg');
+        background-size: cover;
+        background-position: center;
         padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
         z-index: 20;
         border-radius: 5px;
     }
 
     .modal-content {
         text-align: center;
+        font-size: 20px;
+        color: #fff;
     }
 
     .modal-buttons {
@@ -186,7 +202,7 @@
 <div class="wrapper_game">
     <div class="heading_game">
         <ul class="menu_game">
-            <li class="item_menu_game">
+            <li class="item_menu_game active">
                 <a href="/thuong-hoi" title="Thương Hội">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-thuong-hoi.png') }}"
@@ -198,7 +214,7 @@
                          alt="Thương Hội" title="Thương Hội">
                 </a>
             </li>
-            <li class="item_menu_game active">
+            <li class="item_menu_game">
                 <a href="/bao-danh-hang-ngay" title="Tu Luyện">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-tu-luyen.png') }}"
@@ -266,7 +282,7 @@
                  src="{{ asset('images/components/button-close.png') }}"
                  alt="Đóng Menu" title="Đóng Menu"
             >
-            <li class="item_menu_game">
+            <li class="item_menu_game active">
                 <a href="/thuong-hoi" title="Thương Hội">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-thuong-hoi.png') }}"
@@ -278,7 +294,7 @@
                          alt="Thương Hội" title="Thương Hội">
                 </a>
             </li>
-            <li class="item_menu_game active">
+            <li class="item_menu_game">
                 <a href="/bao-danh-hang-ngay" title="Tu Luyện">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-tu-luyen.png') }}"
@@ -367,11 +383,11 @@
                             <div class="group_button">
                                 @if (in_array($badgeId, $userBadges))
                                     <button class="sell-badge" data-badge-id="{{ $badgeId }}">
-                                        <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                        <img src="{{ asset('/images/components/button-ban.png') }}" alt="">
                                     </button>
                                 @else
                                     <button class="buy-badge" data-badge-id="{{ $badgeId }}">
-                                        <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
+                                        <img src="{{ asset('/images/components/button-mua.png') }}" alt="">
                                     </button>
                                 @endif
                             </div>
@@ -402,15 +418,15 @@
                         <br>
                         <div class="group_button">
                             <button class="buy-item" data-item-id="{{ $itemId }}">
-                                <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
+                                <img src="{{ asset('/images/components/button-mua.png') }}" alt="">
                             </button>
                             @if (isset($userItems[$itemId]) && $userItems[$itemId] > 0)
                                 <button class="sell-item" data-item-id="{{ $itemId }}" style="">
-                                    <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                    <img src="{{ asset('/images/components/button-ban.png') }}" alt="">
                                 </button>
                             @else
                                 <button class="sell-item" data-item-id="{{ $itemId }}" style="display:none;">
-                                    <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                    <img src="{{ asset('/images/components/button-ban.png') }}" alt="">
                                 </button>
                             @endif
                         </div>
@@ -426,8 +442,8 @@
     <div class="modal-content">
         <p id="confirmMessage"></p>
         <div class="modal-buttons">
-            <button id="confirmYes"><img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt=""></button>
-            <button id="confirmNo"><img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt=""></button>
+            <button id="confirmYes"><img src="{{ asset('/images/components/button-dong-y.png') }}" alt=""></button>
+            <button id="confirmNo"><img src="{{ asset('/images/components/button-khong.png') }}" alt=""></button>
         </div>
     </div>
 </div>
@@ -444,9 +460,9 @@
             if (response.status === 'success') {
                 showToast('success', response.message);
                 if (element.hasClass('buy-badge')) {
-                    element.removeClass('buy-badge').addClass('sell-badge').find('img').attr('src', '/images/garden/button-thu-hoach.png');
+                    element.removeClass('buy-badge').addClass('sell-badge').find('img').attr('src', '/images/components/button-ban.png');
                 } else if (element.hasClass('sell-badge')) {
-                    element.removeClass('sell-badge').addClass('buy-badge').find('img').attr('src', '/images/garden/button-gieo-linh-duoc.png');
+                    element.removeClass('sell-badge').addClass('buy-badge').find('img').attr('src', '/images/components/button-mua.png');
                 } else if (element.hasClass('buy-item')) {
                     let quantityElement = element.closest('.item-content').find('.item-quantity');
                     let quantity = parseInt(quantityElement.text()) + 1;

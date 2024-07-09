@@ -3,62 +3,71 @@
 @include('layout.header')
 <body>
 <style>
-    /* Overlay */
-    .overlay {
-        position: fixed;
-        top: 0;
+    body::after {
+        /*background: url('/images/background/background_phong_canh_10.jpg');*/
+        background-size: cover;
+        background-position: center;
+    }
+
+    .content_mine {
+        background: rgba(0, 0, 0, 0.8);
+        min-height: 60vh;
+        position: relative;
+        z-index: 0;
+    }
+
+    .content_mine::after {
+        content: '';
+        position: absolute;
         left: 0;
-        transform: translate(calc(50vw - 50%));
-        width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: none;
+        width: 100%;
+        background: url('/images/background/background_phong_canh_11.jpg');
+        background-size: cover;
+        background-position: top center;
+        z-index: -1;
+    }
+
+    .content_mine {
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        z-index: 11;
+        gap: 20px;
     }
 
-    /* Popup */
-    .popup {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        max-width: 650px;
-        width: 80%;
+    .content_mine img {
+        width: 90%;
+        color: #fff;
+        font-size: 40px;
     }
 
-    /* Heading */
-    .popup h3 {
-        margin-top: 0;
-        margin-bottom: 20px;
+    .content_mine .countdown {
+        font-size: 30px;
+        color: #fff;
     }
 
-    /* Buttons */
-    .popup button {
-        padding: 10px 20px;
-        margin: 10px;
+    .content_mine button {
+        width: 180px;
         border: none;
-        background-color: #007bff;
-        color: white;
-        border-radius: 5px;
+        outline: none;
+        background: none;
         cursor: pointer;
     }
 
-    .popup button:hover {
-        background-color: #0056b3;
-    }
-
-    @media (min-width: 768px) {
-        .popup {
-            width: 80%;
-        }
+    .content_mine button img {
+        width: 100%;
     }
 
     @media (min-width: 1024px) {
-        .popup {
-            width: auto;
+        .content_mine img {
+            width: 40%;
+            color: #fff;
+            font-size: 40px;
+        }
+
+        .content_mine button {
+            width: 150px;
         }
     }
 </style>
@@ -235,7 +244,7 @@
             @endif
         </ul>
         <div class="banner_practice">
-            <img src="{{ asset('/images/background/background_phong_canh_7.png') }}" alt="">
+            <img src="{{ asset('/images/background/background_phong_canh_11.png') }}" alt="">
         </div>
         <div class="container_practice">
             <div class="menu_practice">
@@ -247,44 +256,39 @@
                                  alt="">
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="">
+                    <li class="">
+                        <a href="{{route('garden')}}">
                             <img src="{{ asset('/images/components/button-duoc-vien.png') }}" alt="">
                             <img class="active" src="{{ asset('/images/components/button-duoc-vien-active.png') }}"
+                                 alt="">
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="">
+                            <img src="{{ asset('/images/components/button-linh-son.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-linh-son-active.png') }}"
                                  alt="">
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="content content_practice">
-                <div class="group_card duoc_vien">
-                    <div class="card" id="card-mine">
-                        <h3>Khai thác nguyên thạch</h3>
-                        <p id="countdown-mine" class="countdown" data-end-time="{{ time() - $time }}">
-                            @if((time() - $time) >= 4 * 3600)
-                                00:00:00
-                            @else
-                                {{ gmdate('H:i:s', 4 * 3600 - (time() - $time)) }}
-                            @endif
-                        </p>
-                        <form id="mine-form" class="mine-form">
-                            @csrf
-                            <input type="hidden" value="{{ session('user')['user_id'] }}" name="userId">
-                            <button type="button" id="mine-button" style="display: none;">
-                                <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="Khai thác">
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Overlay and Popup -->
-            <div class="overlay" id="confirmationPopup" style="z-index:11">
-                <div class="popup">
-                    <h3>Xác nhận</h3>
-                    <p id="confirmationMessage"></p>
-                    <button id="confirmYes">Có</button>
-                    <button id="confirmNo">Không</button>
+                <div class="content_mine">
+                    <img src="{{ asset('/images/components/khai-thac-nguyen-thach.png') }}" alt="">
+                    <p id="countdown-mine" class="countdown" data-end-time="{{ time() - $time }}">
+                        @if((time() - $time) >= 4 * 3600)
+                            00:00:00
+                        @else
+                            {{ gmdate('H:i:s', 4 * 3600 - (time() - $time)) }}
+                        @endif
+                    </p>
+                    <form id="mine-form" class="mine-form">
+                        @csrf
+                        <input type="hidden" value="{{ session('user')['user_id'] }}" name="userId">
+                        <button type="button" id="mine-button" style="display: none;">
+                            <img src="{{ asset('/images/components/button-khai-thac.png') }}" alt="Khai thác">
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -299,13 +303,10 @@
 <script src="{{ asset("js/main.js") }}"></script>
 <script>
     $(document).ready(function () {
-        const $countdownElement = $('#countdown-mine');
         const $mineButton = $('#mine-button');
-        const $confirmationPopup = $('#confirmationPopup');
-        const $confirmYes = $('#confirmYes');
-        const $confirmNo = $('#confirmNo');
 
-        function startCountdown($element) {
+        function startCountdown() {
+            $element = $('#countdown-mine');
             let timeRemaining = 4 * 3600 - parseInt($element.data('end-time'));
 
             if (timeRemaining <= 0) {
@@ -313,18 +314,19 @@
                 $element.text('00:00:00');
             } else {
                 $mineButton.hide();
-            }
+                updateCountdown($element, timeRemaining);
 
-            const interval = setInterval(function () {
-                if (timeRemaining <= 0) {
-                    clearInterval(interval);
-                    $element.text('00:00:00');
-                    $mineButton.show();
-                } else {
-                    updateCountdown($element, timeRemaining);
-                    timeRemaining--;
-                }
-            }, 1000);
+                const interval = setInterval(function () {
+                    if (timeRemaining <= 0) {
+                        clearInterval(interval);
+                        $element.text('00:00:00');
+                        $mineButton.show();
+                    } else {
+                        timeRemaining--;
+                        updateCountdown($element, timeRemaining);
+                    }
+                }, 1000);
+            }
         }
 
         function updateCountdown($element, timeRemaining) {
@@ -335,47 +337,27 @@
         }
 
         function performMining() {
-            showPopup('Bạn có muốn khai thác nguyên thạch không?', function () {
-                $.ajax({
-                    url: '/api/v1/khai-thac-nguyen-thach',
-                    type: 'POST',
-                    data: $('#mine-form').serialize(),
-                    success: function (response) {
-                        if (response.status === 'success') {
-                            showToast('success', response.message);
-                            // Reset the countdown timer
-                            let newTimeRemaining = 4 * 3600; // 4 hours
-                            $('#countdown-mine').data('end-time', Math.floor(Date.now() / 1000) + newTimeRemaining);
-                            startCountdown($countdownElement);
-                        } else {
-                            showToast('error', response.message);
-                        }
-                    },
-                    error: function () {
-                        showToast('error', 'Có lỗi xảy ra, vui lòng thử lại sau.');
+            $.ajax({
+                url: '/api/v1/khai-thac-nguyen-thach',
+                type: 'POST',
+                data: $('#mine-form').serialize(),
+                success: function (response) {
+                    if (response.status === 'success') {
+                        showToast('success', response.message);
+                        $('#countdown-mine').text("04:00:00").data('end-time', 0);
+                        startCountdown();
+                    } else {
+                        showToast('error', response.message);
                     }
-                });
+                },
+                error: function () {
+                    showToast('error', 'Có lỗi xảy ra, vui lòng thử lại sau.');
+                }
             });
         }
 
-        function showPopup(message, callback) {
-            $('#confirmationMessage').text(message);
-            $confirmationPopup.css('display', 'flex'); // Show the popup
+        startCountdown();
 
-            $confirmYes.off('click').on('click', function () {
-                callback();
-                $confirmationPopup.css('display', 'none'); // Hide the popup after confirming
-            });
-
-            $confirmNo.off('click').on('click', function () {
-                $confirmationPopup.css('display', 'none'); // Hide the popup when cancelling
-            });
-        }
-
-        // Start the countdown on page load
-        startCountdown($countdownElement);
-
-        // Bind the mine button click event
         $mineButton.on('click', function () {
             performMining();
         });
