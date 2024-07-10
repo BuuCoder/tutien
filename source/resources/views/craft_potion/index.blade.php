@@ -9,11 +9,19 @@
         padding: 0;
     }
 
+    body::after {
+        background: none;
+    }
+
     .furnace_container {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 20px;
+    }
+
+    .furnace_container img {
+        width: 10px;
     }
 
     h1 {
@@ -112,7 +120,7 @@
             <h2>{{ $furnace['name'] }}</h2>
             <img src="{{ asset('./images/alchemy_furnace/'.$furnace['image']) }}" alt="{{ $furnace['name'] }}">
             @if($status['status'] == 'available')
-                <button onclick="showCraftPopup({{ $furnaceId }})">Luyện Đan</button>
+                <button onclick="showCraftPopup({{ $furnaceId }})" id="craft-button-{{ $furnaceId }}">Luyện Đan</button>
             @elseif($status['status'] == 'crafting')
                 <p class="des_furnace">Đang luyện {{ $status['potion'] }}. Thời gian còn lại:
                 </p>
@@ -148,6 +156,9 @@
 <script src="{{ asset('js/main.js') }}"></script>
 
 <script>
+    const potions = @json($potions);
+    const furnaces = @json($furnaces);
+
     function showCraftPopup(furnaceId) {
         $('#craft-furnace-id').val(furnaceId);
         $('#craft-popup').show();
@@ -178,7 +189,7 @@
                 if (response.status === "success") {
                     showToast('success', 'Bắt đầu luyện đan dược thành công!');
                     $('#craft-popup').hide();
-                    location.reload();
+                    updateFurnaceStatus(furnaceId, potionId);
                 } else {
                     showToast('error', response.message);
                 }
@@ -204,7 +215,7 @@
             success: function (response) {
                 if (response.status === "success") {
                     showToast('success', 'Đã nhận đan dược thành công!');
-                    location.reload();
+                    resetFurnaceStatus(furnaceId);
                 } else {
                     showToast('error', response.message);
                 }
@@ -215,8 +226,53 @@
         });
     }
 
+    function updateFurnaceStatus(furnaceId, potionId) {
+        const potion = potions[potionId];
+        const furnace = furnaces[furnaceId];
+        const craftingTime = potion['crafting_time'] * 3600 * (1 - furnace['time_reduction_percentage'] / 100);
+
+        const furnaceElement = $('#furnace-' + furnaceId);
+
+        $('#craft-button-' + furnaceId).hide();
+
+        if (furnaceElement.find('.des_furnace').length === 0) {
+            furnaceElement.append('<p class="des_furnace">Đang luyện ' + potions[potionId].name + '. Thời gian còn lại:</p>');
+        } else {
+            furnaceElement.find('.des_furnace').text('Đang luyện ' + potions[potionId].name + '. Thời gian còn lại:');
+        }
+
+        if (furnaceElement.find('#countdown-' + furnaceId).length === 0) {
+            furnaceElement.append('<span id="countdown-' + furnaceId + '" class="countdown" data-remaining-time="' + craftingTime + '">' + formatTime(craftingTime) + '</span>');
+        } else {
+            const countdownElement = $('#countdown-' + furnaceId);
+            countdownElement.data('remaining-time', craftingTime);
+            countdownElement.text(formatTime(craftingTime));
+        }
+    }
+
+    function resetFurnaceStatus(furnaceId) {
+        const furnaceElement = $('#furnace-' + furnaceId);
+
+        furnaceElement.find('.countdown').remove();
+        furnaceElement.find('.des_furnace').remove();
+        furnaceElement.find('button').remove();
+
+        if (furnaceElement.find('#craft-button-' + furnaceId).length === 0) {
+            furnaceElement.append('<button id="craft-button-' + furnaceId + '" onclick="showCraftPopup(' + furnaceId + ')">Luyện Đan</button>');
+        } else {
+            furnaceElement.find('#craft-button-' + furnaceId).show();
+        }
+    }
+
+    function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
     function updateCountdown() {
-        $('.countdown').each(function() {
+        $('.countdown').each(function () {
             let remainingTime = parseInt($(this).data('remaining-time'));
 
             if (remainingTime > 0) {
@@ -235,7 +291,7 @@
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         setInterval(updateCountdown, 1000);
     });
 </script>

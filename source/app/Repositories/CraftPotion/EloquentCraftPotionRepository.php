@@ -64,6 +64,17 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
                 ];
             }
 
+            // Lấy thông tin người dùng
+            $user = $this->userService->getUserInfoById($userId);
+            // Kiểm tra số tiên nguyên thạch người dùng
+            $furnaceFee = $furnace->usage_fee;
+            if ($user['money'] < $furnaceFee) {
+                return [
+                    'success' => false,
+                    'message' => "Bạn cần có {$furnace->usage_fee} tiên nguyên thạch để sử dụng lò luyện đan này!"
+                ];
+            }
+
             // Tính toán thời gian luyện đan
             $craftingTime = $potion->crafting_time * (1 - $furnace->time_reduction_percentage / 100);
 
@@ -77,14 +88,20 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
 
             // Bắt đầu giao dịch
             DB::beginTransaction();
-
+            if($furnaceFee != 0) {
+                // Trừ tiên nguyên thạch người dùng
+                $updateMoney = $this->userService->updateMoney($userId, $furnaceFee, 'minus');
+                if (!$updateMoney['success']) {
+                    throw new \Exception('Không thể trừ tiên nguyên thạch của người dùng (row: 97) ID User:' . $userId);
+                }
+            }
             // Thêm dữ liệu vào bảng user_potion
             $update = $this->userPotionModel->create($data);
 
             if ($update) {
                 // Commit giao dịch nếu thành công
                 DB::commit();
-                $this->logService->log($userId, 'craft_potion', ['user_id' => $userId, 'potion_id' => $potionId, 'furnace_id' => $furnaceId], "Bắt đầu luyện đan");
+                $this->logService->log($userId, 'craft_potion', ['user_id' => $userId, 'potion_id' => $potionId, 'furnace_id' => $furnaceId], "Bắt đầu luyện chế đan dược");
                 return [
                     'success' => true,
                     'message' => 'Bắt đầu luyện chế đan dược!'
@@ -100,7 +117,7 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
         } catch (\Exception $e) {
             // Rollback giao dịch nếu xảy ra ngoại lệ
             DB::rollBack();
-            Log::error('Lỗi khi luyện đan (row: 88): ' . $e->getMessage(), [
+            Log::error('Lỗi khi luyện đan (row: 121): ' . $e->getMessage(), [
                 'user_id' => $userId,
                 'potion_id' => $potionId,
                 'furnace_id' => $furnaceId,
@@ -125,7 +142,7 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
             ])->first();
 
             if (!$userPotion) {
-                return ['success' => false, 'message' => 'Chưa thực hiện luyện chế đan dược'];
+                return ['success' => false, 'message' => 'Chưa có đan dược được luyện chế'];
             }
 
             $craftingEndTime = $userPotion->created_at + $userPotion->crafting_time * 3600;
@@ -146,7 +163,7 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
             // Cập nhật số lượng đan dược của người dùng
             $updatePotion = $this->userService->updatePotion($userId, $potionId, $quantity, 'add');
             if (!$updatePotion['success']) {
-                throw new \Exception('Nhận đan dược không thành công (row: 45) ID User:'. $userId);
+                throw new \Exception('Nhận đan dược không thành công (row: 167) ID User:'. $userId);
             }
 
             // Xóa đan dược khỏi lò đỉnh
@@ -162,7 +179,7 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
             return ['success' => true, 'message' => "Nhận {$potion->name} thành công"];
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error("Nhận đan dược không thành công (row:156): " . $e->getMessage());
+            Log::error("Nhận đan dược không thành công (row:183): " . $e->getMessage());
             return ['success' => false, 'message' => 'Nhận đan dược không thành công'];
         }
     }

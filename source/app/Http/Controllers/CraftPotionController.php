@@ -60,7 +60,7 @@ class CraftPotionController extends Controller
                 ];
             }
         }
-//        dd($furnaceStatus);
+
         return view('craft_potion.index', [
             'furnaces' => $furnaces,
             'furnaceStatus' => $furnaceStatus,
