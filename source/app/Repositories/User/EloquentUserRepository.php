@@ -519,7 +519,91 @@ class EloquentUserRepository implements UserRepositoryInterface
                 'message' => 'Cập nhật đan dược không thành công'
             ];
         } catch (\Exception $e) {
-            throw $e;
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
     }
+
+    public function updateMultipleItems($userId, $items , $action)
+    {
+        try {
+
+            $user = session()->get('user');
+            if ($userId != $user['user_id']) {
+                return [
+                    'success' => false,
+                    'message' => 'Phiên đăng nhập thất bại'
+                ];
+            }
+
+            $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'user_item']);
+            if (!$userInfo) {
+                return [
+                    'success' => false,
+                    'message' => 'Người dùng không tồn tại'
+                ];
+            }
+
+            $itemUserOld = $itemUser = json_decode($userInfo->user_item, true);
+            if ($itemUser == null) {
+                $itemUser = [];
+            }
+
+            foreach ($items as $itemId => $quantity) {
+                if (isset($itemUser[$itemId])) {
+                    if ($action == 'add') {
+                        $itemUser[$itemId] += $quantity;
+                    } elseif ($action == 'minus') {
+                        $itemUser[$itemId] -= $quantity;
+                        if ($itemUser[$itemId] < 0) {
+                            return [
+                                'success' => false,
+                                'message' => 'Số lượng vật phẩm không hợp lệ cho item ID: ' . $itemId
+                            ];
+                        }
+                    }
+                } else {
+                    if ($action == 'add') {
+                        $itemUser[$itemId] = $quantity;
+                    } elseif ($action == 'minus') {
+                        return [
+                            'success' => false,
+                            'message' => 'Người dùng không có vật phẩm này: ' . $itemId
+                        ];
+                    }
+                }
+            }
+
+            $update = $this->userModel->where('user_id', $userId)->update([
+                'user_item' => json_encode($itemUser)
+            ]);
+
+            if ($update) {
+                $this->logService->log($userId, 'update_multiple_items', [
+                    'old_items' => $itemUserOld,
+                    'new_items' => $itemUser,
+                    'items_changed' => $items,
+                    'action' => $action
+                ], 'Thành công');
+
+                return [
+                    'success' => true,
+                    'message' => 'Cập nhật nhiều vật phẩm thành công'
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Cập nhật nhiều vật phẩm không thành công'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
 }

@@ -205,6 +205,13 @@
                                  alt="">
                         </a>
                     </li>
+                    <li class="">
+                        <a href="{{route('craft_potion')}}">
+                            <img src="{{ asset('/images/components/button-luyen-dan.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-luyen-dan-active.png') }}"
+                                 alt="">
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="content content_checkin">

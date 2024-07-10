@@ -21,10 +21,6 @@ class Potion extends Model
 
     public $timestamps = false;
 
-    protected $casts = [
-        'required_ingredients' => 'array',
-    ];
-
     public function userPotions()
     {
         return $this->hasMany(UserPotion::class, 'potion_id');

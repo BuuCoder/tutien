@@ -9,152 +9,400 @@
         padding: 0;
     }
 
-    body::after {
-        background: none;
-    }
-
     .furnace_container {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .furnace_container img {
-        width: 10px;
-    }
-
-    h1 {
-        color: #333;
-        margin-bottom: 20px;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 20px 0;
     }
 
     .furnace {
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin: 20px 0;
-        padding: 20px;
-        width: 300px;
+        background: rgba(0, 0, 0, 0.4);
+        width: 30%;
+        margin-bottom: 20px;
         text-align: center;
-    }
-
-    .furnace img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-    }
-
-    .furnace button {
-        background: #007bff;
-        border: none;
-        border-radius: 4px;
-        color: #fff;
-        cursor: pointer;
-        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
         padding: 10px 20px;
-        font-size: 16px;
+        font-family: "Great Vibes", cursive;
+        gap: 10px;
     }
 
-    .furnace button:hover {
-        background: #0056b3;
+    .furnace p {
+        font-size: 18px;
     }
 
-    #craft-popup {
+    .furnace .countdown {
+        font-size: 25px;
+        font-family: "Bebas Neue", sans-serif;
+        color: #00fb7e;
+    }
+
+    .furnace button, #craft-form button {
+        background: none;
+        border: none;
+        outline: none;
+    }
+
+    .furnace button img {
+        width: 180px;
+    }
+
+    .popup {
         width: 80%;
-        max-width: 600px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        left: 50%;
-        padding: 20px;
+        max-width: 800px;
         position: fixed;
         top: 50%;
+        left: 50%;
         transform: translate(-50%, -50%);
+        background: url('/images/background/background_thong_bao.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
+        display: none;
+        font-family: "Great Vibes", cursive;
+        color: white;
     }
 
-    #craft-popup h2 {
-        margin-top: 0;
+    .popup h2 {
+        text-align: center;
+        font-size: 25px;
+        margin-bottom: 10px;
     }
 
-    #craft-popup select,
-    #craft-popup button {
-        display: block;
-        margin: 10px 0;
-        width: 100%;
-        padding: 10px 20px;
+    .potion-options {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
     }
 
-    #craft-popup button {
-        background: #28a745;
-        border: none;
-        border-radius: 4px;
-        color: #fff;
+    .potion-option {
         cursor: pointer;
-        padding: 10px 0;
-        font-size: 16px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
     }
 
-    #craft-popup button:hover {
-        background: #218838;
+    .potion-option img {
+        width: 100px;
     }
 
-    #craft-popup button[type="button"] {
-        background: #dc3545;
+    .potion-option.selected {
+        border-color: #ffcd07;
+        background: rgba(255, 255, 255, 0.4);
     }
 
-    #craft-popup button[type="button"]:hover {
-        background: #c82333;
+    #craft-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #craft-form button img{
+        width: 100%;
+        max-width: 180px;
+    }
+
+    @media (max-width: 768px) {
+        .furnace {
+            width: 47%;
+        }
+
+        .potion-options {
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .furnace {
+            width: 100%;
+            justify-content: space-around;
+        }
     }
 </style>
 <body>
-
-<div class="furnace_container" style="z-index: 30">
-    <h1>Phòng Luyện Đan</h1>
-    @foreach($furnaceStatus as $furnaceId => $status)
-        @php
-            $furnace = $furnaces[$furnaceId];
-        @endphp
-        <div class="furnace" id="furnace-{{ $furnaceId }}">
-            <h2>{{ $furnace['name'] }}</h2>
-            <img src="{{ asset('./images/alchemy_furnace/'.$furnace['image']) }}" alt="{{ $furnace['name'] }}">
-            @if($status['status'] == 'available')
-                <button onclick="showCraftPopup({{ $furnaceId }})" id="craft-button-{{ $furnaceId }}">Luyện Đan</button>
-            @elseif($status['status'] == 'crafting')
-                <p class="des_furnace">Đang luyện {{ $status['potion'] }}. Thời gian còn lại:
-                </p>
-                <span id="countdown-{{ $furnaceId }}"
-                      class="countdown"
-                      data-remaining-time="{{ $status['remaining_time'] }}">{{ gmdate('H:i:s', $status['remaining_time']) }}</span>
-            @elseif($status['status'] == 'completed')
-                <button onclick="collectPotion({{ $furnaceId }})">Nhận Đan Dược</button>
+<button class="musicButton" title="Nhạc nền">
+    <img loading="lazy" class="open-music"
+         src="{{ asset('images/components/open-music.png') }}"
+         alt="Nhạc nền" title="Mở nhạc">
+    <img loading="lazy" class="off-music"
+         src="{{ asset('images/components/off-music.png') }}"
+         alt="Nhạc nền" title="Tắt nhạc" style="display: none;">
+</button>
+<img loading="lazy" class="button_open show_button_open" width="40" height="40"
+     src="{{ asset('images/components/button-open.png') }}"
+     alt="Mở menu" title="Mở menu"
+>
+<img loading="lazy" class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}"
+     alt="Tu Tiên Giới" title="Tu Tiên Giới">
+<div class="wrapper_game">
+    <div class="heading_game">
+        <ul class="menu_game">
+            <li class="item_menu_game">
+                <a href="/thuong-hoi" title="Thương Hội">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-thuong-hoi.png') }}"
+                         alt="Thương Hội" title="Thương Hội">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Thương Hội">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-thuong-hoi-active.png') }}"
+                         alt="Thương Hội" title="Thương Hội">
+                </a>
+            </li>
+            <li class="item_menu_game active">
+                <a href="/bao-danh-hang-ngay" title="Tu Luyện">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-tu-luyen.png') }}"
+                         alt="Tu Luyện" title="Tu Luyện">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Tu Luyện">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-tu-luyen-active.png') }}"
+                         alt="Tu Luyện" title="Tu Luyện">
+                </a>
+            </li>
+            <li class="item_menu_game main">
+                <a href="/" title="Chính Điện">
+                    <img loading="lazy" class="main"
+                         src="{{ asset('images/components/button-chinh-dien.png') }}"
+                         alt="Chính Điện" title="Chính Điện">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Chính Điện">
+                    <img loading="lazy" class="main"
+                         src="{{ asset('images/components/button-chinh-dien-active.png') }}"
+                         alt="Chính Điện" title="Chính Điện">
+                </a>
+            </li>
+            @if(session()->get('user'))
+                <li class="item_menu_game">
+                    <a href="/tai-khoan" title="Tài Khoản">
+                        <img loading="lazy"
+                             src="{{ asset('images/components/button-tai-khoan.png') }}"
+                             alt="Tài Khoản" title="Tài Khoản">
+                    </a>
+                    <a class="active" href="javascript:void(0)" title="Tài Khoản">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-tai-khoan-active.png') }}"
+                             alt="Tài Khoản" title="Tài Khoản">
+                    </a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-xuat" title="Đăng xuất">
+                        <img loading="lazy"
+                             src="{{ asset('/images/components/button-dang-xuat.png') }}"
+                             alt="Đăng xuất" title="Đăng xuất">
+                    </a>
+                </li>
+            @else
+                <li class="item_menu_game">
+                    <a href="">
+                        <img loading="lazy" src="{{ asset('images/components/button-luan-ban.png') }}" alt="">
+                    </a>
+                    <a class="active" href="javascript:void(0)">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-luan-ban-active.png') }}" alt="">
+                    </a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-nhap" title="Đăng Nhập">
+                        <img loading="lazy"
+                             src="{{ asset('images/components/button-dang-nhap.png') }}"
+                             alt="Đăng Nhập" title="Đăng Nhập">
+                    </a>
+                </li>
             @endif
+        </ul>
+        <ul class="menu_game_mobile">
+            <img loading="lazy" class="button_close" width="40" height="40"
+                 src="{{ asset('images/components/button-close.png') }}"
+                 alt="Đóng Menu" title="Đóng Menu"
+            >
+            <li class="item_menu_game">
+                <a href="/thuong-hoi" title="Thương Hội">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-thuong-hoi.png') }}"
+                         alt="Thương Hội" title="Thương Hội">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Thương Hội">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-thuong-hoi-active.png') }}"
+                         alt="Thương Hội" title="Thương Hội">
+                </a>
+            </li>
+            <li class="item_menu_game active">
+                <a href="/bao-danh-hang-ngay" title="Tu Luyện">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-tu-luyen.png') }}"
+                         alt="Tu Luyện" title="Tu Luyện">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Tu Luyện">
+                    <img loading="lazy"
+                         src="{{ asset('images/components/button-tu-luyen-active.png') }}"
+                         alt="Tu Luyện" title="Tu Luyện">
+                </a>
+            </li>
+            <li class="item_menu_game main">
+                <a href="/" title="Chính Điện">
+                    <img loading="lazy" class="main"
+                         src="{{ asset('images/components/button-chinh-dien.png') }}"
+                         alt="Chính Điện" title="Chính Điện">
+                </a>
+                <a class="active" href="javascript:void(0)" title="Chính Điện">
+                    <img loading="lazy" class="main"
+                         src="{{ asset('images/components/button-chinh-dien-active.png') }}"
+                         alt="Chính Điện" title="Chính Điện">
+                </a>
+            </li>
+            @if(session()->get('user'))
+                <li class="item_menu_game">
+                    <a href="/tai-khoan" title="Tài Khoản">
+                        <img loading="lazy"
+                             src="{{ asset('images/components/button-tai-khoan.png') }}"
+                             alt="Tài Khoản" title="Tài Khoản">
+                    </a>
+                    <a class="active" href="javascript:void(0)" title="Tài Khoản">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-tai-khoan-active.png') }}"
+                             alt="Tài Khoản" title="Tài Khoản">
+                    </a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-xuat" title="Đăng xuất">
+                        <img loading="lazy"
+                             src="{{ asset('/images/components/button-dang-xuat.png') }}"
+                             alt="Đăng xuất" title="Đăng xuất">
+                    </a>
+                </li>
+            @else
+                <li class="item_menu_game">
+                    <a href="">
+                        <img loading="lazy" src="{{ asset('images/components/button-luan-ban.png') }}" alt="">
+                    </a>
+                    <a class="active" href="javascript:void(0)">
+                        <img loading="lazy" class="main"
+                             src="{{ asset('images/components/button-luan-ban-active.png') }}" alt="">
+                    </a>
+                </li>
+                <li class="item_menu_game">
+                    <a href="/dang-nhap" title="Đăng Nhập">
+                        <img loading="lazy"
+                             src="{{ asset('images/components/button-dang-nhap.png') }}"
+                             alt="Đăng Nhập" title="Đăng Nhập">
+                    </a>
+                </li>
+            @endif
+        </ul>
+        <div class="banner_practice">
+            <img src="{{ asset('/images/background/background_phong_canh_11.png') }}" alt="">
         </div>
-    @endforeach
+        <div class="container_practice">
+            <div class="menu_practice">
+                <ul>
+                    <li>
+                        <a href="{{ route('checkin') }}">
+                            <img src="{{ asset('/images/components/button-bao-danh.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-bao-danh-active.png') }}"
+                                 alt="">
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{route('garden')}}">
+                            <img src="{{ asset('/images/components/button-duoc-vien.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-duoc-vien-active.png') }}"
+                                 alt="">
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{route('mine_cave')}}">
+                            <img src="{{ asset('/images/components/button-linh-son.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-linh-son-active.png') }}"
+                                 alt="">
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="">
+                            <img src="{{ asset('/images/components/button-luyen-dan.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-luyen-dan-active.png') }}"
+                                 alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-    <div id="craft-popup" style="display: none;">
-        <h2>Chọn loại đan dược</h2>
-        <form id="craft-form" onsubmit="submitCraftForm(event)">
-            @csrf
-            <input type="hidden" name="furnace_id" id="craft-furnace-id">
-            <select name="potion_id" id="potion-id">
-                @foreach($potions as $potionId => $potion)
-                    <option value="{{ $potionId }}">{{ $potion['name'] }}</option>
+            <div class="furnace_container">
+                @foreach($furnaceStatus as $furnaceId => $status)
+                    @php
+                        $furnace = $furnaces[$furnaceId];
+                    @endphp
+                    <div class="furnace" id="furnace-{{ $furnaceId }}">
+                        <h2>{{ $furnace['name'] }}</h2>
+                        <img src="{{ asset('./images/alchemy_furnace/'.$furnace['image']) }}"
+                             alt="{{ $furnace['name'] }}">
+                        @if($status['status'] == 'available')
+                            <button onclick="showCraftPopup({{ $furnaceId }})" id="craft-button-{{ $furnaceId }}">
+                                <img src="{{ asset('/images/components/button-luyen-dan.png') }}" alt="">
+                            </button>
+                        @elseif($status['status'] == 'crafting')
+                            <p class="des_furnace">Đang luyện {{ $status['potion'] }}. <br> Thời gian còn lại:</p>
+                            <span id="countdown-{{ $furnaceId }}" class="countdown"
+                                  data-remaining-time="{{ $status['remaining_time'] }}">{{ gmdate('H:i:s', $status['remaining_time']) }}</span>
+                        @elseif($status['status'] == 'completed')
+                            <button onclick="collectPotion({{ $furnaceId }})">
+                                <img src="{{ asset('/images/components/button-nhan-dan-duoc.png') }}" alt="">
+                            </button>
+                        @endif
+                    </div>
                 @endforeach
-            </select>
-            <button type="submit">Bắt đầu luyện</button>
-            <button type="button" onclick="closeCraftPopup()">Đóng</button>
-        </form>
+            </div>
+
+            <div id="craft-popup" class="popup">
+                <h2>Chọn Đan Dược</h2>
+                <div class="potion-options">
+                    @foreach($potions as $potionId => $potion)
+                        <div class="potion-option" data-potion-id="{{ $potionId }}"
+                             onclick="selectPotion({{ $potionId }})">
+                            <img src="{{ asset('/images/potion/'.$potion['image']) }}" alt="">
+                            {{ $potion['name'] }}
+                        </div>
+                    @endforeach
+                </div>
+                <form id="craft-form" onsubmit="submitCraftForm(event)">
+                    @csrf
+                    <input type="hidden" name="furnace_id" id="craft-furnace-id">
+                    <input type="hidden" name="potion_id" id="selected-potion-id">
+                    <button type="submit">
+                        <img src="{{ asset('/images/components/button-bat-dau-luyen-dan.png') }}" alt="">
+                    </button>
+                    <button type="button" onclick="closeCraftPopup()">
+                        <img src="{{ asset('/images/components/button-dong.png') }}" alt="">
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 @include('layout.toast')
 @include('layout.footer')
 
-<script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset("js/jquery-3.7.1.min.js") }}"></script>
 <script src="{{ asset('js/gsap-3.9.1.min.js') }}"></script>
-<script src="{{ asset('js/main.js') }}"></script>
-
+<script src="{{ asset("js/main.js") }}"></script>
 <script>
     const potions = @json($potions);
     const furnaces = @json($furnaces);
@@ -168,36 +416,45 @@
         $('#craft-popup').hide();
     }
 
+    function selectPotion(potionId) {
+        $('.potion-option').removeClass('selected');
+        $('[data-potion-id=' + potionId + ']').addClass('selected');
+        $('#selected-potion-id').val(potionId);
+    }
+
     function submitCraftForm(event) {
         event.preventDefault();
         const furnaceId = $('#craft-furnace-id').val();
-        const potionId = $('#potion-id').val();
-
-        $.ajax({
-            url: '/api/v1/luyen-dan-duoc',
-            type: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            data: JSON.stringify({
-                furnace_id: furnaceId,
-                potion_id: potionId
-            }),
-            success: function (response) {
-                if (response.status === "success") {
-                    showToast('success', 'Bắt đầu luyện đan dược thành công!');
-                    $('#craft-popup').hide();
-                    updateFurnaceStatus(furnaceId, potionId);
-                } else {
-                    showToast('error', response.message);
+        const potionId = $('#selected-potion-id').val();
+        if (potionId === "") {
+            showToast('error', 'Vui lòng chọn đan dược trước khi bắt đầu luyện đan');
+        } else {
+            $.ajax({
+                url: '/api/v1/luyen-dan-duoc',
+                type: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: JSON.stringify({
+                    furnace_id: furnaceId,
+                    potion_id: potionId
+                }),
+                success: function (response) {
+                    if (response.status === "success") {
+                        showToast('success', 'Bắt đầu luyện đan dược thành công!');
+                        $('#craft-popup').hide();
+                        updateFurnaceStatus(furnaceId, potionId);
+                    } else {
+                        showToast('error', response.message);
+                    }
+                },
+                error: function () {
+                    showToast('error', 'Có lỗi xảy ra. Vui lòng thử lại.');
                 }
-            },
-            error: function () {
-                showToast('error', 'Có lỗi xảy ra. Vui lòng thử lại.');
-            }
-        });
+            });
+        }
     }
 
     function collectPotion(furnaceId) {
@@ -258,7 +515,7 @@
         furnaceElement.find('button').remove();
 
         if (furnaceElement.find('#craft-button-' + furnaceId).length === 0) {
-            furnaceElement.append('<button id="craft-button-' + furnaceId + '" onclick="showCraftPopup(' + furnaceId + ')">Luyện Đan</button>');
+            furnaceElement.append('<button id="craft-button-' + furnaceId + '" onclick="showCraftPopup(' + furnaceId + ')"><img src="{{ asset('/images/components/button-luyen-dan.png') }}" alt=""></button>');
         } else {
             furnaceElement.find('#craft-button-' + furnaceId).show();
         }
@@ -286,7 +543,7 @@
                 $(this).text(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
             } else {
                 $(this).closest('.furnace').find('.des_furnace').remove();
-                $(this).closest('.furnace').find('.countdown').replaceWith('<button onclick="collectPotion(' + $(this).closest('.furnace').attr('id').split('-')[1] + ')">Nhận Đan Dược</button>');
+                $(this).closest('.furnace').find('.countdown').replaceWith('<button onclick="collectPotion(' + $(this).closest('.furnace').attr('id').split('-')[1] + ')"><img src="{{ asset('/images/components/button-nhan-dan-duoc.png') }}" alt=""></button>');
             }
         });
     }

@@ -66,6 +66,7 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
 
             // Lấy thông tin người dùng
             $user = $this->userService->getUserInfoById($userId);
+
             // Kiểm tra số tiên nguyên thạch người dùng
             $furnaceFee = $furnace->usage_fee;
             if ($user['money'] < $furnaceFee) {
@@ -73,6 +74,19 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
                     'success' => false,
                     'message' => "Bạn cần có {$furnace->usage_fee} tiên nguyên thạch để sử dụng lò luyện đan này!"
                 ];
+            }
+
+            // Kiểm tra số lượng nguyên liệu người dùng
+            $requiredIngredients = json_decode($potion['required_ingredients']);
+            $userItems = $user['item'];
+
+            foreach ($requiredIngredients as $itemId => $requiredQuantity) {
+                if (!isset($userItems[$itemId]) || $userItems[$itemId] < $requiredQuantity) {
+                    return [
+                        'success' => false,
+                        'message' => "Bạn không có đủ nguyên liệu để luyện đan!"
+                    ];
+                }
             }
 
             // Tính toán thời gian luyện đan
@@ -88,13 +102,17 @@ class EloquentCraftPotionRepository implements CraftPotionRepositoryInterface
 
             // Bắt đầu giao dịch
             DB::beginTransaction();
+
+            // Trừ tiên nguyên thạch người dùng
             if($furnaceFee != 0) {
-                // Trừ tiên nguyên thạch người dùng
                 $updateMoney = $this->userService->updateMoney($userId, $furnaceFee, 'minus');
                 if (!$updateMoney['success']) {
                     throw new \Exception('Không thể trừ tiên nguyên thạch của người dùng (row: 97) ID User:' . $userId);
                 }
             }
+
+            $this->userService->updateMultipleItems($userId, $requiredIngredients, 'minus');
+
             // Thêm dữ liệu vào bảng user_potion
             $update = $this->userPotionModel->create($data);
 

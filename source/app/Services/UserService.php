@@ -63,5 +63,9 @@ class UserService
     public function updatePotion($userId, $itemId, $quantity, $action){
        return $this->userRepository->updatePotion($userId, $itemId, $quantity, $action);
     }
+
+    public function updateMultipleItems($userId, $items, $action){
+        return $this->userRepository->updateMultipleItems($userId, $items, $action);
+    }
 }
 
