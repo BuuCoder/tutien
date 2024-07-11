@@ -9,6 +9,7 @@ use \App\Http\Controllers\ShopController;
 use \App\Http\Controllers\AccountController;
 use \App\Http\Controllers\MineController;
 use App\Http\Controllers\CraftPotionController;
+use App\Http\Controllers\ChatController;
 
 
 Route::get('', [HomeController::class, 'index'])->name('welcome');
@@ -40,3 +41,7 @@ Route::middleware(['Authorization', 'throttle:40,1'])->group(function () {
     Route::get('/phong-luyen-dan', [CraftPotionController::class, 'index'])->name('craft_potion');
 
 });
+
+Route::get('/chat', [ChatController::class, 'index']);
+Route::get('/messages', [ChatController::class, 'fetchMessages']);
+Route::post('/messages', [ChatController::class, 'sendMessage']);
