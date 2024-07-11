@@ -51,16 +51,16 @@
         .my-message {
             background: #007bff;
             align-self: flex-start;
-            text-align: left;
-            margin-right: auto;
+            text-align: right;
+            margin-left: auto;
             color: #fff;
         }
 
         .other-message {
             background: #333;
             align-self: flex-end;
-            text-align: right;
-            margin-left: auto;
+            text-align: left;
+            margin-right: auto;
         }
 
         .username {
@@ -138,29 +138,23 @@
         // Listen for broadcasted messages
         window.Echo.channel('chat')
             .listen('MessageSent', (e) => {
-                console.log(e);
-                const message = e;
                 const messageItem = document.createElement('li');
-                messageItem.className = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
-                messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
+                messageItem.className = e.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
+                messageItem.innerHTML = `<span class="username">${e.message.user_name}</span> <span class="time">(${moment(e.message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${e.message.message}</span>`;
                 messagesElement.appendChild(messageItem);
-                messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
+                messagesElement.scrollTop = messagesElement.scrollHeight;
             });
 
         // Fetch messages
         axios.get('/messages')
             .then(response => {
-                response.data.forEach(message => {
-                    if (message.user_name && message.created_at && message.message) {
-                        const messageItem = document.createElement('li');
-                        messageItem.className = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
-                        messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
-                        messagesElement.appendChild(messageItem);
-                    } else {
-                        console.error('Invalid message data:', message);
-                    }
+                response.data.forEach(data => {
+                    const messageItem = document.createElement('li');
+                    messageItem.className = data.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
+                    messageItem.innerHTML = `<span class="username">${data.user_name}</span> <span class="time">(${moment(data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${data.message}</span>`;
+                    messagesElement.appendChild(messageItem);
                 });
-                messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
+                messagesElement.scrollTop = messagesElement.scrollHeight;
             });
 
         // Send message
@@ -171,28 +165,16 @@
                 message: message
             })
                 .then(response => {
-                    console.log("push");
-                    console.log("response");
-                    messageElement.value = ''; // Clear input after sending
-                    errorElement.textContent = ''; // Clear any previous error
-                    const message = response.data;
-                    if (message.user_name && message.created_at && message.message) {
+                        messageElement.value = '';
                         // Display the sent message immediately
                         const messageItem = document.createElement('li');
                         messageItem.className = 'my-message';
-                        messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
+                        messageItem.innerHTML = `<span class="username">${response.data.user_name}</span> <span class="time">(${moment(response.data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${response.data.message}</span>`;
                         messagesElement.appendChild(messageItem);
                         messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
-                    } else {
-                        console.error('Invalid response data:', message);
-                    }
                 })
                 .catch(error => {
-                    if (error.response && error.response.status === 429) {
-                        errorElement.textContent = 'You are sending messages too fast. Please wait a moment.';
-                    } else {
-                        console.error('Error sending message:', error);
-                    }
+                    console.error('Error sending message:', error);
                 });
         });
 
