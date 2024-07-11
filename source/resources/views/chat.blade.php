@@ -9,10 +9,10 @@
 <body>
 <div id="chat">
     <ul id="messages">
-        <!-- Tin nhắn sẽ được hiển thị ở đây -->
+        <!-- Messages will be displayed here -->
     </ul>
-    <input type="text" id="message" placeholder="Nhập tin nhắn...">
-    <button id="send">Gửi</button>
+    <input type="text" id="message" placeholder="Enter message...">
+    <button id="send">Send</button>
 </div>
 
 <script>
@@ -21,19 +21,15 @@
         const messageElement = document.getElementById('message');
         const sendButton = document.getElementById('send');
 
-        // Kiểm tra Echo và Pusher
-        console.log('Echo initialized:', window.Echo);
-
-        // Lắng nghe sự kiện MessageSent
+        // Listen for broadcasted messages
         window.Echo.channel('chat')
             .listen('MessageSent', (e) => {
-                console.log('Message received:', e.message.message);
                 const message = document.createElement('li');
                 message.textContent = e.message.message;
                 messagesElement.appendChild(message);
             });
 
-        // Lấy danh sách tin nhắn
+        // Fetch messages
         axios.get('/messages')
             .then(response => {
                 response.data.forEach(message => {
@@ -43,7 +39,7 @@
                 });
             });
 
-        // Gửi tin nhắn
+        // Send message
         sendButton.addEventListener('click', () => {
             const message = messageElement.value;
 
@@ -51,8 +47,11 @@
                 message: message
             })
                 .then(response => {
-                    console.log('Message sent:', response.data);
-                    messageElement.value = ''; // Xóa nội dung sau khi gửi
+                    messageElement.value = ''; // Clear input after sending
+                    // Display the sent message immediately
+                    const sentMessage = document.createElement('li');
+                    sentMessage.textContent = message;
+                    messagesElement.appendChild(sentMessage);
                 })
                 .catch(error => {
                     console.error('Error sending message:', error);
