@@ -28,6 +28,11 @@ class MessageSent implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        return ['message' => $this->message];
+        return [
+            'message' => $this->message->message,
+            'user_id' => $this->message->user_id,
+            'user_name' => $this->message->user_name,
+            'created_at' => $this->message->created_at->toDateTimeString(),
+        ];
     }
 }

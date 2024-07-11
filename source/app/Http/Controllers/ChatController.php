@@ -19,10 +19,25 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request)
     {
-        $message = Message::create(['message' => $request->message]);
+        $user = session()->get('user');
+
+        if (!$user) {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
+
+        $message = Message::create([
+            'message' => $request->message,
+            'user_id' => $user['user_id'],
+            'user_name' => $user['user_name'],
+        ]);
 
         broadcast(new MessageSent($message))->toOthers();
 
-        return ['status' => 'Message Sent!'];
+        return response()->json([
+            'message' => $message->message,
+            'user_id' => $message->user_id,
+            'user_name' => $message->user_name,
+            'created_at' => $message->created_at->toDateTimeString(),
+        ]);
     }
 }

@@ -40,8 +40,8 @@ Route::middleware(['Authorization', 'throttle:40,1'])->group(function () {
 
     Route::get('/phong-luyen-dan', [CraftPotionController::class, 'index'])->name('craft_potion');
 
-});
+    Route::get('/chat', [ChatController::class, 'index']);
+    Route::get('/messages', [ChatController::class, 'fetchMessages']);
+    Route::post('/messages', [ChatController::class, 'sendMessage']);
 
-Route::get('/chat', [ChatController::class, 'index']);
-Route::get('/messages', [ChatController::class, 'fetchMessages']);
-Route::post('/messages', [ChatController::class, 'sendMessage']);
+});
