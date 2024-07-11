@@ -28,7 +28,7 @@ class ChatController extends Controller
         $message = Message::create([
             'message' => $request->message,
             'user_id' => $user['user_id'],
-            'user_name' => $user['user_name'],
+            'user_name' => $user['name'],
         ]);
 
         broadcast(new MessageSent($message))->toOthers();
