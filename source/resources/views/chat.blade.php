@@ -162,6 +162,7 @@
                 .then(response => {
                     messageElement.value = ''; // Clear input after sending
                     // Display the sent message immediately
+                    const message = response.message ? response.message : response;
                     const messageItem = document.createElement('li');
                     messageItem.className = 'my-message';
                     messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
