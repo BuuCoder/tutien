@@ -11,7 +11,8 @@
 
     .content_mine {
         background: rgba(0, 0, 0, 0.8);
-        min-height: 60vh;
+        height: 100%;
+        min-height: 300px;
         position: relative;
         z-index: 0;
     }
@@ -244,7 +245,7 @@
             @endif
         </ul>
         <div class="banner_practice">
-            <img src="{{ asset('/images/background/background_phong_canh_11.png') }}" alt="">
+            <img src="{{ asset('images/background/background_phong_canh_6.jpg') }}" alt="Báo danh hằng ngày" alt="Báo danh hằng ngày">
         </div>
         <div class="container_practice">
             <div class="menu_practice">

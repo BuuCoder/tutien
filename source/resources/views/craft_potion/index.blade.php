@@ -11,6 +11,7 @@
 
     .furnace_container {
         width: 100%;
+        height: fit-content;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
@@ -60,12 +61,10 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: url('/images/background/background_thong_bao.jpg');
-        background-size: cover;
-        background-position: center;
+        background: rgba(0, 0, 0, 0.8);
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
+        z-index: 5;
         display: none;
         font-family: "Great Vibes", cursive;
         color: white;
@@ -132,6 +131,12 @@
         .furnace {
             width: 100%;
             justify-content: space-around;
+        }
+
+        .popup{
+            width: 100%;
+            height: 100vh;
+            padding-top: 100px;
         }
     }
 </style>
@@ -308,6 +313,9 @@
                 </li>
             @endif
         </ul>
+        <div class="banner_practice">
+            <img src="{{ asset('images/background/background_phong_canh_6.jpg') }}" alt="Báo danh hằng ngày" alt="Báo danh hằng ngày">
+        </div>
         <div class="banner_practice">
             <img src="{{ asset('/images/background/background_phong_canh_11.png') }}" alt="">
         </div>

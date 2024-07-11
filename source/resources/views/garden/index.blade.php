@@ -208,7 +208,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="content content_practice">
+            <div class="content content_practice" style="height: fit-content;">
                 <div class="group_card garden">
                     @foreach($dataAllPot as $pot)
                         <div class="card" id="card-{{ $pot->pot_id }}">

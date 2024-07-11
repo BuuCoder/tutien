@@ -564,7 +564,7 @@ button.submit img, .btn-google img {
 .garden .card {
     width: 30%;
     margin: 10px;
-    padding: 10px;
+    padding: 50px 10px;
     background: url('/images/background/background_phong_canh_9-1.jpg');
     background-size: cover;
     background-position: center;
