@@ -138,8 +138,8 @@
         // Listen for broadcasted messages
         window.Echo.channel('chat')
             .listen('MessageSent', (e) => {
-                console.log("listen:" + e);
-                const message = e.message ? e.message : e;
+                console.log(e);
+                const message = e;
                 const messageItem = document.createElement('li');
                 messageItem.className = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
                 messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
@@ -171,8 +171,8 @@
                 message: message
             })
                 .then(response => {
-                    console.log("push:" + response);
-
+                    console.log("push");
+                    console.log("response");
                     messageElement.value = ''; // Clear input after sending
                     errorElement.textContent = ''; // Clear any previous error
                     const message = response.data;
