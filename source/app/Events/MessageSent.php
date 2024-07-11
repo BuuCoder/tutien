@@ -29,10 +29,14 @@ class MessageSent implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'message' => $this->message->message,
-            'user_id' => $this->message->user_id,
-            'user_name' => $this->message->user_name,
-            'created_at' => $this->message->created_at->toDateTimeString(),
+            'message' => [
+                'id' => $this->message->id,
+                'message' => $this->message->message,
+                'user_id' => $this->message->user_id,
+                'user_name' => $this->message->user_name,
+                'created_at' => $this->message->created_at->toDateTimeString(),
+                'updated_at' => $this->message->updated_at->toDateTimeString()
+            ]
         ];
     }
 }

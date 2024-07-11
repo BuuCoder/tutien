@@ -38,6 +38,7 @@ class ChatController extends Controller
             'user_id' => $message->user_id,
             'user_name' => $message->user_name,
             'created_at' => $message->created_at->toDateTimeString(),
+            'updated_at' => $message->updated_at->toDateTimeString()
         ]);
     }
 }
