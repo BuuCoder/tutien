@@ -108,6 +108,11 @@
             background: #0056b3;
         }
 
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -119,19 +124,21 @@
         <input type="text" id="message" placeholder="Enter message...">
         <button id="send">Send</button>
     </div>
+    <div class="error" id="error"></div>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const messagesElement = document.getElementById('messages');
         const messageElement = document.getElementById('message');
         const sendButton = document.getElementById('send');
+        const errorElement = document.getElementById('error');
         const user = JSON.parse(localStorage.getItem('user')); // Assuming user info is stored in localStorage
 
         // Listen for broadcasted messages
         window.Echo.channel('chat')
             .listen('MessageSent', (e) => {
-                console.log(e)
+                console.log("listen:" + e);
                 const message = e.message ? e.message : e;
                 const messageItem = document.createElement('li');
                 messageItem.className = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
@@ -144,10 +151,14 @@
         axios.get('/messages')
             .then(response => {
                 response.data.forEach(message => {
-                    const messageItem = document.createElement('li');
-                    messageItem.className = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
-                    messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
-                    messagesElement.appendChild(messageItem);
+                    if (message.user_name && message.created_at && message.message) {
+                        const messageItem = document.createElement('li');
+                        messageItem.className = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
+                        messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
+                        messagesElement.appendChild(messageItem);
+                    } else {
+                        console.error('Invalid message data:', message);
+                    }
                 });
                 messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
             });
@@ -160,17 +171,28 @@
                 message: message
             })
                 .then(response => {
+                    console.log("push:" + response);
+
                     messageElement.value = ''; // Clear input after sending
-                    // Display the sent message immediately
-                    const message = response.message ? response.message : response;
-                    const messageItem = document.createElement('li');
-                    messageItem.className = 'my-message';
-                    messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
-                    messagesElement.appendChild(messageItem);
-                    messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
+                    errorElement.textContent = ''; // Clear any previous error
+                    const message = response.data;
+                    if (message.user_name && message.created_at && message.message) {
+                        // Display the sent message immediately
+                        const messageItem = document.createElement('li');
+                        messageItem.className = 'my-message';
+                        messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
+                        messagesElement.appendChild(messageItem);
+                        messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
+                    } else {
+                        console.error('Invalid response data:', message);
+                    }
                 })
                 .catch(error => {
-                    console.error('Error sending message:', error);
+                    if (error.response && error.response.status === 429) {
+                        errorElement.textContent = 'You are sending messages too fast. Please wait a moment.';
+                    } else {
+                        console.error('Error sending message:', error);
+                    }
                 });
         });
 
