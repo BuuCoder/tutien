@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
@@ -33,6 +34,6 @@ class ChatController extends Controller
 
         broadcast(new MessageSent($message))->toOthers();
 
-        return ['message' => $message];
+        return $message;
     }
 }

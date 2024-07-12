@@ -18,7 +18,7 @@ class MessageSent implements ShouldBroadcast
 
     public function __construct(Message $message)
     {
-        $this->message = $message;
+        $this->message = $message->toArray();
     }
 
     public function broadcastOn()
@@ -29,7 +29,7 @@ class MessageSent implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'message' => $this->message->toArray()
+            'message' => $this->message
         ];
     }
 }

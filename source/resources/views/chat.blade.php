@@ -132,14 +132,17 @@
         const messagesElement = document.getElementById('messages');
         const messageElement = document.getElementById('message');
         const sendButton = document.getElementById('send');
+        const errorElement = document.getElementById('error');
+        const user = JSON.parse(localStorage.getItem('user')); // Assuming user info is stored in localStorage
 
         // Listen for broadcasted messages
         window.Echo.channel('chat')
             .listen('MessageSent', (e) => {
                 console.log(e);
+                const message = e.message;
                 const messageItem = document.createElement('li');
-                messageItem.className = e.message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
-                messageItem.innerHTML = `<span class="username">${e.message.user_name}</span> <span class="time">(${moment(e.message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${e.message.message}</span>`;
+                messageItem.className = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
+                messageItem.innerHTML = `<span class="username">${message.user_name}</span> <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message.message}</span>`;
                 messagesElement.appendChild(messageItem);
                 messagesElement.scrollTop = messagesElement.scrollHeight;
             });
@@ -164,12 +167,11 @@
                 message: message
             })
                 .then(response => {
-                    console.log(response);
                     messageElement.value = '';
                     // Display the sent message immediately
                     const messageItem = document.createElement('li');
                     messageItem.className = 'my-message';
-                    messageItem.innerHTML = `<span class="username">${response.data.message.user_name}</span> <span class="time">(${moment(response.data.message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${response.data.message.message}</span>`;
+                    messageItem.innerHTML = `<span class="username">${response.data.user_name}</span> <span class="time">(${moment(response.data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${response.data.message}</span>`;
                     messagesElement.appendChild(messageItem);
                     messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
                 })
