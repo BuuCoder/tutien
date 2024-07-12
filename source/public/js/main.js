@@ -37,11 +37,11 @@ $(document).ready(function () {
     gsap.set($ball, {xPercent: -50, yPercent: -50});
 
     $(document).on('mousemove', function (e) {
-        mouse.x = e.clientX - 60;
-        mouse.y = e.clientY - 30;
+        mouse.x = e.clientX;
+        mouse.y = e.clientY - 10;
 
         gsap.to($dot, {x: mouse.x, y: mouse.y, duration: 0.05});
-        gsap.to($ball, {x: mouse.x, y: mouse.y, duration: 0.2});
+        gsap.to($ball, {x: mouse.x, y: mouse.y, duration: 0.02});
     });
 
     window.showToast = function(type, message) {

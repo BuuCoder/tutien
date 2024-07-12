@@ -1,21 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 @include('layout.header')
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <style>
+    body::after {
+        background-image: url('/images/background/background_phong_canh_23.jpg');
+        background-size: cover;
+    }
     .chatroom {
         width: 100%;
         display: flex;
         flex-direction: row;
         gap: 30px;
         padding: 20px;
-        background: rgba(0, 0, 0, 0.49);
+        background: rgba(0, 0, 0, 0.6);
+        margin-bottom: 50px;
+        border-radius: 20px;
     }
 
     #chat {
         width: 100%;
         max-width: 100%;
-        max-height: 600px;
         background: url('/images/background/background_phong_canh_21.jpg');
         background-size: cover;
         background-position: center;
@@ -24,7 +29,6 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        /*justify-content: space-between;*/
         position: relative;
     }
 
@@ -42,22 +46,19 @@
         width: 100%;
         background: rgba(0, 0, 0, 0.3);
         margin: 0;
-        font-size: 30px;
         z-index: 2;
         text-align: center;
-        padding: 10px;
-    }
-
-    #chat .title a{
         color: white;
+        padding: 10px;
         font-family: "Great Vibes", cursive;
+        font-size: 30px;
     }
 
     #messages {
         list-style: none;
         margin: 0;
         height: 100%;
-        min-height: 400px;
+        min-height: calc(100vh - 170px);
         overflow-y: auto;
         border-bottom: 1px solid #fff;
         z-index: 2;
@@ -198,6 +199,9 @@
         .chatroom{
             flex-direction: column;
             gap: 20px;
+            margin-top: 100px;
+            margin-bottom: 0;
+            padding: 10px;
         }
 
         #chat, .banner{
@@ -233,8 +237,8 @@
      src="{{ asset('images/components/button-open.png') }}"
      alt="Mở menu" title="Mở menu"
 >
-<img loading="lazy" class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}" alt="Tu Tiên Giới"
-     title="Tu Tiên Giới">
+<img loading="lazy" class="logo_mobile" src="{{ asset('images/components/tu-tien-gioi-3.png') }}"
+     alt="Tu Tiên Giới" title="Tu Tiên Giới">
 <div class="wrapper_game">
     <div class="heading_game">
         <ul class="menu_game">
@@ -250,7 +254,7 @@
                          alt="Thương Hội" title="Thương Hội">
                 </a>
             </li>
-            <li class="item_menu_game">
+            <li class="item_menu_game active">
                 <a href="/bao-danh-hang-ngay" title="Tu Luyện">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-tu-luyen.png') }}"
@@ -262,7 +266,7 @@
                          alt="Tu Luyện" title="Tu Luyện">
                 </a>
             </li>
-            <li class="item_menu_game main active">
+            <li class="item_menu_game main">
                 <a href="/" title="Chính Điện">
                     <img loading="lazy" class="main"
                          src="{{ asset('images/components/button-chinh-dien.png') }}"
@@ -330,7 +334,7 @@
                          alt="Thương Hội" title="Thương Hội">
                 </a>
             </li>
-            <li class="item_menu_game">
+            <li class="item_menu_game active">
                 <a href="/bao-danh-hang-ngay" title="Tu Luyện">
                     <img loading="lazy"
                          src="{{ asset('images/components/button-tu-luyen.png') }}"
@@ -342,7 +346,7 @@
                          alt="Tu Luyện" title="Tu Luyện">
                 </a>
             </li>
-            <li class="item_menu_game main active">
+            <li class="item_menu_game main">
                 <a href="/" title="Chính Điện">
                     <img loading="lazy" class="main"
                          src="{{ asset('images/components/button-chinh-dien.png') }}"
@@ -393,203 +397,36 @@
                 </li>
             @endif
         </ul>
-        <div class="main_board">
-            <div class="left" id="left">
-                <div class="top" id="top">
-                    <div class="card">
-                        <div class="swiper swiper-coverflow">
-                            <div class="swiper-button-next btn-swiper"></div>
-                            <div class="swiper-button-prev btn-swiper"></div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img loading="lazy" src="{{ asset('/images/banner/banner-5.jpg') }}"
-                                                 alt="EVENT HOLIDAY SUMMARY" title="EVENT HOLIDAY SUMMARY">
-                                            <div class="content">
-                                                <h3>EVENT HOLIDAY SUMMARY</h3>
-                                                <p>What is event Holiday Summary?</p>
-                                                <p>What is event Holiday Summary is event Holiday Summary is
-                                                    event Holiday Summary is event Holiday Summary</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img loading="lazy" src="{{ asset('/images/banner/banner-6.jpg') }}"
-                                                 alt="EVENT HOLIDAY SUMMARY" title="EVENT HOLIDAY SUMMARY">
-                                            <div class="content">
-                                                <h3>EVENT HOLIDAY SUMMARY</h3>
-                                                <p>What is event Holiday Summary?</p>
-                                                <p>What is event Holiday Summary is event Holiday Summary is
-                                                    event Holiday Summary is event Holiday Summary</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img loading="lazy" src="{{ asset('/images/banner/banner-1.jpg') }}"
-                                                 alt="EVENT HOLIDAY SUMMARY" title="EVENT HOLIDAY SUMMARY">
-                                            <div class="content">
-                                                <h3>EVENT HOLIDAY SUMMARY</h3>
-                                                <p>What is event Holiday Summary?</p>
-                                                <p>What is event Holiday Summary is event Holiday Summary is
-                                                    event Holiday Summary is event Holiday Summary</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img loading="lazy" src="{{ asset('/images/banner/banner-4.jpg') }}"
-                                                 alt="EVENT HOLIDAY SUMMARY" title="EVENT HOLIDAY SUMMARY">
-                                            <div class="content">
-                                                <h3>EVENT HOLIDAY SUMMARY</h3>
-                                                <p>What is event Holiday Summary?</p>
-                                                <p>What is event Holiday Summary is event Holiday Summary is
-                                                    event Holiday Summary is event Holiday Summary</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <div class="card_item">
-                                            <img loading="lazy" src="{{ asset('/images/banner/banner-3.jpg') }}"
-                                                 alt="EVENT HOLIDAY SUMMARY" title="EVENT HOLIDAY SUMMARY">
-                                            <div class="content">
-                                                <h3>EVENT HOLIDAY SUMMARY</h3>
-                                                <p>What is event Holiday Summary?</p>
-                                                <p>What is event Holiday Summary is event Holiday Summary is
-                                                    event Holiday Summary is event Holiday Summary</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-pagination"></div>
-                            </div>
-                        </div>
-                    </div>
+
+        <div class="chatroom">
+            <div id="chat">
+                <div class="title">
+                    Tiên Giới Hội Quán
                 </div>
-                <div class="bottom" id="bottom">
-                    <div class="card" style="width: 100%">
-                        <div class="chatroom">
-                            <div id="chat">
-                                <div class="title">
-                                    <a href="/chat">Tiên Giới Hội Quán</a>
-                                </div>
-                                <ul id="messages">
-                                    <!-- Messages will be displayed here -->
-                                </ul>
-                                <div id="message-container">
-                                    <input type="text" id="message" placeholder="Aa">
-                                    <button id="send">
-                                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M2.01 21L23 12L2.01 3V10L17 12L2.01 14V21Z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="right" id="right">
-                <div class="card" style="display: flex; justify-content: flex-start; align-items: flex-start;">
-                    <div class="container_table_rank">
-                        <div class="table_rank">
-                            <table cellspacing="0" cellpadding="0">
-                                <thead>
-                                <tr>
-                                    <td colspan="3" style="text-align:center; color: #fff; z-index: 3; position: relative; font-family: 'Great Vibes', cursive; font-size: 25px;">⭐Phong Thần Bảng⭐</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @for($i = 0; $i <= 29; $i++)
-                                    <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td>
-                                            <div class="user">
-                                                <img loading="lazy"
-                                                     src="{{ asset('/images/banner/banner-7.jpg') }}"
-                                                     alt="Majinbuu Tu Tiên" title="Majinbuu Tu Tiên">
-                                                <span>Thái Thanh Thánh Nhân</span>
-                                            </div>
-                                        </td>
-                                        <td>{{100000 - 1022 * $i}}</td>
-                                    </tr>
-                                @endfor
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <ul id="messages">
+                    <!-- Messages will be displayed here -->
+                </ul>
+                <div id="message-container">
+                    <input type="text" id="message" placeholder="Aa">
+                    <button id="send">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.01 21L23 12L2.01 3V10L17 12L2.01 14V21Z"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @include('layout.toast')
 @include('layout.footer')
 
-
 <script src="{{ asset("js/jquery-3.7.1.min.js") }}"></script>
 <script src="{{ asset('js/gsap-3.9.1.min.js') }}"></script>
-<script src="{{ asset("js/swiper.bundle.min.js") }}"></script>
 <script src="{{ asset("js/main.js") }}"></script>
-
 <script>
-    $(document).ready(function () {
-        var swiper = new Swiper(".swiper-coverflow", {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: "auto",
-            loop: true,
-            coverflowEffect: {
-                rotate: 0,
-                stretch: 0,
-                depth: 300,
-                modifier: 2,
-                slideShadows: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-                dynamicBullets: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            autoplay: {
-                delay: 4000,
-            },
-        });
-
-        function matchHeight() {
-            const $top = $('#top');
-            const $bottom = $('#bottom');
-            const $right = $('#right');
-
-            const totalHeight = $top.outerHeight() + $bottom.outerHeight();
-
-            $right.css('height', `${totalHeight}px`);
-        }
-        $(window).on('load', matchHeight);
-        $(window).on('resize', matchHeight);
-        setTimeout(()=>{
-            matchHeight();
-        }, 300)
-    });
-</script>
-<script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         const $messagesElement = $('#messages');
         const $messageElement = $('#message');
         const $sendButton = $('#send');
@@ -597,15 +434,14 @@
 
         // Listen for broadcasted messages
         window.Echo.channel('chat')
-            .listen('MessageSent', function (e) {
+            .listen('MessageSent', function(e) {
                 console.log(e);
                 const message = e.message;
                 const messageClass = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
                 const messageItem = `
-
+                <span class="username">${message.user_name}</span>
+                <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>
                 <li class="${messageClass}">
-                    <span class="username">${message.user_name}</span>
-                    <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>
                     <span class="message">${message.message}</span>
                 </li>
             `;
@@ -615,13 +451,13 @@
 
         // Fetch messages
         axios.get('/messages')
-            .then(function (response) {
-                response.data.forEach(function (data) {
+            .then(function(response) {
+                response.data.forEach(function(data) {
                     const messageClass = data.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
                     const messageItem = `
+                    <span class="username">${data.user_name}</span>
+                    <span class="time">(${moment(data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>
                     <li class="${messageClass}">
-                        <span class="username">${data.user_name}</span>
-                        <span class="time">(${moment(data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>
                         <span class="message">${data.message}</span>
                     </li>
                 `;
@@ -631,7 +467,7 @@
             });
 
         // Send message
-        $sendButton.on('click', function () {
+        $sendButton.on('click', function() {
             const message = $messageElement.val().trim();
 
             if (!message) {
@@ -641,25 +477,26 @@
 
             // Display the sent message immediately with "Sending..." status
             const tempMessageItem = $(`
-                <li class="my-message">
-                    <span class="username">{{ session()->get("user")['name'] }}</span>
-                    <span class="time">(${moment().format('DD-MM-YYYY H:mm:ss')})</span>
-                    <span class="message">${message}</span>
-                    <span class="status">Đang gửi...</span>
-                </li>
-            `);
+            <span class="username">{{ session()->get("user")['name'] }}</span>
+            <span class="time">(${moment().format('DD-MM-YYYY H:mm:ss')})</span>
+            <li class="my-message">
+                <span class="message">${message}</span>
+                <span class="status">Đang gửi...</span>
+            </li>
+        `);
             $messagesElement.append(tempMessageItem);
             $messagesElement.scrollTop($messagesElement[0].scrollHeight);
+
             $messageElement.val('');
             // Send the message via API
             axios.post('/messages', {
                 message: message
             })
-                .then(function (response) {
+                .then(function(response) {
                     // Update the temporary message status to "Sent"
                     tempMessageItem.find('.status').text('Đã gửi');
                 })
-                .catch(function (error) {
+                .catch(function(error) {
                     console.error('Error sending message:', error);
                     // Update the temporary message status to show an error
                     tempMessageItem.find('.status').text('Gửi thất bại');
@@ -667,12 +504,14 @@
         });
 
         // Allow sending message by pressing Enter key
-        $messageElement.on('keypress', function (e) {
+        $messageElement.on('keypress', function(e) {
             if (e.key === 'Enter') {
                 $sendButton.click();
             }
         });
     });
+
 </script>
 </body>
 </html>
+

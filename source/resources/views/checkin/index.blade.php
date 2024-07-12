@@ -239,9 +239,9 @@
                             </button>
                         </form>
                     </div>
-                </div>
-                <div class="remind_checkin">
-                    <img src="{{ asset('images/components/han_lap_bao_danh.png') }}" alt="Hàn Lập nhắc báo danh" title="Hàn Lập nhắc báo danh">
+                    <div class="remind_checkin">
+                        <img src="{{ asset('images/components/han_lap_bao_danh.png') }}" alt="Hàn Lập nhắc báo danh" title="Hàn Lập nhắc báo danh">
+                    </div>
                 </div>
             </div>
         </div>

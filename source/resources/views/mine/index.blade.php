@@ -10,9 +10,9 @@
     }
 
     .content_mine {
-        background: rgba(0, 0, 0, 0.8);
+        /*background: rgba(0, 0, 0, 0.2);*/
         height: 100%;
-        min-height: 300px;
+        min-height: 500px;
         position: relative;
         z-index: 0;
     }
@@ -23,7 +23,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background: url('/images/background/background_phong_canh_11.jpg');
+        background: url('/images/background/background_phong_canh_20.jpg');
         background-size: cover;
         background-position: top center;
         z-index: -1;
@@ -60,6 +60,18 @@
         width: 100%;
     }
 
+    body::after {
+        background-image: url('/images/background/background_phong_canh_20.jpg');
+        background-size: cover;
+    }
+
+    @media (max-width: 1200px) {
+        .content{
+            width: 100%;
+        }
+    }
+
+
     @media (min-width: 1024px) {
         .content_mine img {
             width: 40%;
@@ -68,7 +80,24 @@
         }
 
         .content_mine button {
-            width: 150px;
+            width: 250px;
+        }
+
+        body::after {
+            background-image: url('/images/background/background_phong_canh_16.jpg');
+            background-size: cover;
+        }
+
+        .content_mine::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: url('/images/background/background_phong_canh_16.jpg');
+            background-size: cover;
+            background-position: top center;
+            z-index: -1;
         }
     }
 </style>
@@ -245,61 +274,66 @@
             @endif
         </ul>
         <div class="banner_practice">
-            <img src="{{ asset('images/background/background_phong_canh_6.jpg') }}" alt="Báo danh hằng ngày" alt="Báo danh hằng ngày">
+            <img src="{{ asset('images/background/background_phong_canh_6.jpg') }}" alt="Báo danh hằng ngày"
+                 alt="Báo danh hằng ngày">
         </div>
-        <div class="container_practice">
-            <div class="menu_practice">
-                <ul>
-                    <li>
-                        <a href="{{ route('checkin') }}">
-                            <img src="{{ asset('/images/components/button-bao-danh.png') }}" alt="">
-                            <img class="active" src="{{ asset('/images/components/button-bao-danh-active.png') }}"
-                                 alt="">
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="{{route('garden')}}">
-                            <img src="{{ asset('/images/components/button-duoc-vien.png') }}" alt="">
-                            <img class="active" src="{{ asset('/images/components/button-duoc-vien-active.png') }}"
-                                 alt="">
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="">
-                            <img src="{{ asset('/images/components/button-linh-son.png') }}" alt="">
-                            <img class="active" src="{{ asset('/images/components/button-linh-son-active.png') }}"
-                                 alt="">
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="{{route('craft_potion')}}">
-                            <img src="{{ asset('/images/components/button-luyen-dan.png') }}" alt="">
-                            <img class="active" src="{{ asset('/images/components/button-luyen-dan-active.png') }}"
-                                 alt="">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="content content_practice">
-                <div class="content_mine">
-                    <img src="{{ asset('/images/components/khai-thac-nguyen-thach.png') }}" alt="">
-                    <p id="countdown-mine" class="countdown" data-end-time="{{ time() - $time }}">
-                        @if((time() - $time) >= 4 * 3600)
-                            00:00:00
-                        @else
-                            {{ gmdate('H:i:s', 4 * 3600 - (time() - $time)) }}
-                        @endif
-                    </p>
-                    <form id="mine-form" class="mine-form">
-                        @csrf
-                        <input type="hidden" value="{{ session('user')['user_id'] }}" name="userId">
-                        <button type="button" id="mine-button" style="display: none;">
-                            <img src="{{ asset('/images/components/button-khai-thac.png') }}" alt="Khai thác">
-                        </button>
-                    </form>
+            <div class="container_practice">
+                <div class="menu_practice">
+                    <ul>
+                        <li>
+                            <a href="{{ route('checkin') }}">
+                                <img src="{{ asset('/images/components/button-bao-danh.png') }}" alt="">
+                                <img class="active" src="{{ asset('/images/components/button-bao-danh-active.png') }}"
+                                     alt="">
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{{route('garden')}}">
+                                <img src="{{ asset('/images/components/button-duoc-vien.png') }}" alt="">
+                                <img class="active" src="{{ asset('/images/components/button-duoc-vien-active.png') }}"
+                                     alt="">
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="">
+                                <img src="{{ asset('/images/components/button-linh-son.png') }}" alt="">
+                                <img class="active" src="{{ asset('/images/components/button-linh-son-active.png') }}"
+                                     alt="">
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{{route('craft_potion')}}">
+                                <img src="{{ asset('/images/components/button-luyen-dan.png') }}" alt="">
+                                <img class="active" src="{{ asset('/images/components/button-luyen-dan-active.png') }}"
+                                     alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content content_practice">
+                    <div class="content_mine">
+                        <img src="{{ asset('/images/components/khai-thac-nguyen-thach.png') }}" alt="">
+                        <p id="countdown-mine" class="countdown" data-end-time="{{ time() - $time }}">
+                            @if((time() - $time) >= 4 * 3600)
+                                00:00:00
+                            @else
+                                {{ gmdate('H:i:s', 4 * 3600 - (time() - $time)) }}
+                            @endif
+                        </p>
+                        <form id="mine-form" class="mine-form">
+                            @csrf
+                            <input type="hidden" value="{{ session('user')['user_id'] }}" name="userId">
+                            <button type="button" id="mine-button" style="display: none;">
+                                <img src="{{ asset('/images/components/button-khai-thac.png') }}" alt="Khai thác">
+                            </button>
+                        </form>
+                    </div>
+                    <div class="remind_checkin">
+                        <img src="{{ asset('images/components/han_lap_bao_danh.png') }}" alt="Hàn Lập nhắc báo danh"
+                             title="Hàn Lập nhắc báo danh">
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 

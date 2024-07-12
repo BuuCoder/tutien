@@ -2,11 +2,14 @@
 <html lang="en">
 @include('layout.header')
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 0;
+
+    body::after {
+        background-image: url('/images/background/background_phong_canh_17.jpg');
+        background-size: cover;
+    }
+
+    .content{
+        min-height: 750px;
     }
 
     .furnace_container {
@@ -14,9 +17,12 @@
         height: fit-content;
         display: flex;
         flex-wrap: wrap;
+        min-height: 500px;
         justify-content: space-around;
-        background: rgba(0, 0, 0, 0.4);
         padding: 20px 0;
+        background: url('/images/background/background_phong_canh_17.jpg');
+        background-size: cover;
+        background-position: center center;
     }
 
     .furnace {
@@ -32,6 +38,7 @@
         padding: 10px 20px;
         font-family: "Great Vibes", cursive;
         gap: 10px;
+        border-radius: 10px;
     }
 
     .furnace p {
@@ -110,9 +117,15 @@
         gap: 20px;
     }
 
-    #craft-form button img{
+    #craft-form button img {
         width: 100%;
         max-width: 180px;
+    }
+
+    @media (max-width: 1200px) {
+        .content{
+            width: 100%;
+        }
     }
 
     @media (max-width: 768px) {
@@ -128,15 +141,42 @@
     }
 
     @media (max-width: 480px) {
-        .furnace {
-            width: 100%;
-            justify-content: space-around;
+        body::after {
+            background-image: url('/images/background/background_phong_canh_19.jpg');
+            background-size: cover;
         }
 
-        .popup{
+        .furnace_container {
+            background: none;
+            padding: 10px;
+        }
+
+        .content{
+            padding: 0;
+        }
+
+        .furnace {
+            width: 100%;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+
+        .furnace img {
+            width: 60%;
+        }
+
+        .furnace button img {
+            width: 110px;
+        }
+
+        .popup {
             width: 100%;
             height: 100vh;
             padding-top: 100px;
+        }
+
+        .container_practice{
+            margin-bottom: 100px;
         }
     }
 </style>
@@ -314,7 +354,8 @@
             @endif
         </ul>
         <div class="banner_practice">
-            <img src="{{ asset('images/background/background_phong_canh_6.jpg') }}" alt="Báo danh hằng ngày" alt="Báo danh hằng ngày">
+            <img src="{{ asset('images/background/background_phong_canh_6.jpg') }}" alt="Báo danh hằng ngày"
+                 alt="Báo danh hằng ngày">
         </div>
         <div class="banner_practice">
             <img src="{{ asset('/images/background/background_phong_canh_11.png') }}" alt="">
@@ -352,31 +393,36 @@
                     </li>
                 </ul>
             </div>
-
-            <div class="furnace_container">
-                @foreach($furnaceStatus as $furnaceId => $status)
-                    @php
-                        $furnace = $furnaces[$furnaceId];
-                    @endphp
-                    <div class="furnace" id="furnace-{{ $furnaceId }}">
-                        <h2>{{ $furnace['name'] }}</h2>
-                        <img src="{{ asset('./images/alchemy_furnace/'.$furnace['image']) }}"
-                             alt="{{ $furnace['name'] }}">
-                        @if($status['status'] == 'available')
-                            <button onclick="showCraftPopup({{ $furnaceId }})" id="craft-button-{{ $furnaceId }}">
-                                <img src="{{ asset('/images/components/button-luyen-dan.png') }}" alt="">
-                            </button>
-                        @elseif($status['status'] == 'crafting')
-                            <p class="des_furnace">Đang luyện {{ $status['potion'] }}. <br> Thời gian còn lại:</p>
-                            <span id="countdown-{{ $furnaceId }}" class="countdown"
-                                  data-remaining-time="{{ $status['remaining_time'] }}">{{ gmdate('H:i:s', $status['remaining_time']) }}</span>
-                        @elseif($status['status'] == 'completed')
-                            <button onclick="collectPotion({{ $furnaceId }})">
-                                <img src="{{ asset('/images/components/button-nhan-dan-duoc.png') }}" alt="">
-                            </button>
-                        @endif
-                    </div>
-                @endforeach
+            <div class="content">
+                <div class=" furnace_container">
+                    @foreach($furnaceStatus as $furnaceId => $status)
+                        @php
+                            $furnace = $furnaces[$furnaceId];
+                        @endphp
+                        <div class="furnace" id="furnace-{{ $furnaceId }}">
+                            <h2>{{ $furnace['name'] }}</h2>
+                            <img src="{{ asset('./images/alchemy_furnace/'.$furnace['image']) }}"
+                                 alt="{{ $furnace['name'] }}">
+                            @if($status['status'] == 'available')
+                                <button onclick="showCraftPopup({{ $furnaceId }})" id="craft-button-{{ $furnaceId }}">
+                                    <img src="{{ asset('/images/components/button-luyen-dan.png') }}" alt="">
+                                </button>
+                            @elseif($status['status'] == 'crafting')
+                                <p class="des_furnace">Đang luyện {{ $status['potion'] }}. <br> Thời gian còn lại:</p>
+                                <span id="countdown-{{ $furnaceId }}" class="countdown"
+                                      data-remaining-time="{{ $status['remaining_time'] }}">{{ gmdate('H:i:s', $status['remaining_time']) }}</span>
+                            @elseif($status['status'] == 'completed')
+                                <button onclick="collectPotion({{ $furnaceId }})">
+                                    <img src="{{ asset('/images/components/button-nhan-dan-duoc.png') }}" alt="">
+                                </button>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+                <div class="remind_checkin">
+                    <img src="{{ asset('images/components/vuong_lam_luyen_dan.png') }}" alt="Hàn Lập nhắc báo danh"
+                         title="Hàn Lập nhắc báo danh">
+                </div>
             </div>
 
             <div id="craft-popup" class="popup">

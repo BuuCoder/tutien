@@ -2,6 +2,57 @@
 <html lang="en">
 @include('layout.header')
 <body>
+<style>
+    body::after {
+        background-image: url('/images/background/background_phong_canh_18.jpg');
+        background-size: cover;
+    }
+
+    .content_practice {
+        background: url('/images/background/background_phong_canh_18.jpg');
+        background-size: cover;
+        background-position: center;
+        min-height: 750px;
+        position: relative;
+    }
+
+    .content_practice::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        top: 0;
+        background-image: linear-gradient(to left top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3));
+    }
+
+    .garden{
+        position: relative;
+        z-index: 2;
+    }
+
+    @media (max-width: 1200px) {
+        .content{
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .content{
+            width: 100%;
+            padding: 10px;
+        }
+        .content_practice {
+            height: fit-content;
+            min-height: 590px;
+        }
+
+        body::after {
+            background-image: url('/images/background/background_phong_canh_18.jpg');
+            background-size: cover;
+        }
+    }
+</style>
 <button class="musicButton" title="Nhạc nền">
     <img loading="lazy" class="open-music"
          src="{{ asset('images/components/open-music.png') }}"
@@ -183,13 +234,15 @@
                     <li>
                         <a href="{{ route('checkin') }}">
                             <img src="{{ asset('/images/components/button-bao-danh.png') }}" alt="">
-                            <img class="active" src="{{ asset('/images/components/button-bao-danh-active.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-bao-danh-active.png') }}"
+                                 alt="">
                         </a>
                     </li>
                     <li class="active">
                         <a href="">
                             <img src="{{ asset('/images/components/button-duoc-vien.png') }}" alt="">
-                            <img class="active" src="{{ asset('/images/components/button-duoc-vien-active.png') }}" alt="">
+                            <img class="active" src="{{ asset('/images/components/button-duoc-vien-active.png') }}"
+                                 alt="">
                         </a>
                     </li>
                     <li class="">
@@ -208,51 +261,60 @@
                     </li>
                 </ul>
             </div>
-            <div class="content content_practice" style="height: fit-content;">
-                <div class="group_card garden">
-                    @foreach($dataAllPot as $pot)
-                        <div class="card" id="card-{{ $pot->pot_id }}">
-                            <h3>{{ $pot->pot_name }}</h3>
-                            <p id="countdown-{{$pot->pot_id}}" class="countdown">
+            <div class="content">
+                <div class="content_practice">
+                    <div class="group_card garden">
+                        @foreach($dataAllPot as $pot)
+                            <div class="card" id="card-{{ $pot->pot_id }}">
+                                <h3>{{ $pot->pot_name }}</h3>
+                                <p id="countdown-{{$pot->pot_id}}" class="countdown">
+                                    @if($dataPortUser[$pot->pot_id]->pot_time_start == 0)
+                                        00:00:00
+                                    @elseif(($dataPortUser[$pot->pot_id]->pot_time_start + $pot->pot_growth * 3600) > time())
+                                        {{ date('H:i:s', ($pot->pot_growth * 3600 - (time() - $dataPortUser[$pot->pot_id]->pot_time_start))) }}
+                                    @else
+                                        00:00:00
+                                    @endif
+                                </p>
+
                                 @if($dataPortUser[$pot->pot_id]->pot_time_start == 0)
-                                    00:00:00
+                                    <small>Chưa có linh dược</small>
+                                    <img class="chaucay" src="{{ asset('/images/garden/chau-hoa-cuong.png') }}" alt="">
                                 @elseif(($dataPortUser[$pot->pot_id]->pot_time_start + $pot->pot_growth * 3600) > time())
-                                    {{ date('H:i:s', ($pot->pot_growth * 3600 - (time() - $dataPortUser[$pot->pot_id]->pot_time_start))) }}
+                                    <small>Linh dược đang phát triển</small>
+                                    <img class="chaucay" src="{{ asset('/images/garden/hoa-dang-phat-trien.png') }}"
+                                         alt="">
                                 @else
-                                    00:00:00
+                                    <small>Linh dược trưởng thành</small>
+                                    <img class="chaucay" src="{{ asset('/images/garden/hoa.png') }}" alt="">
                                 @endif
-                            </p>
 
-                            @if($dataPortUser[$pot->pot_id]->pot_time_start == 0)
-                                <small>Chưa có linh dược</small>
-                                <img class="chaucay" src="{{ asset('/images/garden/chau-hoa-cuong.png') }}" alt="">
-                            @elseif(($dataPortUser[$pot->pot_id]->pot_time_start + $pot->pot_growth * 3600) > time())
-                                <small>Linh dược đang phát triển</small>
-                                <img class="chaucay" src="{{ asset('/images/garden/hoa-dang-phat-trien.png') }}" alt="">
-                            @else
-                                <small>Linh dược trưởng thành</small>
-                                <img class="chaucay" src="{{ asset('/images/garden/hoa.png') }}" alt="">
-                            @endif
+                                <form id="grow-form-{{ $pot->pot_id }}" class="grow-form"
+                                      style="{{ $dataPortUser[$pot->pot_id]->pot_time_start != 0 ? 'display:none;' : '' }}">
+                                    @csrf
+                                    <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
+                                    <button type="button" class="grow-button" data-pot-id="{{ $pot->pot_id }}">
+                                        <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
+                                    </button>
+                                </form>
 
-                            <form id="grow-form-{{ $pot->pot_id }}" class="grow-form" style="{{ $dataPortUser[$pot->pot_id]->pot_time_start != 0 ? 'display:none;' : '' }}">
-                                @csrf
-                                <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
-                                <button type="button" class="grow-button" data-pot-id="{{ $pot->pot_id }}">
-                                    <img src="{{ asset('/images/garden/button-gieo-linh-duoc.png') }}" alt="">
-                                </button>
-                            </form>
+                                <form id="harvest-form-{{ $pot->pot_id }}" class="harvest-form"
+                                      style="{{ ($dataPortUser[$pot->pot_id]->pot_time_start == 0 || ($dataPortUser[$pot->pot_id]->pot_time_start + $pot->pot_growth * 3600) > time()) ? 'display:none;' : '' }}">
+                                    @csrf
+                                    <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
+                                    <button type="button" class="harvest-button" data-pot-id="{{ $pot->pot_id }}">
+                                        <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
+                                    </button>
+                                </form>
 
-                            <form id="harvest-form-{{ $pot->pot_id }}" class="harvest-form" style="{{ ($dataPortUser[$pot->pot_id]->pot_time_start == 0 || ($dataPortUser[$pot->pot_id]->pot_time_start + $pot->pot_growth * 3600) > time()) ? 'display:none;' : '' }}">
-                                @csrf
-                                <input type="hidden" value="{{ $pot->pot_id }}" name="potId">
-                                <button type="button" class="harvest-button" data-pot-id="{{ $pot->pot_id }}">
-                                    <img src="{{ asset('/images/garden/button-thu-hoach.png') }}" alt="">
-                                </button>
-                            </form>
+                                <input type="hidden" class="pot-growth" value="{{ $pot->pot_growth }}">
+                            </div>
+                        @endforeach
+                    </div>
 
-                            <input type="hidden" class="pot-growth" value="{{ $pot->pot_growth }}">
-                        </div>
-                    @endforeach
+                    <div class="remind_checkin">
+                        <img src="{{ asset('images/components/van_tieu_linh_duoc.png') }}" alt="Hàn Lập nhắc báo danh" title="Hàn Lập nhắc báo danh">
+                    </div>
                 </div>
             </div>
         </div>
@@ -266,10 +328,10 @@
 <script src="{{ asset('js/gsap-3.9.1.min.js') }}"></script>
 <script src="{{ asset("js/main.js") }}"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         const $countdownElements = $('.countdown');
 
-        $countdownElements.each(function() {
+        $countdownElements.each(function () {
             const timeText = $(this).text();
             if (timeText.trim() !== '00:00:00') {
                 startCountdown($(this));
@@ -281,7 +343,7 @@
 
             updateCountdown($element, timeRemaining);
 
-            const interval = setInterval(function() {
+            const interval = setInterval(function () {
                 timeRemaining--;
                 updateCountdown($element, timeRemaining);
 
@@ -315,14 +377,14 @@
             $(`#card-${potId} .chaucay`).attr('src', '/images/garden/hoa.png');
         }
 
-        $('.grow-button').on('click', function() {
+        $('.grow-button').on('click', function () {
             const potId = $(this).data('pot-id');
             const potGrowth = $(`#card-${potId} .pot-growth`).val();
             $.ajax({
                 url: '/api/v1/gieo-linh-duoc',
                 type: 'POST',
                 data: $(`#grow-form-${potId}`).serialize(),
-                success: function(response) {
+                success: function (response) {
                     if (response.status === 'success') {
                         showToast('success', response.message);
                         $(`#grow-form-${potId}`).hide();
@@ -338,19 +400,19 @@
                         showToast('error', response.message);
                     }
                 },
-                error: function() {
+                error: function () {
                     showToast('error', 'Gieo hạt không thành công');
                 }
             });
         });
 
-        $('.harvest-button').on('click', function() {
+        $('.harvest-button').on('click', function () {
             const potId = $(this).data('pot-id');
             $.ajax({
                 url: '/api/v1/thu-hoach',
                 type: 'POST',
                 data: $(`#harvest-form-${potId}`).serialize(),
-                success: function(response) {
+                success: function (response) {
                     if (response.status === "success") {
                         showToast('success', response.message);
                         $(`#harvest-form-${potId}`).hide();
@@ -362,7 +424,7 @@
                         showToast('error', response.message);
                     }
                 },
-                error: function() {
+                error: function () {
                     showToast('error', 'Thu hoạch không thành công');
                 }
             });
