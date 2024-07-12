@@ -77,6 +77,12 @@
             font-size: 1em;
         }
 
+        .status {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 5px;
+        }
+
         #message-container {
             display: flex;
             padding: 10px;
@@ -161,22 +167,33 @@
 
         // Send message
         sendButton.addEventListener('click', () => {
-            const message = messageElement.value;
+            const message = messageElement.value.trim();
 
+            if (!message) {
+                console.error('Message is empty');
+                return;
+            }
+
+            // Display the sent message immediately with "Sending..." status
+            const tempMessageItem = document.createElement('li');
+            tempMessageItem.className = 'my-message';
+            tempMessageItem.innerHTML = `<span class="username">{{ session()->get("user")['name'] }}</span> <span class="time">(${moment().format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${message}</span><span class="status">Đang gửi...</span>`;
+            messagesElement.appendChild(tempMessageItem);
+            messagesElement.scrollTop = messagesElement.scrollHeight;
+
+            // Send the message via API
             axios.post('/messages', {
                 message: message
             })
                 .then(response => {
                     messageElement.value = '';
-                    // Display the sent message immediately
-                    const messageItem = document.createElement('li');
-                    messageItem.className = 'my-message';
-                    messageItem.innerHTML = `<span class="username">${response.data.user_name}</span> <span class="time">(${moment(response.data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${response.data.message}</span>`;
-                    messagesElement.appendChild(messageItem);
-                    messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
+                    // Update the temporary message status to "Sent"
+                    tempMessageItem.querySelector('.status').textContent = 'Đã gửi';
                 })
                 .catch(error => {
                     console.error('Error sending message:', error);
+                    // Update the temporary message status to show an error
+                    tempMessageItem.querySelector('.status').textContent = 'Gửi thất bại';
                 });
         });
 
