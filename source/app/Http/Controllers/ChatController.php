@@ -33,6 +33,6 @@ class ChatController extends Controller
 
         broadcast(new MessageSent($message))->toOthers();
 
-        return $message;
+        return ['message' => $message];
     }
 }

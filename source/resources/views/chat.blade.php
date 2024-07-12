@@ -164,11 +164,12 @@
                 message: message
             })
                 .then(response => {
+                    console.log(response);
                     messageElement.value = '';
                     // Display the sent message immediately
                     const messageItem = document.createElement('li');
                     messageItem.className = 'my-message';
-                    messageItem.innerHTML = `<span class="username">${response.data.user_name}</span> <span class="time">(${moment(response.data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${response.data.message}</span>`;
+                    messageItem.innerHTML = `<span class="username">${response.data.message.user_name}</span> <span class="time">(${moment(response.data.message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${response.data.message.message}</span>`;
                     messagesElement.appendChild(messageItem);
                     messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
                 })
