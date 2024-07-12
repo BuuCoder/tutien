@@ -21,6 +21,7 @@
     #chat {
         width: 100%;
         max-width: 100%;
+        max-height: calc(100vh - 170px);
         background: url('/images/background/background_phong_canh_21.jpg');
         background-size: cover;
         background-position: center;
@@ -92,7 +93,7 @@
         display: flex;
         flex-direction: column;
         width: fit-content;
-        min-width: 300px;
+        min-width: 250px;
         max-width: 70%;
         word-wrap: break-word;
     }
