@@ -28,6 +28,8 @@ class MessageSent implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        return $this->message;
+        return [
+            'message' => $this->message->toArray()
+        ];
     }
 }

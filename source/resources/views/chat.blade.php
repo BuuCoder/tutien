@@ -132,8 +132,6 @@
         const messagesElement = document.getElementById('messages');
         const messageElement = document.getElementById('message');
         const sendButton = document.getElementById('send');
-        const errorElement = document.getElementById('error');
-        const user = JSON.parse(localStorage.getItem('user')); // Assuming user info is stored in localStorage
 
         // Listen for broadcasted messages
         window.Echo.channel('chat')
@@ -166,13 +164,13 @@
                 message: message
             })
                 .then(response => {
-                        messageElement.value = '';
-                        // Display the sent message immediately
-                        const messageItem = document.createElement('li');
-                        messageItem.className = 'my-message';
-                        messageItem.innerHTML = `<span class="username">${response.data.user_name}</span> <span class="time">(${moment(response.data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${response.data.message}</span>`;
-                        messagesElement.appendChild(messageItem);
-                        messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
+                    messageElement.value = '';
+                    // Display the sent message immediately
+                    const messageItem = document.createElement('li');
+                    messageItem.className = 'my-message';
+                    messageItem.innerHTML = `<span class="username">${response.data.user_name}</span> <span class="time">(${moment(response.data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${response.data.message}</span>`;
+                    messagesElement.appendChild(messageItem);
+                    messagesElement.scrollTop = messagesElement.scrollHeight; // Scroll to bottom
                 })
                 .catch(error => {
                     console.error('Error sending message:', error);
