@@ -38,7 +38,7 @@
         background: rgba(0, 0, 0, 0.4);
     }
 
-    #chat .title{
+    #chat .title {
         width: 100%;
         background: rgba(0, 0, 0, 0.3);
         margin: 0;
@@ -48,7 +48,7 @@
         padding: 10px;
     }
 
-    #chat .title a{
+    #chat .title a {
         color: white;
         font-family: "Great Vibes", cursive;
     }
@@ -115,7 +115,7 @@
         color: white;
     }
 
-    .other-message .message{
+    .other-message .message {
         background: rgba(255, 255, 255, 0.7);
         color: black;
         border: 2px solid #ffffff;
@@ -164,13 +164,13 @@
         outline: none;
     }
 
-    #message::placeholder{
+    #message::placeholder {
         color: white;
         font-size: 14px;
     }
 
     #send {
-        min-width: 65px!important;
+        min-width: 65px !important;
         width: 65px;
         height: 50px;
         display: flex;
@@ -194,16 +194,17 @@
         fill: black;
     }
 
-    @media (max-width: 765px){
-        .chatroom{
+    @media (max-width: 765px) {
+        .chatroom {
             flex-direction: column;
             gap: 20px;
         }
 
-        #chat, .banner{
+        #chat, .banner {
             width: 100%;
         }
-        #message{
+
+        #message {
             width: calc(100% - 20px);
             padding: 10px;
         }
@@ -213,6 +214,7 @@
             width: 50px;
             height: 50px;
         }
+
         #send svg {
             width: 20px;
             height: 20px;
@@ -488,6 +490,7 @@
                                 <div class="title">
                                     <a href="/chat">Tiên Giới Hội Quán</a>
                                 </div>
+                                @if(session()->has("user"))
                                 <ul id="messages">
                                     <!-- Messages will be displayed here -->
                                 </ul>
@@ -499,6 +502,9 @@
                                         </svg>
                                     </button>
                                 </div>
+                                @else
+                                <div class="" style="color: white; text-align: center; width: 100%; font-size: 16px;position: relative; z-index:3; ">Vui lòng đăng nhập để xem</div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -511,7 +517,10 @@
                             <table cellspacing="0" cellpadding="0">
                                 <thead>
                                 <tr>
-                                    <td colspan="3" style="text-align:center; color: #fff; z-index: 3; position: relative; font-family: 'Great Vibes', cursive; font-size: 25px;">⭐Phong Thần Bảng⭐</td>
+                                    <td colspan="3"
+                                        style="text-align:center; color: #fff; z-index: 3; position: relative; font-family: 'Great Vibes', cursive; font-size: 25px;">
+                                        ⭐Phong Thần Bảng⭐
+                                    </td>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -585,13 +594,16 @@
 
             $right.css('height', `${totalHeight}px`);
         }
+
         $(window).on('load', matchHeight);
         $(window).on('resize', matchHeight);
-        setTimeout(()=>{
+        setTimeout(() => {
             matchHeight();
         }, 300)
     });
 </script>
+
+@if(session()->has("user"))
 <script>
     $(document).ready(function () {
         const $messagesElement = $('#messages');
@@ -604,7 +616,7 @@
             .listen('MessageSent', function (e) {
                 console.log(e);
                 const message = e.message;
-                const messageClass = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
+                const messageClass = message.user_id === {{ session()->has("user") ? session()->get("user")['user_id'] : 0 }} ? 'my-message' : 'other-message';
                 const messageItem = `
 
                 <li class="${messageClass}">
@@ -621,7 +633,7 @@
         axios.get('/messages')
             .then(function (response) {
                 response.data.forEach(function (data) {
-                    const messageClass = data.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
+                    const messageClass = data.user_id === {{ session()->has("user") ? session()->get("user")['user_id'] : 0 }} ? 'my-message' : 'other-message';
                     const messageItem = `
                     <li class="${messageClass}">
                         <span class="username">${data.user_name}</span>
@@ -633,7 +645,6 @@
                 });
                 $messagesElement.scrollTop($messagesElement[0].scrollHeight);
             });
-
         // Send message
         $sendButton.on('click', function () {
             const message = $messageElement.val().trim();
@@ -678,5 +689,6 @@
         });
     });
 </script>
+@endif
 </body>
 </html>
