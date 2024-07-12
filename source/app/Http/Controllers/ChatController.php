@@ -33,13 +33,6 @@ class ChatController extends Controller
 
         broadcast(new MessageSent($message))->toOthers();
 
-        return response()->json([
-            'id' => $message->id,
-            'message' => $message->message,
-            'user_id' => $message->user_id,
-            'user_name' => $message->user_name,
-            'created_at' => $message->created_at->toDateTimeString(),
-            'updated_at' => $message->updated_at->toDateTimeString()
-        ]);
+        return response()->json($message);
     }
 }

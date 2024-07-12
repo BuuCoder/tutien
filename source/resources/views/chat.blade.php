@@ -140,7 +140,7 @@
             .listen('MessageSent', (e) => {
                 console.log(e);
                 const messageItem = document.createElement('li');
-                messageItem.className = e.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
+                messageItem.className = e.message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
                 messageItem.innerHTML = `<span class="username">${e.message.user_name}</span> <span class="time">(${moment(e.message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>: <span class="message">${e.message.message}</span>`;
                 messagesElement.appendChild(messageItem);
                 messagesElement.scrollTop = messagesElement.scrollHeight;
