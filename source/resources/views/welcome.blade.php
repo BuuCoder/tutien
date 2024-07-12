@@ -218,6 +218,10 @@
             height: 20px;
             fill: black;
         }
+
+        #messages li {
+            min-width: 260px;
+        }
     }
 </style>
 <body>

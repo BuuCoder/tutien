@@ -59,7 +59,7 @@
         list-style: none;
         margin: 0;
         height: 100%;
-        min-height: calc(100vh - 170px);
+        min-height: calc(100vh - 300px);
         overflow-y: auto;
         border-bottom: 1px solid #fff;
         z-index: 2;
@@ -202,7 +202,6 @@
             gap: 20px;
             margin-top: 100px;
             margin-bottom: 0;
-            padding: 10px;
         }
 
         #chat, .banner{
@@ -427,7 +426,7 @@
 <script src="{{ asset('js/gsap-3.9.1.min.js') }}"></script>
 <script src="{{ asset("js/main.js") }}"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         const $messagesElement = $('#messages');
         const $messageElement = $('#message');
         const $sendButton = $('#send');
@@ -435,14 +434,15 @@
 
         // Listen for broadcasted messages
         window.Echo.channel('chat')
-            .listen('MessageSent', function(e) {
+            .listen('MessageSent', function (e) {
                 console.log(e);
                 const message = e.message;
                 const messageClass = message.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
                 const messageItem = `
-                <span class="username">${message.user_name}</span>
-                <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>
+
                 <li class="${messageClass}">
+                    <span class="username">${message.user_name}</span>
+                    <span class="time">(${moment(message.created_at).format('DD-MM-YYYY H:mm:ss')})</span>
                     <span class="message">${message.message}</span>
                 </li>
             `;
@@ -452,13 +452,13 @@
 
         // Fetch messages
         axios.get('/messages')
-            .then(function(response) {
-                response.data.forEach(function(data) {
+            .then(function (response) {
+                response.data.forEach(function (data) {
                     const messageClass = data.user_id === {{ session()->get("user")['user_id'] }} ? 'my-message' : 'other-message';
                     const messageItem = `
-                    <span class="username">${data.user_name}</span>
-                    <span class="time">(${moment(data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>
                     <li class="${messageClass}">
+                        <span class="username">${data.user_name}</span>
+                        <span class="time">(${moment(data.created_at).format('DD-MM-YYYY H:mm:ss')})</span>
                         <span class="message">${data.message}</span>
                     </li>
                 `;
@@ -468,7 +468,7 @@
             });
 
         // Send message
-        $sendButton.on('click', function() {
+        $sendButton.on('click', function () {
             const message = $messageElement.val().trim();
 
             if (!message) {
@@ -478,26 +478,25 @@
 
             // Display the sent message immediately with "Sending..." status
             const tempMessageItem = $(`
-            <span class="username">{{ session()->get("user")['name'] }}</span>
-            <span class="time">(${moment().format('DD-MM-YYYY H:mm:ss')})</span>
-            <li class="my-message">
-                <span class="message">${message}</span>
-                <span class="status">Đang gửi...</span>
-            </li>
-        `);
+                <li class="my-message">
+                    <span class="username">{{ session()->get("user")['name'] }}</span>
+                    <span class="time">(${moment().format('DD-MM-YYYY H:mm:ss')})</span>
+                    <span class="message">${message}</span>
+                    <span class="status">Đang gửi...</span>
+                </li>
+            `);
             $messagesElement.append(tempMessageItem);
             $messagesElement.scrollTop($messagesElement[0].scrollHeight);
-
             $messageElement.val('');
             // Send the message via API
             axios.post('/messages', {
                 message: message
             })
-                .then(function(response) {
+                .then(function (response) {
                     // Update the temporary message status to "Sent"
                     tempMessageItem.find('.status').text('Đã gửi');
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error('Error sending message:', error);
                     // Update the temporary message status to show an error
                     tempMessageItem.find('.status').text('Gửi thất bại');
@@ -505,13 +504,12 @@
         });
 
         // Allow sending message by pressing Enter key
-        $messageElement.on('keypress', function(e) {
+        $messageElement.on('keypress', function (e) {
             if (e.key === 'Enter') {
                 $sendButton.click();
             }
         });
     });
-
 </script>
 </body>
 </html>
