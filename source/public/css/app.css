@@ -649,14 +649,13 @@ button.submit img, .btn-google img {
     .container_practice {
         margin-bottom: 20px;
     }
-    .menu_practice ul{
+    .menu_practice {
         width: 100%;
         max-width: 100%;
         overflow: auto;
-        flex-wrap: nowrap;
-        scroll-padding-left: 10px;
-        -webkit-overflow-scrolling: touch;
-        padding-left: 10px;
+    }
+    .menu_practice ul{
+        flex-wrap: nowrap!important;
     }
     .menu_practice ul::-webkit-scrollbar {
         width: 0;
