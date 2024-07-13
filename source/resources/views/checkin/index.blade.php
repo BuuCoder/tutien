@@ -183,7 +183,7 @@
             <div class="menu_practice">
                 <ul>
                     <li class="active">
-                        <a href="">
+                        <a href="javascript:void(0)">
                             <img src="{{ asset('images/components/button-bao-danh.png') }}"
                                  alt="Báo Danh" title="Báo Danh">
                             <img class="active" src="{{ asset('images/components/button-bao-danh-active.png') }}"
