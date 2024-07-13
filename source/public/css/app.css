@@ -655,6 +655,7 @@ button.submit img, .btn-google img {
         overflow: auto;
     }
     .menu_practice ul{
+        width: fit-content;
         flex-wrap: nowrap!important;
     }
     .menu_practice ul::-webkit-scrollbar {
