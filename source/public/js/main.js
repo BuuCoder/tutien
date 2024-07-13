@@ -78,3 +78,8 @@ $(document).ready(function () {
         }, 3000);
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    var menu = document.querySelector('.menu_practice ul');
+    menu.scrollLeft = 0; // Đặt vị trí cuộn ban đầu
+});
