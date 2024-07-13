@@ -575,7 +575,7 @@ button.submit img, .btn-google img {
     gap: 10px;
     border-radius: 8px;
     color: white;
-    border: 3px solid white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .garden .card h3 {
@@ -651,7 +651,7 @@ button.submit img, .btn-google img {
     }
     .menu_practice ul{
         max-width: 100%;
-        overflow-x: auto;
+        overflow: auto;
         flex-wrap: nowrap;
     }
     .menu_practice ul::-webkit-scrollbar {

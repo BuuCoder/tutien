@@ -176,7 +176,7 @@
         }
 
         .container_practice{
-            margin-bottom: 100px;
+            margin-bottom: 150px;
         }
     }
 </style>
@@ -356,9 +356,6 @@
         <div class="banner_practice">
             <img src="{{ asset('images/background/background_phong_canh_6.jpg') }}" alt="Báo danh hằng ngày"
                  alt="Báo danh hằng ngày">
-        </div>
-        <div class="banner_practice">
-            <img src="{{ asset('/images/background/background_phong_canh_11.png') }}" alt="">
         </div>
         <div class="container_practice">
             <div class="menu_practice">
