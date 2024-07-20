@@ -227,6 +227,7 @@
     }
 </style>
 <body>
+<a href="https://tousupiwaipa.net/4/7757205">Quảng cáo</a>
 <button class="musicButton" title="Nhạc nền">
     <img loading="lazy" class="open-music"
          src="{{ asset('images/components/open-music.png') }}"

@@ -663,6 +663,7 @@ button.submit img, .btn-google img {
     }
     .menu_practice ul li {
         min-width: 180px;
+        width: 180px;
         padding: 5px;
     }
     .menu_practice ul li:hover {
