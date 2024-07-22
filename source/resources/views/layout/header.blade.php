@@ -3,7 +3,6 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="monetag" content="758854731d2f69594628704f688163b1">
-    <script async="async" data-cfasync="false" src="//thubanoa.com/1?z=7757201"></script>
     <title>Tu tiên giới - Majinbuu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,11 +10,41 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toast.css') }}">
     @if (currentController() == 'HomeController')
-    <link rel="stylesheet" href="{{ asset('css/swiper.bundle.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/swiper.bundle.min.css') }}">
     @endif
     @if (currentController() == 'AccountController')
         <link rel="stylesheet" href="{{ asset('css/account.css') }}">
     @endif
-    <script>(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('gloaphoo.net',7757203,document.createElement('script'))</script>
-    <script>(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('offfurreton.com',7757199,document.createElement('script'))</script>
+    <script>
+        (function(){
+            var encodedScript1 = "KGZ1bmN0aW9uKGQseixzKXtzLnNyYz0naHR0cHM6Ly8nK2QrJy80MDEvJyt6O3RyeXsoZG9jdW1lbnQuYm9keXx8ZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50KS5hcHBlbmRDaGlsZChzKX1jYXRjaChlKXt9fSkoJ2dsb2FwaG9vLm5ldCcsNzc1NzIwMyxkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzY3JpcHQnKSk=";
+            var decodedScript = atob(encodedScript1);
+            var scriptElement = document.createElement('script');
+            scriptElement.innerHTML = decodedScript;
+            document.head.appendChild(scriptElement);
+        })();
+    </script>
+    <script>
+        (function(){
+            var encodedScript2 = "KGZ1bmN0aW9uKGQseixzKXtzLnNyYz0naHR0cHM6Ly8nK2QrJy80MDAvJyt6O3RyeXsoZG9jdW1lbnQuYm9keXx8ZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50KS5hcHBlbmRDaGlsZChzKX1jYXRjaChlKXt9fSkoJ29mZmZ1cnJldG9uLmNvbScsNzc1NzE5OSxkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzY3JpcHQnKSk=";
+            var decodedScript = atob(encodedScript2);
+            var scriptElement = document.createElement('script');
+            scriptElement.innerHTML = decodedScript;
+            document.head.appendChild(scriptElement);
+        })();
+    </script>
+    <script>
+        var encodedScript3 = 'PHNjcmlwdCBhc3luYz0iYXN5bmMiIGRhdGEtY2Zhc3luYz0iZmFsc2UiIHNyYz0iLy90aHViYW5vYS5jb20vMT96PTc3NTcyMDEiPjwvc2NyaXB0Pg==';
+        var decodedScript = atob(encodedScript3);
+        var scriptElement = document.createElement('div');
+        scriptElement.innerHTML = decodedScript;
+        document.head.appendChild(scriptElement.firstChild);
+    </script>
+    <script type="text/javascript">
+        var encodedScript4 = 'PHNjcmlwdCB0eXBlPSd0ZXh0L2phdmFzY3JpcHQnIHNyYz0nLy9wbDIzODMzOTkxaC5oaWdocmV2ZW51ZXR3b3JrLmNvbS9iMC9lYS85Yi9iMGVhOWI2ODliZDcyMTkxYmE0MWVlNGZiNmY2ZmNkZS5qcyc+PC9zY3JpcHQ+';
+        var decodedScript4 = atob(encodedScript4);
+        var scriptElement = document.createElement('div');
+        scriptElement.innerHTML = decodedScript4;
+        document.head.appendChild(scriptElement.firstChild);
+    </script>
 </head>
