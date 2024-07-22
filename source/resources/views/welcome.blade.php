@@ -193,7 +193,8 @@
         height: 30px;
         fill: black;
     }
-    .btn-ads{
+    .button-ads{
+        width: 140px;
         z-index: 100;
     }
     @media (max-width: 765px) {
@@ -229,8 +230,6 @@
     }
 </style>
 <body>
-<a class="btn-ads" href="https://tousupiwaipa.net/4/7757205">Quảng cáo</a>
-<a class="btn-ads" href="https://www.highrevenuenetwork.com/h0ujrw2y?key=7da2c28e91b8057592293be2b2b0f118">Quảng cáo 2</a>
 <button class="musicButton" title="Nhạc nền">
     <img loading="lazy" class="open-music"
          src="{{ asset('images/components/open-music.png') }}"
