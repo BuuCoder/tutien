@@ -2,7 +2,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="monetag" content="758854731d2f69594628704f688163b1">
+    @if(env('APP_ENV') != "local")
+        <meta name="monetag" content="758854731d2f69594628704f688163b1">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-39GRKNE230"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-39GRKNE230');
+        </script>
+    @endif
     <title>Tu tiên giới - Majinbuu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +26,7 @@
     @if (currentController() == 'AccountController')
         <link rel="stylesheet" href="{{ asset('css/account.css') }}">
     @endif
-    @if (currentController() == 'AuthController')
+    @if (currentController() == 'AuthController' && env('APP_ENV') != "local")
         <script>
             (function(){
                 var encodedScript1 = "aHR0cHM6Ly9hbHdpbmd1bGxhLmNvbS84OC90YWcubWluLmpz";

@@ -4,19 +4,32 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\Services\LogService;
+use App\Services\RankService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
     protected $userModel;
     protected $logService;
+    protected $rankService;
+    protected $allRanks;
 
-    public function __construct(User $userModel, LogService $logService)
+    public function __construct(User $userModel, LogService $logService, RankService $rankService)
     {
         $this->userModel = $userModel;
         $this->logService = $logService;
+        $this->rankService = $rankService;
+        try{
+            $this->allRanks = $this->rankService->checkCacheRanks();
+        }catch(\Exception $e){
+            Log::error('Lấy dữ liệu từ cache có lỗi trong AccountController: ' . $e->getMessage());
+            Redirect::route('welcome')->with('error', 'Tài khoản hiện không khả dụng vui lòng liên hệ với Admin')->send();
+            abort(302);
+        }
     }
 
     public function login($data)
@@ -32,11 +45,7 @@ class EloquentUserRepository implements UserRepositoryInterface
                 'user_id' => $user->user_id,
                 'name' => $user->name,
                 'user_name' => $user->user_name,
-                'email' => $user->email,
-                'points' => $user->points,
-                'money' => $user->money,
-                'system_id' => $user->system_id,
-                'level_id' => $user->level_id,
+                'email' => $user->email
             ];
             $user->last_login = time();
             $user->save();
@@ -242,7 +251,7 @@ class EloquentUserRepository implements UserRepositoryInterface
                 ];
             }
 
-            $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'points']);
+            $userInfo = $this->userModel->where('user_id', $userId)->first(['user_id', 'user_name', 'points', 'level_id', 'system_id']);
             if (!$userInfo) {
                 return [
                     'success' => false,
@@ -283,6 +292,56 @@ class EloquentUserRepository implements UserRepositoryInterface
                     'success' => false,
                     'message' => 'Cập nhật tu vi không thành công'
                 ];
+            }
+
+            // Filter ranks by system_id
+            $ranks = array_filter($this->allRanks, function($rank) use ($userInfo) {
+                return $rank['system_id'] == $userInfo->system_id;
+            });
+
+            $rankNext    = [];
+            $rankCurrent = [];
+            $rankPrev    = [];
+
+            foreach($ranks as $rank){
+                if($rank['rank_num'] == $userInfo->level_id){
+                    $rankCurrent = $rank;
+                }
+                if($rank['rank_num'] == $userInfo->level_id + 1){
+                    $rankNext = $rank;
+                }
+                if($rank['rank_num'] == $userInfo->level_id - 1){
+                    $rankPrev = $rank;
+                }
+            }
+
+            $newLevel     = [];
+            $levelUpdated = false;
+
+            $up   = false;
+            $down = false;
+
+            if(!empty($rankCurrent) && $pointNew < $rankCurrent['rank_milestone']){
+                $newLevel = $rankPrev;
+                $levelUpdated = true;
+                $down = true;
+            }else if(!empty($rankNext) && $pointNew >= $rankNext['rank_milestone']){
+                $newLevel = $rankNext;
+                $levelUpdated = true;
+                $up = true;
+            }
+
+            if ($levelUpdated && !empty($newLevel)) {
+                $this->userModel->where('user_id', $userId)->update(['level_id' => $newLevel['rank_num']]);
+                if($up){
+                    $award = $this->userModel->where('user_id', $userId)->update(['points' => $pointNew + $newLevel['rank_awards']]);
+                    if (!$award) {
+                        return [
+                            'success' => false,
+                            'message' => 'Cập nhật tu vi thưởng không thành công'
+                        ];
+                    }
+                }
             }
 
             $logMessage = $action == 'add' ? "Nhận thêm {$point} tu vi" : "Mất đi {$point} tu vi";

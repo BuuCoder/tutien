@@ -136,7 +136,7 @@
                     <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}">{{ $user['name'] }}</p>
                 </div>
                 <div class="line point"><span class="label">Tu vi </span>
-                    <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}"><span class="num">{{ $user['points'] }}/{{ $allRanks[$user['level_id']]['rank_milestone'] }}</span>
+                    <p class="{{ $allRanks[$user['level_id']]['rank_class_name'] }}"><span class="num">{{ $user['points'] }}/{{ $allRanks[$user['level_id'] + 1]['rank_milestone'] }}</span>
                         ({{ $allRanks[$user['level_id']]['rank_name'] }})</p>
                 </div>
                 <div class="line longevity"><span class="label">Tuổi thọ </span>

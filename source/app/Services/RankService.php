@@ -35,7 +35,8 @@ class RankService
                 'rank_class_name' => $rank['rank_class_name'],
                 'rank_milestone' => $rank['rank_milestone'],
                 'rank_num' => $rank['rank_num'],
-                'system_id' => $rank['rank_num'],
+                'rank_awards' => $rank['rank_awards'],
+                'system_id' => $rank['system_id'],
             ];
         }
 
